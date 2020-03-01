@@ -11,4 +11,4 @@ RUN cd /go/src/github.com/qorpress/qorpress-example \
 
 EXPOSE 7000
 
-CMD ["/go/bin/qor-example"]
+CMD ["/go/bin/qorpress-example"]
