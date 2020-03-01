@@ -1,0 +1,40 @@
+---
+version: "3.7"
+services:
+
+  store:
+    image: qopress/qor-example:latest
+    container_name: ${NAMESPACE}-store
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - "7000:7000"
+    volumes:
+    - ./config/application.yml:/opt/qor/config/application.yml
+    - ./config/database.yml:/opt/qor/config/database.yml
+    - ./config/smtp.yml:/opt/qor/config/smtp.yml
+    links:
+    - mysql:mysql
+    depends_on:
+    - mysql
+    command: ["/go/bin/qor-example"]
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:5.7
+    container_name: ${NAMESPACE}-db
+    ports:
+    - 3306:3306
+    volumes:
+    - ./docker/db:/etc/mysql/conf.d
+    - db-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: qor_example
+      MYSQL_PASSWORD: qor_example
+      MYSQL_ROOT_PASSWORD: 'qor_password'
+      MYSQL_USER: qor_user
+    restart: unless-stopped
+
+volumes:
+  db-data:

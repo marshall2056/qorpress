@@ -1,0 +1,31 @@
+---
+app:
+  https: false
+  themes: qorpress
+
+db:
+  adapter: mysql
+  name: qor_example
+  user: root
+  password: xxxxxxxxxx
+
+smtp:
+  host: smtp.gmail.com
+  port: 587
+  user: xxxxxxxxxx@gmail.com
+  password: xxxxxxxxxx
+  site: http://demo.getqor.com
+
+oauth:
+  github:
+    clientid: 'your github client id'
+    clientsecret: 'your github client secret'
+  google:
+    clientid: 'your google client id'
+    clientsecret: 'your google client secret'
+  facebook:
+    clientid: 'your facebook client id'
+    clientsecret: 'your facebook client secret'
+  twitter:
+    clientid: 'your twitter client id'
+    clientsecret: 'your twitter client secret'

@@ -1,0 +1,16 @@
+.git
+.git/**
+.github/
+.github/**
+.gitignore
+.dockerignore
+*.yml
+*.md
+Dockerfile
+docker-compose.yml
+data
+data/**
+vendor
+vendor/
+vendor/*
+vendor/**
