@@ -107,7 +107,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		RemoteDataResource: PostImagesResource,
 		Max:                1,
 		Sizes: map[string]*media.Size{
-			"main": {Width: 560, Height: 700},
+			"original": {Width: 560, Height: 700},
 		},
 	}})
 	post.Meta(&admin.Meta{Name: "MainImageURL", Valuer: func(record interface{}, context *qor.Context) interface{} {

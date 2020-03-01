@@ -35,6 +35,7 @@ type Post struct {
 	Category              Category     `l10n:"sync"`
 	Collections           []Collection `l10n:"sync" gorm:"many2many:post_collections;"`
 	MainImage             media_library.MediaBox
+	Images         media_library.MediaBox
 	Description           string           `gorm:"type:longtext"`
 	PostProperties     PostProperties `sql:"type:text"`
 	Seo                   qor_seo.Setting
@@ -49,6 +50,10 @@ type PostVariation struct {
 	Post   Post
 	Featured          bool
 	Images            media_library.MediaBox
+}
+
+func (post Post) GetID() uint {
+	return post.ID
 }
 
 func (post Post) GetSEO() *qor_seo.SEO {

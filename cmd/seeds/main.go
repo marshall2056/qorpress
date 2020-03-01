@@ -15,7 +15,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"encoding/json"
 
+	qoradmin "github.com/qorpress/admin"
 	slugger "github.com/gosimple/slug"
 	loremipsum "gopkg.in/loremipsum.v1"
 	"github.com/jinzhu/now"
@@ -24,13 +26,13 @@ import (
 	"github.com/qorpress/banner_editor"
 	"github.com/qorpress/help"
 	i18n_database "github.com/qorpress/i18n/backends/database"
-	// "github.com/qorpress/media"
+	"github.com/qorpress/media"
 	"github.com/qorpress/media/asset_manager"
-	// "github.com/qorpress/media/media_library"
+	"github.com/qorpress/media/media_library"
 	"github.com/qorpress/media/oss"
 	"github.com/qorpress/notification"
 	"github.com/qorpress/notification/channels/database"
-	// "github.com/qorpress/publish2"
+	"github.com/qorpress/publish2"
 	"github.com/qorpress/qor"
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
@@ -313,12 +315,46 @@ func createPosts() {
 			log.Fatalf("create post (%v) failure, got err %v", post, err)
 		}
 
+		image := posts.PostImage{Title: postName, SelectedType: "image"}
+		if file, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text="+loremIpsumGenerator.Words(2)); err != nil {
+			fmt.Printf("open file failure, got err %v", err)
+		} else {
+			defer file.Close()
+			image.File.Scan(file)
+		}
+		if err := DraftDB.Create(&image).Error; err != nil {
+			log.Fatalf("create color_variation_image (%v) failure, got err %v", image, err)
+		}
+
+		Admin := qoradmin.New(&qoradmin.AdminConfig{
+			SiteName: "QOR DEMO",
+			Auth:     auth.AdminAuth{},
+			DB:       db.DB.Set(publish2.VisibleMode, publish2.ModeOff).Set(publish2.ScheduleMode, publish2.ModeOff),
+		})
+
+		post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+			Sizes: map[string]*media.Size{
+				"main":    {Width: 560, Height: 700},
+				"icon":    {Width: 50, Height: 50},
+				"preview": {Width: 300, Height: 300},
+				"listing": {Width: 640, Height: 640},
+			},
+		})
+		
+		if len(post.MainImage.Files) == 0 {
+			post.MainImage.Files = []media_library.File{{
+				ID:  json.Number(fmt.Sprint(image.ID)),
+				Url: image.File.URL(),
+			}}
+			DraftDB.Save(&post)
+		}
+
 		if i%3 == 0 {
 			start := time.Now().AddDate(0, 0, i-7)
 			end := time.Now().AddDate(0, 0, i-4)
 			post.SetVersionName("v1")
 			post.Name = postName + " - v1"
-			post.Description = loremIpsumGenerator.Paragraphs(10)
+			post.Description = strings.Replace(loremIpsumGenerator.Paragraphs(10), "\n", "<br/></br>", -1)
 			post.SetScheduledStartAt(&start)
 			post.SetScheduledEndAt(&end)
 			DraftDB.Save(&post)
@@ -564,12 +600,12 @@ func randTime() time.Time {
 }
 
 func openFileByURL(rawURL string) (*os.File, error) {
-	if fileURL, err := url.Parse(rawURL); err != nil {
+	if _, err := url.Parse(rawURL); err != nil {
 		return nil, err
 	} else {
-		path := fileURL.Path
-		segments := strings.Split(path, "/")
-		fileName := segments[len(segments)-1]
+		// path := fileURL.Path
+		// segments := strings.Split(path, "/")
+		fileName := Fake.UserName()+".png" // segments[len(segments)-1]
 
 		filePath := filepath.Join(os.TempDir(), fileName)
 

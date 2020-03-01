@@ -40,7 +40,8 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
 
-	tx.Where(&posts.Post{ID: post.ID}).First(&post)
+	// tx.Where(&posts.Post{ID: post.ID}).First(&post)
+	tx.First(&post)
 	ctrl.View.Execute("show", map[string]interface{}{"CurrentVariation": post}, req, w)
 }
 
