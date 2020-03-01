@@ -5,7 +5,7 @@ app:
 
 db:
   adapter: mysql
-  name: qor_example
+  name: qorpress_example
   user: root
   password: xxxxxxxxxx
 

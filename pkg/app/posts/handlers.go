@@ -3,9 +3,7 @@ package posts
 import (
 	"net/http"
 	"strings"
-	"fmt"
 
-		"github.com/k0kubun/pp"
 	"github.com/qorpress/render"
 
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
@@ -42,12 +40,8 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
 
-	fmt.Println("show post")
-
 	tx.Where(&posts.Post{ID: post.ID}).First(&post)
-	pp.Println("post.ID:", post)
 	ctrl.View.Execute("show", map[string]interface{}{"CurrentVariation": post}, req, w)
-	// ctrl.View.Execute("show", nil, req, w)
 }
 
 // Category category show page

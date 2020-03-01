@@ -3,7 +3,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -17,20 +16,21 @@ import (
 	"strings"
 	"time"
 
+	slugger "github.com/gosimple/slug"
+	loremipsum "gopkg.in/loremipsum.v1"
 	"github.com/jinzhu/now"
-	qoradmin "github.com/qorpress/admin"
 	"github.com/qorpress/auth/auth_identity"
 	"github.com/qorpress/auth/providers/password"
 	"github.com/qorpress/banner_editor"
 	"github.com/qorpress/help"
 	i18n_database "github.com/qorpress/i18n/backends/database"
-	"github.com/qorpress/media"
+	// "github.com/qorpress/media"
 	"github.com/qorpress/media/asset_manager"
-	"github.com/qorpress/media/media_library"
+	// "github.com/qorpress/media/media_library"
 	"github.com/qorpress/media/oss"
 	"github.com/qorpress/notification"
 	"github.com/qorpress/notification/channels/database"
-	"github.com/qorpress/publish2"
+	// "github.com/qorpress/publish2"
 	"github.com/qorpress/qor"
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
@@ -41,34 +41,22 @@ import (
 	"github.com/qorpress/qorpress-example/pkg/config/db"
 	_ "github.com/qorpress/qorpress-example/pkg/config/db/migrations"
 	"github.com/qorpress/qorpress-example/pkg/models/blogs"
-	"github.com/qorpress/qorpress-example/pkg/models/orders"
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 	adminseo "github.com/qorpress/qorpress-example/pkg/models/seo"
 	"github.com/qorpress/qorpress-example/pkg/models/settings"
-	"github.com/qorpress/qorpress-example/pkg/models/stores"
 	"github.com/qorpress/qorpress-example/pkg/models/users"
 )
 
-/* How to run this script
-   $ go run db/seeds/main.go db/seeds/seeds.go
-*/
-
-/* How to upload file
- * $ brew install s3cmd
- * $ s3cmd --configure (Refer https://github.com/theplant/qor-example)
- * $ s3cmd put local_file_path s3://qor3/
- */
 
 var (
+	loremIpsumGenerator = loremipsum.NewWithSeed(1234)
 	AdminUser    *users.User
 	Notification = notification.New(&notification.Config{})
 	Tables       = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{}, &users.Address{},
-		&posts.Category{}, &posts.Color{}, &posts.Size{}, &posts.Material{}, &posts.Collection{},
-		&posts.Post{}, &posts.PostImage{}, &posts.ColorVariation{}, &posts.SizeVariation{},
-		&stores.Store{},
-		&orders.Order{}, &orders.OrderItem{},
+		&posts.Category{}, &posts.Collection{},
+		&posts.Post{}, &posts.PostImage{},
 		&settings.Setting{},
 		&adminseo.MySEOSetting{},
 		&blogs.Article{},
@@ -108,30 +96,15 @@ func createRecords() {
 
 	createCategories()
 	fmt.Println("--> Created categories.")
+
 	createCollections()
 	fmt.Println("--> Created collections.")
 
-	createColors()
-	fmt.Println("--> Created colors.")
-	createSizes()
-	fmt.Println("--> Created sizes.")
-	createMaterial()
-	fmt.Println("--> Created material.")
-
-	createMediaLibraries()
-	fmt.Println("--> Created medialibraries.")
+	// createMediaLibraries()
+	// fmt.Println("--> Created medialibraries.")
 
 	createPosts()
 	fmt.Println("--> Created posts.")
-
-	createStores()
-	fmt.Println("--> Created stores.")
-
-	createOrders()
-	fmt.Println("--> Created orders.")
-
-	createWidgets()
-	fmt.Println("--> Created widgets.")
 
 	createArticles()
 	fmt.Println("--> Created articles.")
@@ -140,6 +113,17 @@ func createRecords() {
 	fmt.Println("--> Created helps.")
 
 	fmt.Println("--> Done!")
+}
+
+func createUniqueSlug(title string) string {
+	slugTitle := slugger.Make(title)
+	if len(slugTitle) > 128 {
+		slugTitle = slugTitle[:128]
+		if slugTitle[len(slugTitle)-1:] == "-" {
+			slugTitle = slugTitle[:len(slugTitle)-1]
+		}
+	}
+	return slugTitle
 }
 
 func createSetting() {
@@ -308,285 +292,38 @@ func createCollections() {
 	}
 }
 
-func createColors() {
-	for _, c := range Seeds.Colors {
-		color := posts.Color{}
-		color.Name = c.Name
-		color.Code = c.Code
-		if err := DraftDB.Create(&color).Error; err != nil {
-			log.Fatalf("create color (%v) failure, got err %v", color, err)
-		}
-	}
-}
-
-func createSizes() {
-	for _, s := range Seeds.Sizes {
-		size := posts.Size{}
-		size.Name = s.Name
-		size.Code = s.Code
-		if err := DraftDB.Create(&size).Error; err != nil {
-			log.Fatalf("create size (%v) failure, got err %v", size, err)
-		}
-	}
-}
-
-func createMaterial() {
-	for _, s := range Seeds.Materials {
-		material := posts.Material{}
-		material.Name = s.Name
-		material.Code = s.Code
-		if err := DraftDB.Create(&material).Error; err != nil {
-			log.Fatalf("create material (%v) failure, got err %v", material, err)
-		}
-	}
-}
-
 func createPosts() {
-	for idx, p := range Seeds.Posts {
-		category := findCategoryByName(p.CategoryName)
+	numberPosts := 200
+	for i := 0; i < numberPosts; i++ {
+		category := findCategoryByName("News")
 
 		post := posts.Post{}
 		post.CategoryID = category.ID
-		post.Name = p.Name
-		post.NameWithSlug = slug.Slug{p.NameWithSlug}
-		post.Code = p.Code
-		post.Price = p.Price
-		post.Description = p.Description
-		post.MadeCountry = p.MadeCountry
-		post.Gender = p.Gender
+
+		postName := loremIpsumGenerator.Words(20)
+
+		post.Name = postName
+		post.NameWithSlug = slug.Slug{createUniqueSlug(postName)}
+		post.Code = createUniqueSlug(postName)
+
+		post.Description = loremIpsumGenerator.Paragraphs(10)
 		post.PublishReady = true
-		for _, c := range p.Collections {
-			collection := findCollectionByName(c.Name)
-			post.Collections = append(post.Collections, *collection)
-		}
 
 		if err := DraftDB.Create(&post).Error; err != nil {
 			log.Fatalf("create post (%v) failure, got err %v", post, err)
 		}
 
-		for _, cv := range p.ColorVariations {
-			color := findColorByName(cv.ColorName)
-
-			colorVariation := posts.ColorVariation{}
-			colorVariation.PostID = post.ID
-			colorVariation.ColorID = color.ID
-			colorVariation.ColorCode = cv.ColorCode
-
-			for _, i := range cv.Images {
-				image := posts.PostImage{Title: p.Name, SelectedType: "image"}
-				if file, err := openFileByURL(i.URL); err != nil {
-					fmt.Printf("open file (%q) failure, got err %v", i.URL, err)
-				} else {
-					defer file.Close()
-					image.File.Scan(file)
-				}
-				if err := DraftDB.Create(&image).Error; err != nil {
-					log.Fatalf("create color_variation_image (%v) failure, got err %v when %v", image, err, i.URL)
-				} else {
-					colorVariation.Images.Files = append(colorVariation.Images.Files, media_library.File{
-						ID:  json.Number(fmt.Sprint(image.ID)),
-						Url: image.File.URL(),
-					})
-
-					Admin := qoradmin.New(&qoradmin.AdminConfig{
-						SiteName: "QOR DEMO",
-						Auth:     auth.AdminAuth{},
-						DB:       db.DB.Set(publish2.VisibleMode, publish2.ModeOff).Set(publish2.ScheduleMode, publish2.ModeOff),
-					})
-
-					colorVariation.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
-						Sizes: map[string]*media.Size{
-							"main":    {Width: 560, Height: 700},
-							"icon":    {Width: 50, Height: 50},
-							"preview": {Width: 300, Height: 300},
-							"listing": {Width: 640, Height: 640},
-						},
-					})
-
-					if len(post.MainImage.Files) == 0 {
-						post.MainImage.Files = []media_library.File{{
-							ID:  json.Number(fmt.Sprint(image.ID)),
-							Url: image.File.URL(),
-						}}
-						DraftDB.Save(&post)
-					}
-				}
-			}
-
-			if err := DraftDB.Create(&colorVariation).Error; err != nil {
-				log.Fatalf("create color_variation (%v) failure, got err %v", colorVariation, err)
-			}
-
-			for _, sv := range p.SizeVariations {
-				size := findSizeByName(sv.SizeName)
-
-				sizeVariation := posts.SizeVariation{}
-				sizeVariation.ColorVariationID = colorVariation.ID
-				sizeVariation.SizeID = size.ID
-				sizeVariation.AvailableQuantity = 20
-				if err := DraftDB.Create(&sizeVariation).Error; err != nil {
-					log.Fatalf("create size_variation (%v) failure, got err %v", sizeVariation, err)
-				}
-			}
-		}
-
-		post.Name = p.ZhName
-		post.Description = p.ZhDescription
-		post.MadeCountry = p.ZhMadeCountry
-		post.Gender = p.ZhGender
-		DraftDB.Set("l10n:locale", "zh-CN").Create(&post)
-
-		if idx%3 == 0 {
-			start := time.Now().AddDate(0, 0, idx-7)
-			end := time.Now().AddDate(0, 0, idx-4)
+		if i%3 == 0 {
+			start := time.Now().AddDate(0, 0, i-7)
+			end := time.Now().AddDate(0, 0, i-4)
 			post.SetVersionName("v1")
-			post.Name = p.Name + " - v1"
-			post.Description = p.Description + " - v1"
-			post.MadeCountry = p.MadeCountry
-			post.Gender = p.Gender
+			post.Name = postName + " - v1"
+			post.Description = loremIpsumGenerator.Paragraphs(10)
 			post.SetScheduledStartAt(&start)
 			post.SetScheduledEndAt(&end)
 			DraftDB.Save(&post)
 		}
 
-		if idx%2 == 0 {
-			start := time.Now().AddDate(0, 0, idx-7)
-			end := time.Now().AddDate(0, 0, idx-4)
-			post.SetVersionName("v1")
-			post.Name = p.ZhName + " - 版本 1"
-			post.Description = p.ZhDescription + " - 版本 1"
-			post.MadeCountry = p.ZhMadeCountry
-			post.Gender = p.ZhGender
-			post.SetScheduledStartAt(&start)
-			post.SetScheduledEndAt(&end)
-			DraftDB.Set("l10n:locale", "zh-CN").Save(&post)
-		}
-	}
-}
-
-func createStores() {
-	for _, s := range Seeds.Stores {
-		store := stores.Store{}
-		store.StoreName = s.Name
-		store.Phone = s.Phone
-		store.Email = s.Email
-		store.Country = s.Country
-		store.City = s.City
-		store.Region = s.Region
-		store.Address = s.Address
-		store.Zip = s.Zip
-		store.Latitude = s.Latitude
-		store.Longitude = s.Longitude
-		if err := DraftDB.Create(&store).Error; err != nil {
-			log.Fatalf("create store (%v) failure, got err %v", store, err)
-		}
-	}
-}
-
-func createOrders() {
-	var Users []users.User
-	if err := DraftDB.Preload("Addresses").Find(&Users).Error; err != nil {
-		log.Fatalf("query users (%v) failure, got err %v", Users, err)
-	}
-
-	var sizeVariations []posts.SizeVariation
-	if err := DraftDB.Find(&sizeVariations).Error; err != nil {
-		log.Fatalf("query sizeVariations (%v) failure, got err %v", sizeVariations, err)
-	}
-	var sizeVariationsCount = len(sizeVariations)
-
-	for _, user := range Users {
-		count := 5
-		if user.ID != 1 {
-			count = rand.Intn(5)
-		}
-
-		for j := 0; j < count; j++ {
-			order := orders.Order{}
-			state := []string{"draft", "checkout", "cancelled", "paid", "paid_cancelled", "processing", "shipped", "returned"}[rand.Intn(10)%8]
-			abandonedReasons := []string{
-				"Unsatisfied with discount",
-				"Dropped after check gift wrapping option",
-				"Dropped after select expected delivery date",
-				"Invalid credit card inputted",
-				"Credit card balances insufficient",
-				"Created a new order with more posts",
-				"Created a new order with fewer posts",
-			}
-			abandonedReason := abandonedReasons[rand.Intn(len(abandonedReasons))]
-
-			order.UserID = &user.ID
-			order.ShippingAddressID = user.Addresses[0].ID
-			order.BillingAddressID = user.Addresses[0].ID
-			order.State = state
-			if rand.Intn(15)%15 == 3 && state == "checkout" || state == "processing" || state == "paid_cancelled" {
-				order.AbandonedReason = abandonedReason
-			}
-			if err := DraftDB.Create(&order).Error; err != nil {
-				log.Fatalf("create order (%v) failure, got err %v", order, err)
-			}
-
-			sizeVariation := sizeVariations[rand.Intn(sizeVariationsCount)]
-			post := findPostByColorVariationID(sizeVariation.ColorVariationID)
-			quantity := []uint{1, 2, 3, 4, 5}[rand.Intn(10)%5]
-			discountRate := []uint{0, 5, 10, 15, 20, 25}[rand.Intn(10)%6]
-
-			orderItem := orders.OrderItem{}
-			orderItem.OrderID = order.ID
-			orderItem.SizeVariationID = sizeVariation.ID
-			orderItem.Quantity = quantity
-			orderItem.Price = post.Price
-			orderItem.State = state
-			orderItem.DiscountRate = discountRate
-			if err := DraftDB.Create(&orderItem).Error; err != nil {
-				log.Fatalf("create orderItem (%v) failure, got err %v", orderItem, err)
-			}
-
-			order.OrderItems = append(order.OrderItems, orderItem)
-			order.CreatedAt = user.CreatedAt.Add(1 * time.Hour)
-			order.PaymentAmount = order.Amount()
-			order.PaymentMethod = orders.COD
-			if err := DraftDB.Save(&order).Error; err != nil {
-				log.Fatalf("Save order (%v) failure, got err %v", order, err)
-			}
-
-			var resolvedAt *time.Time
-			if (rand.Intn(10) % 9) != 1 {
-				now := time.Now()
-				resolvedAt = &now
-			}
-
-			// Send welcome notification
-			switch order.State {
-			case "paid_cancelled":
-				Notification.Send(&notification.Message{
-					From:        user,
-					To:          AdminUser,
-					Title:       "Order Cancelled After Paid",
-					Body:        fmt.Sprintf("Order #%v has been cancelled, its amount %.2f", order.ID, order.Amount()),
-					MessageType: "order_paid_cancelled",
-					ResolvedAt:  resolvedAt,
-				}, &qor.Context{DB: DraftDB})
-			case "processed":
-				Notification.Send(&notification.Message{
-					From:        user,
-					To:          AdminUser,
-					Title:       "Order Processed",
-					Body:        fmt.Sprintf("Order #%v has been prepared to ship", order.ID),
-					MessageType: "order_processed",
-					ResolvedAt:  resolvedAt,
-				}, &qor.Context{DB: DraftDB})
-			case "returned":
-				Notification.Send(&notification.Message{
-					From:        user,
-					To:          AdminUser,
-					Title:       "Order Returned",
-					Body:        fmt.Sprintf("Order #%v has been returned, its amount %.2f", order.ID, order.Amount()),
-					MessageType: "order_returned",
-					ResolvedAt:  resolvedAt,
-				}, &qor.Context{DB: DraftDB})
-			}
-		}
 	}
 }
 
@@ -819,37 +556,6 @@ func findCollectionByName(name string) *posts.Collection {
 		log.Fatalf("can't find collection with name = %q, got err %v", name, err)
 	}
 	return collection
-}
-
-func findColorByName(name string) *posts.Color {
-	color := &posts.Color{}
-	if err := DraftDB.Where(&posts.Color{Name: name}).First(color).Error; err != nil {
-		log.Fatalf("can't find color with name = %q, got err %v", name, err)
-	}
-	return color
-}
-
-func findSizeByName(name string) *posts.Size {
-	size := &posts.Size{}
-	if err := DraftDB.Where(&posts.Size{Name: name}).First(size).Error; err != nil {
-		log.Fatalf("can't find size with name = %q, got err %v", name, err)
-	}
-	return size
-}
-
-func findPostByColorVariationID(colorVariationID uint) *posts.Post {
-	colorVariation := posts.ColorVariation{}
-	post := posts.Post{}
-
-	if err := DraftDB.Find(&colorVariation, colorVariationID).Error; err != nil {
-		log.Fatalf("query colorVariation (%v) failure, got err %v", colorVariation, err)
-		return &post
-	}
-	if err := DraftDB.Find(&post, colorVariation.PostID).Error; err != nil {
-		log.Fatalf("query post (%v) failure, got err %v", post, err)
-		return &post
-	}
-	return &post
 }
 
 func randTime() time.Time {

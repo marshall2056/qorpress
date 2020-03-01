@@ -26,18 +26,6 @@ var Seeds = struct {
 	Collections []struct {
 		Name string
 	}
-	Colors []struct {
-		Name string
-		Code string
-	}
-	Sizes []struct {
-		Name string
-		Code string
-	}
-	Materials []struct {
-		Name string
-		Code string
-	}
 	Posts []struct {
 		CategoryName string
 		Collections  []struct {
@@ -65,18 +53,6 @@ var Seeds = struct {
 		SizeVariations []struct {
 			SizeName string
 		}
-	}
-	Stores []struct {
-		Name      string
-		Phone     string
-		Email     string
-		Country   string
-		Zip       string
-		City      string
-		Region    string
-		Address   string
-		Latitude  float64
-		Longitude float64
 	}
 	Setting struct {
 		ShippingFee     uint
@@ -109,25 +85,6 @@ var Seeds = struct {
 			Keywords    string
 		}
 	}
-	Enterprises []struct {
-		Name           string
-		Begins         string
-		Expires        string
-		RequiresCoupon bool
-		Unique         bool
-
-		Coupons []struct {
-			Code string
-		}
-		Rules []struct {
-			Kind  string
-			Value string
-		}
-		Benefits []struct {
-			Kind  string
-			Value string
-		}
-	}
 	Slides []struct {
 		Title    string
 		SubTitle string
@@ -151,7 +108,7 @@ func init() {
 	Fake.Rand = rand.New(rand.NewSource(42))
 	rand.Seed(time.Now().UnixNano())
 
-	filepaths, _ := filepath.Glob(filepath.Join("config", "db", "seeds", "data", "*.yml"))
+	filepaths, _ := filepath.Glob(filepath.Join("cmd", "seeds", "data", "*.yml"))
 	if err := configor.Load(&Seeds, filepaths...); err != nil {
 		panic(err)
 	}
