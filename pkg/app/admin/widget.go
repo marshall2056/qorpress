@@ -94,7 +94,7 @@ func SetupWidget(Admin *admin.Admin) {
 
 	type modelBuyLinkSetting struct {
 		PostName string
-		Price       string
+		// Price       string
 		ButtonName  string
 		Link        string
 	}
@@ -105,21 +105,21 @@ func SetupWidget(Admin *admin.Admin) {
 
 	headerRes := Admin.NewResource(&headerSetting{})
 	headerRes.Meta(&admin.Meta{Name: "Text"})
-	headerRes.Meta(&admin.Meta{Name: "Color"})
+	// headerRes.Meta(&admin.Meta{Name: "Color"})
 
 	modelBuyLink := Admin.NewResource(&modelBuyLinkSetting{})
 	modelBuyLink.Meta(&admin.Meta{Name: "PostName"})
-	modelBuyLink.Meta(&admin.Meta{Name: "Price"})
+	// modelBuyLink.Meta(&admin.Meta{Name: "Price"})
 	modelBuyLink.Meta(&admin.Meta{Name: "ButtonName"})
 	modelBuyLink.Meta(&admin.Meta{Name: "Link"})
 
 	subHeaderRes := Admin.NewResource(&subHeaderSetting{})
 	subHeaderRes.Meta(&admin.Meta{Name: "Text"})
-	subHeaderRes.Meta(&admin.Meta{Name: "Color"})
+	// subHeaderRes.Meta(&admin.Meta{Name: "Color"})
 
 	textsRes := Admin.NewResource(&textsSetting{})
 	textsRes.Meta(&admin.Meta{Name: "Text"})
-	textsRes.Meta(&admin.Meta{Name: "Color"})
+	// textsRes.Meta(&admin.Meta{Name: "Color"})
 
 	buttonRes := Admin.NewResource(&buttonSetting{})
 	buttonRes.Meta(&admin.Meta{Name: "Text"})
@@ -138,6 +138,7 @@ func SetupWidget(Admin *admin.Admin) {
 			return r.(banner_editor.QorBannerEditorSettingInterface).GetSerializableArgument(r.(banner_editor.QorBannerEditorSettingInterface))
 		},
 	})
+	/*
 	banner_editor.RegisterElement(&banner_editor.Element{
 		Icon:     "<i class=material-icons>format_list_bulleted</i>",
 		Name:     "Add model buy block",
@@ -147,6 +148,7 @@ func SetupWidget(Admin *admin.Admin) {
 			return r.(banner_editor.QorBannerEditorSettingInterface).GetSerializableArgument(r.(banner_editor.QorBannerEditorSettingInterface))
 		},
 	})
+	*/
 	banner_editor.RegisterElement(&banner_editor.Element{
 		Icon:     "<i class=material-icons>format_align_justify</i>",
 		Name:     "Add Text",

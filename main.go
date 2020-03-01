@@ -76,11 +76,9 @@ func main() {
 				tx         = db.DB
 				qorContext = &qor.Context{Request: req, Writer: w}
 			)
-
 			if locale := utils.GetLocale(qorContext); locale != "" {
 				tx = tx.Set("l10n:locale", locale)
 			}
-
 			ctx := context.WithValue(req.Context(), utils.ContextDBName, publish2.PreviewByDB(tx, qorContext))
 			next.ServeHTTP(w, req.WithContext(ctx))
 		})

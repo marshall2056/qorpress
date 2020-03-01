@@ -13,7 +13,6 @@ import (
 	"github.com/qorpress/widget"
 
 	"github.com/qorpress/qorpress-example/pkg/app/admin"
-	// "github.com/qorpress/qorpress-example/pkg/config"
 	"github.com/qorpress/qorpress-example/pkg/config/i18n"
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 	"github.com/qorpress/qorpress-example/pkg/models/seo"
@@ -82,28 +81,6 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 		funcMap["current_user"] = func() *users.User {
 			return utils.GetCurrentUser(req)
 		}
-
-		/*
-		funcMap["related_posts"] = func(cv posts.ColorVariation) []posts.Post {
-			var posts []posts.Post
-			utils.GetDB(req).Preload("ColorVariations").Limit(4).Find(&posts, "id <> ?", cv.PostID)
-			return posts
-		}
-
-		funcMap["other_also_bought"] = func(cv posts.ColorVariation) []posts.Post {
-			var posts []posts.Post
-			utils.GetDB(req).Preload("ColorVariations").Order("id ASC").Limit(8).Find(&posts, "id <> ?", cv.PostID)
-			return posts
-		}
-
-		funcMap["amazon_payment_gateway"] = func() interface{} {
-			return config.Config.AmazonPay
-		}
-
-		funcMap["format_price"] = func(price interface{}) string {
-			return utils.FormatPrice(price)
-		}
-		*/
 
 		return funcMap
 	}

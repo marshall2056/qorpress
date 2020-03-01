@@ -19,10 +19,10 @@ import (
 )
 
 type Post struct {
-	gorm.Model
+	// gorm.Model
 	l10n.Locale
 	sorting.SortingDESC
-
+	ID           uint     `gorm:"primary_key"`
 	Name                  string
 	NameWithSlug          slug.Slug `l10n:"sync"`
 	Featured              bool

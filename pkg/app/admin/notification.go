@@ -6,7 +6,7 @@ import (
 	//"time"
 
 	"github.com/qorpress/admin"
-	"github.com/qorpress/notification"
+	// "github.com/qorpress/notification"
 	//"github.com/qorpress/notification/channels/database"
 
 	// "github.com/qorpress/qorpress-example/pkg/config/db"
@@ -15,7 +15,7 @@ import (
 
 // SetupNotification add notification
 func SetupNotification(Admin *admin.Admin) {
-	Notification := notification.New(&notification.Config{})
+	// Notification := notification.New(&notification.Config{})
 
 	/*
 	Notification := notification.New(&notification.Config{})
@@ -64,5 +64,5 @@ func SetupNotification(Admin *admin.Admin) {
 		},
 	})
 	*/
-	Admin.NewResource(Notification)
+	// Admin.NewResource(Notification)
 }

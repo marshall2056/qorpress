@@ -17,7 +17,7 @@ import (
 	"github.com/qorpress/qorpress-example/pkg/utils/funcmapmaker"
 )
 
-var Genders = []string{"Men", "Women", "Kids"}
+// var Genders = []string{"Men", "Women", "Kids"}
 
 // New new home app
 func New(config *Config) *App {
@@ -82,7 +82,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	// Add Post
 	post := Admin.AddResource(&posts.Post{}, &admin.Config{Menu: []string{"Post Management"}})
-	post.Meta(&admin.Meta{Name: "Gender", Config: &admin.SelectOneConfig{Collection: Genders, AllowBlank: true}})
+	// post.Meta(&admin.Meta{Name: "Gender", Config: &admin.SelectOneConfig{Collection: Genders, AllowBlank: true}})
 
 	postPropertiesRes := post.Meta(&admin.Meta{Name: "PostProperties"}).Resource
 	postPropertiesRes.NewAttrs(&admin.Section{

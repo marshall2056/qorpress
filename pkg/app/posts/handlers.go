@@ -3,7 +3,9 @@ package posts
 import (
 	"net/http"
 	"strings"
+	"fmt"
 
+		"github.com/k0kubun/pp"
 	"github.com/qorpress/render"
 
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
@@ -31,23 +33,21 @@ func (ctrl Controller) Index(w http.ResponseWriter, req *http.Request) {
 func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 	var (
 		post        posts.Post
-		// colorVariation posts.ColorVariation
 		codes          = strings.Split(utils.URLParam("code", req), "_")
 		postCode    = codes[0]
-		// colorCode      string
 		tx             = utils.GetDB(req)
 	)
-
-	//if len(codes) > 1 {
-	//	colorCode = codes[1]
-	//}
 
 	if tx.Preload("Category").Where(&posts.Post{Code: postCode}).First(&post).RecordNotFound() {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
 
-	// tx.Preload("Post").Preload("Color").Preload("SizeVariations.Size").Where(&posts.ColorVariation{PostID: post.ID, ColorCode: colorCode}).First(&colorVariation)
-	// ctrl.View.Execute("show", map[string]interface{}{"CurrentColorVariation": colorVariation}, req, w)
+	fmt.Println("show post")
+
+	tx.Where(&posts.Post{ID: post.ID}).First(&post)
+	pp.Println("post.ID:", post)
+	ctrl.View.Execute("show", map[string]interface{}{"CurrentVariation": post}, req, w)
+	// ctrl.View.Execute("show", nil, req, w)
 }
 
 // Category category show page
@@ -62,7 +62,7 @@ func (ctrl Controller) Category(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
 
-	// tx.Where(&posts.Post{CategoryID: category.ID}).Preload("ColorVariations").Find(&Posts)
+	tx.Where(&posts.Post{CategoryID: category.ID}).Find(&Posts)
 
 	ctrl.View.Execute("category", map[string]interface{}{"CategoryName": category.Name, "Posts": Posts}, req, w)
 }
