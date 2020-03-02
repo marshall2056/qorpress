@@ -1,0 +1,10 @@
+<ul class="grid row-four posts__list">
+  {{range.Posts}}
+  <li class="grid__col is-3">
+    <a href="{{.DefaultPath}}" class="posts__list--img">
+      <img src="{{.MainImageURL}}" alt=""/>
+    </a>
+    <a class="posts__list--title" href="{{.DefaultPath}}">{{.Name}}</a>
+  </li>
+  {{end}}
+</ul>

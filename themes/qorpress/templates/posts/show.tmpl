@@ -1,0 +1,61 @@
+<link type="text/css" rel="stylesheet" src="/vendors/flexslider.css" />
+<link type="text/css" rel="stylesheet" src="/dist/home_posts.css" />
+
+<div class="container posts__details">
+  {{with .CurrentVariation }}
+      <div class="grid">
+
+          <div class="swiper-container products__gallery--top">
+            <ul class="slides">
+              {{range $image := .MainImage.Files}}
+                <li style="background-image:url({{$image.Url}})"></li>
+              {{end}}
+            </ul>
+          </div>
+
+          <div class="swiper-container products__gallery--thumbs">
+            <ul class="slides">
+              {{range $image := .MainImage.Files}}
+                <li style="background-image:url({{$image.Url}})"></li>
+              {{end}}
+            </ul>
+          </div>
+
+      </div>
+
+      <div class="grid posts__info">
+
+        <div class="grid__col is-12">
+          <h6>{{ t "post.description" }}</h6>
+          <p>{{raw .Description}}</p>
+        </div>
+
+        <div class="grid__col is-12">
+          <h6>{{ t "post.specs" }}</h6>
+        </div>
+
+      </div>
+    
+  {{end}}
+
+  <!-- featured post widget -->
+  <div class="row posts__featured">
+    <h3>{{ t "post.recommendations" }}</h3>
+    <p>{{ t "post.recommendations_note" }}</p>
+    <div class="posts__featured--slider" id="featured-post">
+    </div>
+  </div>
+  <!-- end: featured post widget -->
+
+  <!-- featured post widget -->
+  <div class="row posts__featured">
+    <h3>{{ t "post.also_bought" }}</h3>
+    <p>{{ t "post.also_bought_note" }}</p>
+    <div class="posts__featured--slider" id="also-bought">
+    </div>
+  </div>
+
+  <!-- end: featured post widget -->
+</div>
+
+<script src="/vendors/jquery.flexslider-min.js"></script>

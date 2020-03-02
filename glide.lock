@@ -1,8 +1,8 @@
-hash: 70926882bed917f353b0121f68e8f4425d8a840d2cb1954efa022a844b217848
-updated: 2020-03-02T13:38:58.715301+01:00
+hash: ae2f4da352070fefc65892a034b5c24b5f9f86eaa663a6a85efce491072cd490
+updated: 2020-03-02T17:00:18.611424+01:00
 imports:
 - name: cloud.google.com/go
-  version: 390b50e34304d56c1a1d4f365e2c7a60ee46cded
+  version: c1a84217fa5f56019d4bd3487f0b6e61a64999a7
   subpackages:
   - compute/metadata
 - name: enterprise.getqor.com/microsite
@@ -206,6 +206,10 @@ imports:
   - backends/csv
 - name: github.com/qorpress/gomerchant
   version: 2d2d0a1ffa6eb11f5e2df7c7ac0c53e182e7e729
+- name: github.com/qorpress/gorm-paginator
+  version: 7a5c8ed20334610e9560e561a21ee4f3fc66bef4
+  subpackages:
+  - pagination
 - name: github.com/qorpress/help
   version: f6a3a53563101f7a5d4b8e10235994f6425dbb65
 - name: github.com/qorpress/i18n
@@ -338,7 +342,7 @@ imports:
   - jws
   - jwt
 - name: golang.org/x/sys
-  version: 062a44052db13d4260a3225603b5b501907478f5
+  version: 5c8b2ff67527cb88b770f693cebf3799036d8bc0
   subpackages:
   - unix
 - name: google.golang.org/appengine

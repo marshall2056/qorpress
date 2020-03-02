@@ -3,8 +3,11 @@ package posts
 import (
 	"net/http"
 	"strings"
+	"strconv"
+	"log"
 
 	"github.com/qorpress/render"
+	"github.com/qorpress/gorm-paginator/pagination"
 
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 	"github.com/qorpress/qorpress-example/pkg/utils"
@@ -57,7 +60,44 @@ func (ctrl Controller) Category(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
 
-	tx.Where(&posts.Post{CategoryID: category.ID}).Find(&Posts)
+	var ok bool
+	var pages, limits []string
+	pages, ok = req.URL.Query()["page"]
+  	if !ok || len(pages[0]) < 1 {
+        log.Println("Url Param 'page' is missing")
+        pages = []string{"0"}
+    }
 
-	ctrl.View.Execute("category", map[string]interface{}{"CategoryName": category.Name, "Posts": Posts}, req, w)
+	limits, ok = req.URL.Query()["limit"]
+  	if !ok || len(pages[0]) < 1 {
+        log.Println("Url Param 'limit' is missing")
+        limits = []string{"20"}
+    }
+
+    page, _ := strconv.Atoi(pages[0])
+    limit, _ := strconv.Atoi(limits[0])
+
+	db := tx.Where(&posts.Post{CategoryID: category.ID})
+
+	p := pagination.Paging(&pagination.Param{
+	    DB:      db,
+	    Page:    page,
+	    Limit:   limit,
+	    // OrderBy: []string{"id desc"},
+	}, &Posts)
+
+	lastPage := (p.Page >= p.TotalPage)
+
+	ctrl.View.Execute("category", map[string]interface{}{
+		"CategoryName": category.Name, 
+		"Posts": Posts, 
+		"TotalRecord": p.TotalRecord,
+		"TotalPage": p.TotalPage,
+		"Offset": p.Offset,
+		"Limit": p.Limit,
+		"Page": p.Page,
+		"PrevPage": p.PrevPage,
+		"NextPage": p.NextPage,	
+		"LastPage": lastPage,	
+	}, req, w)
 }
