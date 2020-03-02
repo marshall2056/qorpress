@@ -35,10 +35,9 @@
 
           <div class="header__mobilemenu grid__col is-10">
             <div class="header__menu">
-              <a href="/">Home</a>
-              <a href="/men">men</a>
-              <a href="/women">women</a>
-              <a href="/kids">kids</a>
+              {{ range $category := get_categories }}
+                <a href="{{ $category.DefaultPath }}">{{$category.Name}}</a>
+              {{ end }}
             </div>
 
             <div class="header__func {{ if current_user }}header__func-login{{end}}">
