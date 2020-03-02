@@ -82,6 +82,15 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			return utils.GetCurrentUser(req)
 		}
 
+        funcMap["Iterate"] = func(count uint) []uint {
+            var i uint
+            var Items []uint
+            for i = 0; i < (count); i++ {
+                Items = append(Items, i)
+            }
+            return Items
+        }
+
 		return funcMap
 	}
 

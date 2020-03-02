@@ -55,8 +55,7 @@ func (app App) ConfigureApplication(application *application.Application) {
 func (App) ConfigureAdmin(Admin *admin.Admin) {
 	Admin.AddMenu(&admin.Menu{Name: "User Management", Priority: 3})
 	user := Admin.AddResource(&users.User{}, &admin.Config{Menu: []string{"User Management"}})
-	user.Meta(&admin.Meta{Name: "Gender", Config: &admin.SelectOneConfig{Collection: []string{"Male", "Female", "Unknown"}}})
-	user.Meta(&admin.Meta{Name: "Birthday", Type: "date"})
+
 	user.Meta(&admin.Meta{Name: "Role", Config: &admin.SelectOneConfig{Collection: []string{"Admin", "Maintainer", "Member"}}})
 	user.Meta(&admin.Meta{Name: "Password",
 		Type:   "password",
@@ -79,8 +78,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		}
 		return user.(*users.User).Confirmed
 	}})
-	user.Meta(&admin.Meta{Name: "DefaultBillingAddress", Config: &admin.SelectOneConfig{Collection: userAddressesCollection}})
-	user.Meta(&admin.Meta{Name: "DefaultShippingAddress", Config: &admin.SelectOneConfig{Collection: userAddressesCollection}})
 
 	user.Filter(&admin.Filter{
 		Name: "Role",
@@ -89,7 +86,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		},
 	})
 
-	user.IndexAttrs("ID", "Email", "Name", "Gender", "Role", "Balance")
+	user.IndexAttrs("ID", "Email", "Name", "Role")
 	user.ShowAttrs(
 		&admin.Section{
 			Title: "Basic Information",
@@ -97,14 +94,8 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 				{"Name"},
 				{"Email", "Password"},
 				{"Avatar"},
-				{"Gender", "Role", "Birthday"},
+				{"Role"},
 				{"Confirmed"},
-			},
-		},
-		&admin.Section{
-			Title: "Credit Information",
-			Rows: [][]string{
-				{"Balance"},
 			},
 		},
 		&admin.Section{
@@ -113,14 +104,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 				{"AcceptPrivate", "AcceptLicense", "AcceptNews"},
 			},
 		},
-		&admin.Section{
-			Title: "Default Addresses",
-			Rows: [][]string{
-				{"DefaultBillingAddress"},
-				{"DefaultShippingAddress"},
-			},
-		},
-		"Addresses",
 	)
 	user.EditAttrs(user.ShowAttrs())
 }

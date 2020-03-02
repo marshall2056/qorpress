@@ -96,7 +96,7 @@ func main() {
 	}))
 	Application.Use(static.New(&static.Config{
 		Prefixs: []string{"javascripts", "stylesheets", "images", "dist", "fonts", "vendors", "favicon.ico"},
-		Handler: bindatafs.AssetFS.FileServer(http.Dir(filepath.Join("public", "themes", "qorpress")), "javascripts", "stylesheets", "images", "dist", "fonts", "vendors", "favicon.ico"),
+		Handler: bindatafs.AssetFS.FileServer(http.Dir(filepath.Join("public")), "javascripts", "stylesheets", "images", "dist", "fonts", "vendors", "favicon.ico"),
 	}))
 
 	if *compileTemplate {

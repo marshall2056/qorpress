@@ -1,7 +1,14 @@
 package: github.com/qorpress/qorpress-example
 ignore:
 - enterprise.getqor.com
+- github.com/gocolly/colly
+- github.com/dgraph-io/badger
+- github.com/google/go-github
 import:
+- package: github.com/BillSJC/gorm-pageable
+- package: github.com/biezhi/gorm-paginator
+  subpackages:
+  - pagination
 - package: enterprise.getqor.com/microsite
   subpackages:
   - develop/aws_manager
@@ -15,6 +22,7 @@ import:
 - package: github.com/gorilla/schema
 - package: github.com/jinzhu/configor
 - package: github.com/jinzhu/gorm
+  version: v1.9.12
   subpackages:
   - dialects/mysql
   - dialects/postgres

@@ -340,14 +340,23 @@ func createPosts() {
 				"listing": {Width: 640, Height: 640},
 			},
 		})
+		DraftDB.Save(&post)
 		
 		if len(post.MainImage.Files) == 0 {
 			post.MainImage.Files = []media_library.File{{
 				ID:  json.Number(fmt.Sprint(image.ID)),
 				Url: image.File.URL(),
 			}}
+			post.MainImage.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+				Sizes: map[string]*media.Size{
+					"main":    {Width: 560, Height: 700},
+					"icon":    {Width: 50, Height: 50},
+					"preview": {Width: 300, Height: 300},
+					"listing": {Width: 640, Height: 640},
+				},
+			})
 			DraftDB.Save(&post)
-		}
+		}		
 
 		if i%3 == 0 {
 			start := time.Now().AddDate(0, 0, i-7)

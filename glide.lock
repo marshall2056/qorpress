@@ -1,5 +1,5 @@
-hash: 8c12d638c5a143343603b6810168c6260b21f90d2593add93727509a8b458274
-updated: 2020-03-01T06:31:34.969606+01:00
+hash: d971ddd0a86ce567d6d07d3f735b90182d00fd0534476676e8584832d42af2ad
+updated: 2020-03-02T10:10:30.130128+01:00
 imports:
 - name: cloud.google.com/go
   version: 602920de6c7b904e71f9510767e7d9879d196fef
@@ -60,6 +60,12 @@ imports:
   - service/sts/stsiface
 - name: github.com/azumads/faker
   version: 6cae71ddb10767f30fbb8a9d3d6b5baf792c33e7
+- name: github.com/biezhi/gorm-paginator
+  version: 7a5c8ed20334610e9560e561a21ee4f3fc66bef4
+  subpackages:
+  - pagination
+- name: github.com/BillSJC/gorm-pageable
+  version: 0471f93017054e5233385000a2c8e4b91ddefb45
 - name: github.com/BurntSushi/toml
   version: 3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005
 - name: github.com/chris-ramon/douceur
@@ -67,6 +73,8 @@ imports:
   subpackages:
   - css
   - parser
+- name: github.com/corpix/uarand
+  version: 6fd8ff1ca6b2b41116c4bb7571662b9762ae62d6
 - name: github.com/dgrijalva/jwt-go
   version: dc14462fd58732591c7fa58cc8496d6824316a82
 - name: github.com/disintegration/imaging
@@ -85,14 +93,16 @@ imports:
   version: 5d5b4c10bd43f85e63bd9e4a3fa9b1ea2ef88af2
   subpackages:
   - proto
-- name: github.com/google/go-github
-  version: e4b511744f5bbb020d00e172a284468137d4e5fc
+- name: github.com/golang/snappy
+  version: ff6b7dc882cf4cfba7ee0b9f7dcc1ac096c554aa
+- name: github.com/gomarkdown/markdown
+  version: 1813ea067497f0a7eab5bd6a3cbe0e255e079d37
   subpackages:
-  - github
-- name: github.com/google/go-querystring
-  version: c8c88dbee036db4e4808d1f2ec8c2e15e11c3f80
-  subpackages:
-  - query
+  - ast
+  - html
+  - parser
+- name: github.com/google/btree
+  version: 479b5e81b0a93ec038d201b0b33d17db599531d3
 - name: github.com/gorilla/context
   version: 8559d4a6b87e4f517ec1846eb90a192b8748cc89
 - name: github.com/gorilla/css
@@ -107,12 +117,20 @@ imports:
   version: 15ff3511704639ab26f7843f780c015f4bf49565
 - name: github.com/gosimple/slug
   version: 853565075b0cefa5c1e4de2f05cf57a4fd90740f
+- name: github.com/h2non/filetype
+  version: 8241aa2c448465326c0002ccc6df7b910658960d
+  subpackages:
+  - matchers
+  - matchers/isobmff
+  - types
+- name: github.com/iancoleman/strcase
+  version: 16388991a33441046539eb716cff4d294d556c70
 - name: github.com/jinzhu/configor
   version: f52abb230c951b14a04e8515ca4e248be7690321
 - name: github.com/jinzhu/copier
   version: b57f9002281ac48ed8cbc489b1e91121e1a0824c
 - name: github.com/jinzhu/gorm
-  version: 7180bd0f27d167f18c253c32d548c7de3adc6b0d
+  version: 79a77d771dee4e4b60e9c543e8663bbc80466670
   subpackages:
   - dialects/mysql
   - dialects/postgres
@@ -123,8 +141,14 @@ imports:
   version: 7e7333ac029d4aad7e88500a30889fcd22489425
 - name: github.com/jmespath/go-jmespath
   version: c2b33e8439af944379acbdd9c3a5fe0bc44bd8a5
+- name: github.com/joho/godotenv
+  version: d6ee6871f21dd95e76563a90f522ce9fe75443f8
 - name: github.com/jteeuwen/go-bindata
   version: 6025e8de665b31fa74ab1a66f2cddd8c0abf887e
+- name: github.com/k0kubun/pp
+  version: 99835366d1cc1593249c150d5c1acfb9036ccb1d
+- name: github.com/konsorten/go-windows-terminal-sequences
+  version: f55edac94c9bbba5d6182a4be46d86a2c9b5b50e
 - name: github.com/lib/pq
   version: 9eb3fc897d6fd97dd4aad3d0404b54e2f7cc56be
   subpackages:
@@ -141,12 +165,18 @@ imports:
   version: 0a75d7616912ab9beb9cc6f7283ec1917c61b135
 - name: github.com/mrjones/oauth
   version: 126b3521945043926caf026a3b969659b6a38d23
+- name: github.com/nozzle/throttler
+  version: 2ea982251481626167b7f83be1434b5c42540c1a
+- name: github.com/orcaman/concurrent-map
+  version: 8c72a8bb44f6cfcff2abae8ebcbaaaf883331363
+- name: github.com/peterbourgon/diskv
+  version: 0be1b92a6df0e4f5cb0a5d15fb7f643d0ad93ce6
 - name: github.com/qorpress/action_bar
   version: aa8ff64f08d83127a86d68d833a66b5e52cc42fa
 - name: github.com/qorpress/activity
   version: 6fb492e1858079ba2532e264aae1bf3809a26fa7
 - name: github.com/qorpress/admin
-  version: 08aef2903f910c98b46dc5b19a5ad0bf013f53c7
+  version: fb70246aef2f92569409254ffa4f35d82f914155
 - name: github.com/qorpress/amazon-pay-sdk-go
   version: 05a169f79ffd4e1431fe61d1173554535d409478
 - name: github.com/qorpress/assetfs
@@ -173,7 +203,7 @@ imports:
 - name: github.com/qorpress/banner_editor
   version: f9ee5deee45449946d621cb0b77771241c113462
 - name: github.com/qorpress/cache
-  version: 894923d3e47d02798f8ef85e6e235ed8efb222ec
+  version: 03b07d782f193b74509e3c2bca04e3e5b61dcb4a
   subpackages:
   - memory
 - name: github.com/qorpress/exchange
@@ -228,6 +258,11 @@ imports:
   subpackages:
   - resource
   - utils
+- name: github.com/qorpress/qorpress
+  version: a0ea8f566eccc1bf575a792ed4dc60a41f0fc0d4
+  subpackages:
+  - pkg/client
+  - pkg/models
 - name: github.com/qorpress/redirect_back
   version: c30308f6928afd72850e0a5fd39cc26d00ba6723
 - name: github.com/qorpress/render
@@ -261,26 +296,31 @@ imports:
   version: a254ed2f49c073cb4ac51633da3b2f19c55819ad
 - name: github.com/rainycape/unidecode
   version: cb7f23ec59bec0d61b19c56cd88cee3d0cc1870c
+- name: github.com/sethgrid/pester
+  version: 68a33a018ad0ac8266f272ec669307a1829c0486
 - name: github.com/Shaked/gomobiledetect
   version: 25f014f665680d424817c814f3d2982a13f0985a
+- name: github.com/sirupsen/logrus
+  version: 77ab282a06b0b4dd37f6ada06e28473bba7e40cb
+- name: github.com/sniperkit/cacher
+  version: 61f2a1265daa984f4a687c500bc3af8006390371
 - name: github.com/tealeg/xlsx
   version: 426ebfef635b70bf2b0f6f341b9a55ae82562029
 - name: github.com/theplant/cldr
   version: 9f76f7ce4ee8058b01f92739cf0d0cceaeda3cb2
 - name: github.com/unrolled/render
   version: c524c18295afa687769d69e929289578310c41b8
+- name: github.com/x0rzkov/go-vcsurl
+  version: cf6d223e3a84e3bfe5ed89d877eafedb6ad02202
+- name: github.com/x0rzkov/httpcache
+  version: 5a6ae9c4c3119788d8613aa7b3bc21ec61b8412a
+  subpackages:
+  - backend/diskcache
 - name: golang.org/x/crypto
   version: 2aa609cf4a9d7d1126360de73b55b6002f9e052a
   subpackages:
   - bcrypt
   - blowfish
-  - cast5
-  - openpgp
-  - openpgp/armor
-  - openpgp/elgamal
-  - openpgp/errors
-  - openpgp/packet
-  - openpgp/s2k
 - name: golang.org/x/image
   version: 58c23975cae11f062d4b3b0c143fe248faac195d
   subpackages:
@@ -304,7 +344,7 @@ imports:
   - jws
   - jwt
 - name: golang.org/x/sys
-  version: c5d0d7b4ec882d5bfaf87b42d8463ca5e7f0bdd9
+  version: 062a44052db13d4260a3225603b5b501907478f5
   subpackages:
   - unix
 - name: google.golang.org/appengine
@@ -321,6 +361,8 @@ imports:
   - urlfetch
 - name: gopkg.in/alexcesaro/quotedprintable.v3
   version: 2caba252f4dc53eaf6b553000885530023f54623
+- name: gopkg.in/loremipsum.v1
+  version: 0546b3ee2e0896501cddbb12110f7856249ebbeb
 - name: gopkg.in/yaml.v2
   version: 53403b58ad1b561927d19068c655246f2db79d48
 testImports: []
