@@ -1,7 +1,7 @@
 seo:
-    sitename: 'QOR Sample E-Commerce Shop'
+    sitename: 'QORPress Sample blog-engine'
     defaultpage:
-        title: 'QOR Demo Shop'
+        title: 'QORPress Sample blog-engine'
         description: "QOR the SDK for E-Commerce, CMS development written in Go (and it's Open Source, so there)"
         keywords: "Qor, Golang, CMS"
     homepage:

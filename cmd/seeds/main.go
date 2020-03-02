@@ -17,6 +17,7 @@ import (
 	"time"
 	"encoding/json"
 
+	"github.com/nozzle/throttler"
 	qoradmin "github.com/qorpress/admin"
 	slugger "github.com/gosimple/slug"
 	loremipsum "gopkg.in/loremipsum.v1"
@@ -102,8 +103,8 @@ func createRecords() {
 	createCollections()
 	fmt.Println("--> Created collections.")
 
-	// createMediaLibraries()
-	// fmt.Println("--> Created medialibraries.")
+	createMediaLibraries()
+	fmt.Println("--> Created medialibraries.")
 
 	createPosts()
 	fmt.Println("--> Created posts.")
@@ -222,34 +223,62 @@ func createAdminUsers() {
 func createUsers() {
 	emailRegexp := regexp.MustCompile(".*(@.*)")
 	totalCount := 600
+	t := throttler.New(5, totalCount)
+
 	for i := 0; i < totalCount; i++ {
-		user := users.User{}
-		user.Name = Fake.Name()
-		user.Email = emailRegexp.ReplaceAllString(Fake.Email(), strings.Replace(strings.ToLower(user.Name), " ", "_", -1)+"@example.com")
-		user.Gender = []string{"Female", "Male"}[i%2]
-		if err := DraftDB.Create(&user).Error; err != nil {
-			log.Fatalf("create user (%v) failure, got err %v", user, err)
-		}
+		go func() error {
+			defer t.Done(nil)
 
-		day := (-14 + i/45)
-		user.CreatedAt = now.EndOfDay().Add(time.Duration(day*rand.Intn(24)) * time.Hour)
-		if user.CreatedAt.After(time.Now()) {
-			user.CreatedAt = time.Now()
-		}
-		if err := DraftDB.Save(&user).Error; err != nil {
-			log.Fatalf("Save user (%v) failure, got err %v", user, err)
-		}
+			user := users.User{}
+			user.Name = Fake.Name()
+			user.Email = emailRegexp.ReplaceAllString(Fake.Email(), strings.Replace(strings.ToLower(user.Name), " ", "_", -1)+"@example.com")
+			user.Gender = []string{"Female", "Male"}[i%2]
+			if err := DraftDB.Create(&user).Error; err != nil {
+				log.Fatalf("create user (%v) failure, got err %v", user, err)
+			}
 
-		provider := auth.Auth.GetProvider("password").(*password.Provider)
-		hashedPassword, _ := provider.Encryptor.Digest("testing")
-		authIdentity := &auth_identity.AuthIdentity{}
-		authIdentity.Provider = "password"
-		authIdentity.UID = user.Email
-		authIdentity.EncryptedPassword = hashedPassword
-		authIdentity.UserID = fmt.Sprint(user.ID)
-		authIdentity.ConfirmedAt = &user.CreatedAt
+			day := (-14 + i/45)
+			user.CreatedAt = now.EndOfDay().Add(time.Duration(day*rand.Intn(24)) * time.Hour)
+			if user.CreatedAt.After(time.Now()) {
+				user.CreatedAt = time.Now()
+			}
 
-		DraftDB.Create(authIdentity)
+			now := time.Now()
+			unique := fmt.Sprintf("%v", now.Unix())
+			
+			if file, err := openFileByURL("https://i.pravatar.cc/150?u="+unique); err != nil {
+				fmt.Printf("open file failure, got err %v", err)
+			} else {
+				defer file.Close()
+				user.Avatar.Scan(file)
+			}
+
+			if err := DraftDB.Save(&user).Error; err != nil {
+				log.Fatalf("Save user (%v) failure, got err %v", user, err)
+			}
+
+			provider := auth.Auth.GetProvider("password").(*password.Provider)
+			hashedPassword, _ := provider.Encryptor.Digest("testing")
+			authIdentity := &auth_identity.AuthIdentity{}
+			authIdentity.Provider = "password"
+			authIdentity.UID = user.Email
+			authIdentity.EncryptedPassword = hashedPassword
+			authIdentity.UserID = fmt.Sprint(user.ID)
+			authIdentity.ConfirmedAt = &user.CreatedAt
+
+			DraftDB.Create(authIdentity)
+			return nil
+		}()
+		t.Throttle()
+	}
+
+	// throttler errors iteration
+	if t.Err() != nil {
+		// Loop through the errors to see the details
+		for i, err := range t.Errs() {
+			log.Printf("error #%d: %s", i, err)
+		}
+		log.Fatal(t.Err())
 	}
 }
 
@@ -373,12 +402,13 @@ func createPosts() {
 }
 
 func createMediaLibraries() {
-	for _, m := range Seeds.MediaLibraries {
+	numberMedia := 100
+	for i := 0; i < numberMedia; i++ {
 		medialibrary := settings.MediaLibrary{}
-		medialibrary.Title = m.Title
+		medialibrary.Title =loremIpsumGenerator.Words(10)
 
-		if file, err := openFileByURL(m.Image); err != nil {
-			fmt.Printf("open file (%q) failure, got err %v", m.Image, err)
+		if file, err := openFileByURL("https://loremflickr.com/640/360"); err != nil {
+			fmt.Printf("open file failure, got err %v", err)
 		} else {
 			defer file.Close()
 			medialibrary.File.Scan(file)
@@ -488,36 +518,6 @@ func createWidgets() {
 		if err := DraftDB.Create(&setting).Error; err != nil {
 			log.Fatalf("Save QorBannerEditorSetting (%v) failure, got err %v", setting, err)
 		}
-	}
-
-	// Men collection
-	menCollectionWidget := admin.QorWidgetSetting{}
-	menCollectionWidget.Name = "men collection"
-	menCollectionWidget.Description = "Men collection baner"
-	menCollectionWidget.WidgetType = "FullWidthBannerEditor"
-	menCollectionWidget.Value.SerializedValue = `{"Value":"%3Cdiv%20class%3D%22qor-bannereditor__html%22%20style%3D%22position%3A%20relative%3B%20height%3A%20100%25%3B%22%20data-image-width%3D%221280%22%20data-image-height%3D%22480%22%3E%3Cspan%20class%3D%22qor-bannereditor-image%22%3E%3Cimg%20src%3D%22%2Fsystem%2Fmedia_libraries%2F1%2Ffile.jpg%22%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%22%20data-edit-id%3D%2212%22%20style%3D%22position%3A%20absolute%3B%20left%3A%2010.0781%25%3B%20top%3A%2018.125%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22129%22%20data-position-top%3D%2287%22%3E%3Ch1%20class%3D%22banner-title%22%20style%3D%22color%3A%20%3B%22%3EMEN%20COLLECTION%3C%2Fh1%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%22%20data-edit-id%3D%2210%22%20style%3D%22position%3A%20absolute%3B%20left%3A%209.92188%25%3B%20top%3A%2029.7917%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22127%22%20data-position-top%3D%22143%22%3E%3Ch2%20class%3D%22banner-sub-title%22%20style%3D%22color%3A%20%3B%22%3ECheck%20the%20newcomming%20collection%3C%2Fh2%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%20qor-bannereditor__draggable-left%22%20data-edit-id%3D%2211%22%20style%3D%22position%3A%20absolute%3B%20left%3A%209.92188%25%3B%20top%3A%2047.0833%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22127%22%20data-position-top%3D%22226%22%3E%3Ca%20class%3D%22button%20button__primary%20banner-button%22%20href%3D%22%23%22%3Eview%20more%3C%2Fa%3E%3C%2Fspan%3E%3C%2Fdiv%3E"}`
-	if err := DraftDB.Create(&menCollectionWidget).Error; err != nil {
-		log.Fatalf("Save widget (%v) failure, got err %v", menCollectionWidget, err)
-	}
-
-	// Women collection
-	womenCollectionWidget := admin.QorWidgetSetting{}
-	womenCollectionWidget.Name = "women collection"
-	womenCollectionWidget.Description = "Women collection banner"
-	womenCollectionWidget.WidgetType = "FullWidthBannerEditor"
-	womenCollectionWidget.Value.SerializedValue = `{"Value":"%3Cdiv%20class%3D%22qor-bannereditor__html%22%20style%3D%22position%3A%20relative%3B%20height%3A%20100%25%3B%22%20data-image-width%3D%221280%22%20data-image-height%3D%22480%22%3E%3Cspan%20class%3D%22qor-bannereditor-image%22%3E%3Cimg%20src%3D%22%2Fsystem%2Fmedia_libraries%2F2%2Ffile.jpg%22%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%22%20data-edit-id%3D%2223%22%20style%3D%22position%3A%20absolute%3B%20left%3A%2010.0781%25%3B%20top%3A%2018.125%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22129%22%20data-position-top%3D%2287%22%3E%3Ch1%20class%3D%22banner-title%22%20style%3D%22color%3A%20%3B%22%3EWOMEN%20COLLECTION%3C%2Fh1%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%22%20data-edit-id%3D%2221%22%20style%3D%22position%3A%20absolute%3B%20left%3A%209.92188%25%3B%20top%3A%2029.7917%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22127%22%20data-position-top%3D%22143%22%3E%3Ch2%20class%3D%22banner-sub-title%22%20style%3D%22color%3A%20%3B%22%3ECheck%20the%20newcomming%20collection%3C%2Fh2%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%20qor-bannereditor__draggable-left%22%20data-edit-id%3D%2222%22%20style%3D%22position%3A%20absolute%3B%20left%3A%209.92188%25%3B%20top%3A%2047.0833%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22127%22%20data-position-top%3D%22226%22%3E%3Ca%20class%3D%22button%20button__primary%20banner-button%22%20href%3D%22%23%22%3Eview%20more%3C%2Fa%3E%3C%2Fspan%3E%3C%2Fdiv%3E"}`
-	if err := DraftDB.Create(&womenCollectionWidget).Error; err != nil {
-		log.Fatalf("Save widget (%v) failure, got err %v", womenCollectionWidget, err)
-	}
-
-	// New arrivals promotio
-	newArrivalsCollectionWidget := admin.QorWidgetSetting{}
-	newArrivalsCollectionWidget.Name = "new arrivals promotion"
-	newArrivalsCollectionWidget.Description = "New arrivals promotion banner"
-	newArrivalsCollectionWidget.WidgetType = "FullWidthBannerEditor"
-	newArrivalsCollectionWidget.Value.SerializedValue = `{"Value":"%3Cdiv%20class%3D%22qor-bannereditor__html%22%20style%3D%22position%3A%20relative%3B%20height%3A%20100%25%3B%22%20data-image-width%3D%221172%22%20data-image-height%3D%22300%22%3E%3Cspan%20class%3D%22qor-bannereditor-image%22%3E%3Cimg%20src%3D%22%2Fsystem%2Fmedia_libraries%2F3%2Ffile.jpg%22%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%20qor-bannereditor__draggable-left%22%20data-edit-id%3D%2233%22%20style%3D%22position%3A%20absolute%3B%20left%3A%209.47099%25%3B%20top%3A%2030%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22111%22%20data-position-top%3D%2290%22%3E%3Ch1%20class%3D%22banner-title%22%20style%3D%22color%3A%20%3B%22%3ENew%20Arrivals%3C%2Fh1%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%20qor-bannereditor__draggable-left%22%20data-edit-id%3D%2231%22%20style%3D%22position%3A%20absolute%3B%20left%3A%208.61775%25%3B%20top%3A%20auto%3B%20right%3A%20auto%3B%20bottom%3A%2030.6667%25%3B%22%20data-position-left%3D%22101%22%20data-position-top%3D%22173%22%3E%3Ca%20class%3D%22button%20button__primary%20banner-button%22%20href%3D%22%23%22%3ESHOP%20COLLECTION%3C%2Fa%3E%3C%2Fspan%3E%3Cspan%20class%3D%22qor-bannereditor__draggable%22%20data-edit-id%3D%2232%22%20style%3D%22position%3A%20absolute%3B%20left%3A%209.55631%25%3B%20top%3A%2016%25%3B%20right%3A%20auto%3B%20bottom%3A%20auto%3B%22%20data-position-left%3D%22112%22%20data-position-top%3D%2248%22%3E%3Cp%20class%3D%22banner-text%22%20style%3D%22color%3A%20%3B%22%3ETHE%20STYLE%20THAT%20FITS%20EVERYTHING%3C%2Fp%3E%3C%2Fspan%3E%3C%2Fdiv%3E"}`
-	if err := DraftDB.Create(&newArrivalsCollectionWidget).Error; err != nil {
-		log.Fatalf("Save widget (%v) failure, got err %v", newArrivalsCollectionWidget, err)
 	}
 
 	// Model posts

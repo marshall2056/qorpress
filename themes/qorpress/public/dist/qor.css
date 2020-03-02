@@ -1399,7 +1399,7 @@ li {
 }
 
 .header {
-	background-color: #212331
+	background-color: #d4d5da
 }
 
 .header header {
@@ -1436,8 +1436,8 @@ li {
 }
 
 .header .header__logo img {
-	width: 112px;
-	margin-top: 18px
+	width: 100%;
+    margin-top: 10px;
 }
 
 .header .header__func,
