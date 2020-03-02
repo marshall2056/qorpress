@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"strings"
-	// "time"
 
 	"github.com/jinzhu/gorm"
 	"github.com/qorpress/l10n"
@@ -23,21 +22,19 @@ type Post struct {
 	gorm.Model
 	l10n.Locale
 	sorting.SortingDESC
-	// ID           uint     `gorm:"primary_key"`
-	// CreatedAt time.Time
-	// UpdatedAt time.Time
-	// DeletedAt *time.Time `sql:"index"`
 	Name                  string
 	NameWithSlug          slug.Slug `l10n:"sync"`
 	Featured              bool
 	Code                  string       `l10n:"sync"`
 	CategoryID            uint         `l10n:"sync"`
+	//Categories []Category `gorm:"many2many:post_categories" l10n:"sync"`
 	Category              Category     `l10n:"sync"`
 	Collections           []Collection `l10n:"sync" gorm:"many2many:post_collections;"`
+	Tags         		  []Tag    	   `l10n:"sync" gorm:"many2many:post_tags"`
 	MainImage             media_library.MediaBox
-	Images         media_library.MediaBox
+	Images         		  media_library.MediaBox
 	Description           string           `gorm:"type:longtext"`
-	PostProperties     PostProperties `sql:"type:text"`
+	PostProperties        PostProperties `sql:"type:text"`
 	Seo                   qor_seo.Setting
 	publish2.Version
 	publish2.Schedule

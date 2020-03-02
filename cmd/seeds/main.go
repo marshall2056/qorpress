@@ -17,6 +17,7 @@ import (
 	"time"
 	"encoding/json"
 
+	"github.com/jinzhu/gorm"
 	"github.com/nozzle/throttler"
 	qoradmin "github.com/qorpress/admin"
 	slugger "github.com/gosimple/slug"
@@ -58,7 +59,7 @@ var (
 	Tables       = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{}, &users.Address{},
-		&posts.Category{}, &posts.Collection{},
+		&posts.Category{}, &posts.Collection{}, &posts.Tag{},
 		&posts.Post{}, &posts.PostImage{},
 		&settings.Setting{},
 		&adminseo.MySEOSetting{},
@@ -94,8 +95,6 @@ func createRecords() {
 
 	createUsers()
 	fmt.Println("--> Created users.")
-	createAddresses()
-	fmt.Println("--> Created addresses.")
 
 	createCategories()
 	fmt.Println("--> Created categories.")
@@ -282,26 +281,6 @@ func createUsers() {
 	}
 }
 
-func createAddresses() {
-	var Users []users.User
-	if err := DraftDB.Find(&Users).Error; err != nil {
-		log.Fatalf("query users (%v) failure, got err %v", Users, err)
-	}
-
-	for _, user := range Users {
-		address := users.Address{}
-		address.UserID = user.ID
-		address.ContactName = user.Name
-		address.Phone = Fake.PhoneNumber()
-		address.City = Fake.City()
-		address.Address1 = Fake.StreetAddress()
-		address.Address2 = Fake.SecondaryAddress()
-		if err := DraftDB.Create(&address).Error; err != nil {
-			log.Fatalf("create address (%v) failure, got err %v", address, err)
-		}
-	}
-}
-
 func createCategories() {
 	for _, c := range Seeds.Categories {
 		category := posts.Category{}
@@ -325,6 +304,9 @@ func createCollections() {
 
 func createPosts() {
 	numberPosts := 200
+	minTags := 1
+	maxTags := 10
+
 	for i := 0; i < numberPosts; i++ {
 		category := findCategoryByName("News")
 
@@ -387,6 +369,21 @@ func createPosts() {
 			DraftDB.Save(&post)
 		}
 
+		// add random tags
+		countTags := rand.Intn(maxTags - minTags) + minTags
+		for i := 0; i < countTags; i++ {
+			word := loremIpsumGenerator.Word()
+			t := &posts.Tag{
+				Name: word,
+			}
+			tag, err := createOrUpdateTag(DraftDB, t)
+			if err != nil {
+				panic(err)
+			}
+			post.Tags = append(post.Tags, *tag)
+		}
+		DraftDB.Save(&post)
+
 		if i%3 == 0 {
 			start := time.Now().AddDate(0, 0, i-7)
 			end := time.Now().AddDate(0, 0, i-4)
@@ -399,6 +396,17 @@ func createPosts() {
 		}
 
 	}
+}
+
+func createOrUpdateTag(db *gorm.DB, tag *posts.Tag) (*posts.Tag, error) {
+	// post.Images = images
+	var existingTag posts.Tag
+	if db.Where("name = ?", tag.Name).First(&existingTag).RecordNotFound() {
+		err := db.Set("l10n:locale", "en-US").Create(tag).Error
+		return tag, err
+	}
+	tag.ID = existingTag.ID
+	return tag, db.Set("l10n:locale", "en-US").Save(tag).Error
 }
 
 func createMediaLibraries() {

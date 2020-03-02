@@ -57,7 +57,7 @@ func (app App) ConfigureApplication(application *application.Application) {
 	Admin.AddResource(i18n.I18n, &admin.Config{Menu: []string{"Site Management"}, Priority: -1})
 
 	// Add Setting
-	Admin.AddResource(&settings.Setting{}, &admin.Config{Name: "Shop Setting", Menu: []string{"Site Management"}, Singleton: true, Priority: 1})
+	Admin.AddResource(&settings.Setting{}, &admin.Config{Name: "Blog Setting", Menu: []string{"Site Management"}, Singleton: true, Priority: 1})
 
 	SetupNotification(Admin)
 	SetupWorker(Admin)

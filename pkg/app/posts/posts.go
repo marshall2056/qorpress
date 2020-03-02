@@ -61,6 +61,8 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	collection := Admin.AddResource(&posts.Collection{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
 
+	Admin.AddResource(&posts.Tag{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
+
 	// Add PostImage as Media Libraray
 	PostImagesResource := Admin.AddResource(&posts.PostImage{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -1})
 
@@ -191,52 +193,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	post.UseTheme("grid")
 
-	// variationsResource := post.Meta(&admin.Meta{Name: "Variations", Config: &variations.VariationsConfig{}}).Resource
-	// if imagesMeta := variationsResource.GetMeta("Images"); imagesMeta != nil {
-	// 	imagesMeta.Config = &media_library.MediaBoxConfig{
-	// 		RemoteDataResource: PostImagesResource,
-	// 		Sizes: map[string]*media.Size{
-	// 			"icon":    {Width: 50, Height: 50},
-	// 			"thumb":   {Width: 100, Height: 100},
-	// 			"display": {Width: 300, Height: 300},
-	// 		},
-	// 	}
-	// }
-
-	// variationsResource.EditAttrs("-ID", "-Post")
-	// oldSearchHandler := post.SearchHandler
-	// post.SearchHandler = func(keyword string, context *qor.Context) *gorm.DB {
-	// 	context.SetDB(context.GetDB().Preload("Variations.Color").Preload("Variations.Size").Preload("Variations.Material"))
-	// 	return oldSearchHandler(keyword, context)
-	// }
-	/*
-	colorVariationMeta := post.Meta(&admin.Meta{Name: "ColorVariations"})
-	colorVariation := colorVariationMeta.Resource
-	colorVariation.Meta(&admin.Meta{Name: "Images", Config: &media_library.MediaBoxConfig{
-		RemoteDataResource: PostImagesResource,
-		Sizes: map[string]*media.Size{
-			"icon":    {Width: 50, Height: 50},
-			"preview": {Width: 300, Height: 300},
-			"listing": {Width: 640, Height: 640},
-		},
-	}})
-
-	colorVariation.NewAttrs("-Post", "-ColorCode")
-	colorVariation.EditAttrs("-Post", "-ColorCode")
-
-	sizeVariationMeta := colorVariation.Meta(&admin.Meta{Name: "SizeVariations"})
-	sizeVariation := sizeVariationMeta.Resource
-	sizeVariation.EditAttrs(
-		&admin.Section{
-			Rows: [][]string{
-				{"Size", "AvailableQuantity"},
-				{"ShareableVersion"},
-			},
-		},
-	)
-	sizeVariation.NewAttrs(sizeVariation.EditAttrs())
-	*/
-
 	post.SearchAttrs("Name", "Code", "Category.Name", "Brand.Name")
 	post.IndexAttrs("MainImageURL", "Name", "Featured", "VersionName", "PublishLiveNow")
 	post.EditAttrs(
@@ -265,15 +221,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	)
 	// post.ShowAttrs(post.EditAttrs())
 	post.NewAttrs(post.EditAttrs())
-
-	/*
-	for _, gender := range Genders {
-		var gender = gender
-		post.Scope(&admin.Scope{Name: gender, Group: "Gender", Handler: func(db *gorm.DB, ctx *qor.Context) *gorm.DB {
-			return db.Where("gender = ?", gender)
-		}})
-	}
-	*/
 
 	post.Action(&admin.Action{
 		Name: "View On Site",
