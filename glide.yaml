@@ -1,6 +1,9 @@
 package: github.com/qorpress/qorpress-example
 ignore:
 - enterprise.getqor.com
+- github.com/gocolly/colly
+- github.com/google/go-github
+- github.com/dgraph-io/badger
 import:
 - package: enterprise.getqor.com/microsite
   subpackages:
