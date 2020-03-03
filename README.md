@@ -1,4 +1,4 @@
-# QOR example application
+# QorPress example application
 
 This is an example application to show and explain features of [QOR](http://getqor.com).
 
@@ -6,7 +6,9 @@ Chat Room: [![Join the chat at https://gitter.im/qor/qor](https://badges.gitter.
 
 ## Quick Started
 
-### Go version: 1.8+
+### Locally
+
+#### Go version: 1.8+
 
 ```shell
 # Get example app
@@ -21,10 +23,18 @@ $ cd $GOPATH/src/github.com/qorpress/qorpress-example
 $ go run main.go
 ```
 
+### With Docker
+
+#### Docker version: 
+
+```shell
+docker-compose up --build
+```
+
 ### Generate sample data
 
 ```go
-$ go run config/db/seeds/main.go config/db/seeds/seeds.go
+$ go run cmd/seeds/*.go
 ```
 
 ### Run tests (Pending)
@@ -37,20 +47,14 @@ $ go test $(go list ./... | grep -v /vendor/ | grep  -v /db/)
 
 [Qor Example admin configuration](https://github.com/qorpress/qorpress-example/blob/master/config/admin/admin.go)
 
-Online Demo Website: [demo.getqor.com/admin](http://demo.getqor.com/admin)
-
 ## RESTful API
 
-[Qor Example API configuration](https://github.com/qorpress/qorpress-example/blob/master/config/api/api.go)
+[QorPress Example API configuration](https://github.com/qorpress/qorpress-example/blob/master/config/api/api.go)
 
 Online Example APIs:
 
 * Users: [http://demo.getqor.com/api/users.json](http://demo.getqor.com/api/users.json)
 * User 1: [http://demo.getqor.com/api/users/1.json](http://demo.getqor.com/api/users/1.json)
-* User 1's Orders [http://demo.getqor.com/api/users/1/orders.json](http://demo.getqor.com/api/users/1/orders.json)
-* User 1's Order 1 [http://demo.getqor.com/api/users/1/orders/1.json](http://demo.getqor.com/api/users/1/orders/1.json)
-* User 1's Orders 1's Items [http://demo.getqor.com/api/users/1/orders.json](http://demo.getqor.com/api/users/1/orders/1/items.json)
-* Orders: [http://demo.getqor.com/api/orders.json](http://demo.getqor.com/api/orders.json)
 * Posts: [http://demo.getqor.com/api/posts.json](http://demo.getqor.com/api/posts.json)
 
 ## License
