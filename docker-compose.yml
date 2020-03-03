@@ -2,7 +2,7 @@
 version: "3.7"
 services:
 
-  store:
+  blog:
     image: qopress/qorpress-example:latest
     container_name: ${NAMESPACE}-blog
     build:
@@ -16,10 +16,15 @@ services:
     - ./config/smtp.yml:/opt/qor/config/smtp.yml
     links:
     - mysql:mysql
+    - manticore:manticore
     depends_on:
     - mysql
+    - manticore
     command: ["/go/bin/qorpress-example"]
     restart: unless-stopped
+    networks:
+    - internal
+    - web
 
   mysql:
     image: mysql:5.7
@@ -35,6 +40,113 @@ services:
       MYSQL_ROOT_PASSWORD: 'qor_password'
       MYSQL_USER: qor_user
     restart: unless-stopped
+    networks:
+    - internal
+
+  elastic:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    container_name: ${NAMESPACE}-elastic
+    ports:
+    - 9200:9200
+    environment:
+    - cluster.name=docker-cluster
+    - bootstrap.memory_lock=true
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+    - es-data:/usr/share/elasticsearch/data
+    networks:
+    - internal
+
+  manticore:
+    image: manticoresearch/manticore:latest
+    container_name: ${NAMESPACE}-manticore
+    ports:
+    - 9306:9306
+    - 9312:9312
+    volumes:
+    - ./.docker/manticore/manticore.conf:/etc/sphinxsearch/sphinx.conf
+    - manticore-data:/var/lib/manticore/data
+    networks:
+    - internal
+
+  sphinx:
+    image: macbre/sphinxsearch:3.0.3
+    container_name: ${NAMESPACE}-sphinx
+    ports:
+    - 9307:9306
+    volumes:
+    - sphinx-data:/var/lib/sphinxsearch/data
+    - ./.docker/sphinxsearch/sphinx.conf:/opt/sphinx/conf/sphinx.conf  
+    networks:
+    - internal
+
+  backup:
+    image: zeenlym/mariadb-backup
+    container_name: ${NAMESPACE}_backup
+    depends_on:
+    - db
+    restart: unless-stopped
+    environment:
+    - TIMEZONE=${TZ}
+    - SCHEDULE=0 0 3 * *
+    - BACKUP_METHOD=mysqldump
+    - MYSQL_HOST=${QORPRESS_DB_SERVER}
+    - MYSQL_DATABASE=${QORPRESS_DB_NAME}
+    - MYSQL_USER=${QORPRESS_DB_USER}
+    - MYSQL_PASSWORD=${QORPRESS_DB_PASSWORD}
+    volumes:
+    - ./shared/backup:/backup
+    restart: always
+    networks:
+    - internal
+
+  memcached:
+    image: memcached:alpine
+    container_name: ${NAMESPACE}_memcached 
+    restart: always
+    ports:
+    - "11211:11211"
+    networks:
+    - internal
+    command: -m 2048
+    restart: always
+
+  redis:
+    image: redis:5-alpine
+    container_name: ${NAMESPACE}_redis 
+    restart: always
+    ports:
+    - "6379:6379"
+    networks:
+    - internal
+
+  imaginary:
+    image: h2non/imaginary:latest
+    container_name: ${NAMESPACE}_imaginary
+    volumes:
+    - imaginary-data:/mnt/data
+    environment:
+      PORT: 9002
+    ports:
+    - "9002:9002"
+    command: -cors -gzip -enable-url-source -mount /mnt/data
+    networks:
+    - internal
+    - web
+    restart: always
+
+networks:
+  internal:
+  web:
+    external: true
 
 volumes:
   db-data:
+  sphinx-data:
+  es-data:
+  manticore-data:
+  imaginary-data:
