@@ -60,6 +60,7 @@ services:
     - es-data:/usr/share/elasticsearch/data
     networks:
     - internal
+    restart: unless-stopped
 
   manticore:
     image: manticoresearch/manticore:latest
@@ -72,6 +73,7 @@ services:
     - manticore-data:/var/lib/manticore/data
     networks:
     - internal
+    restart: unless-stopped
 
   sphinx:
     image: macbre/sphinxsearch:3.0.3
@@ -83,12 +85,13 @@ services:
     - ./.docker/sphinxsearch/sphinx.conf:/opt/sphinx/conf/sphinx.conf  
     networks:
     - internal
+    restart: unless-stopped
 
   backup:
     image: zeenlym/mariadb-backup
     container_name: ${NAMESPACE}_backup
     depends_on:
-    - db
+    - mysql
     restart: unless-stopped
     environment:
     - TIMEZONE=${TZ}
@@ -113,12 +116,12 @@ services:
     networks:
     - internal
     command: -m 2048
-    restart: always
+    restart: unless-stopped
 
   redis:
     image: redis:5-alpine
     container_name: ${NAMESPACE}_redis 
-    restart: always
+    restart: unless-stopped
     ports:
     - "6379:6379"
     networks:
@@ -137,7 +140,7 @@ services:
     networks:
     - internal
     - web
-    restart: always
+    restart: unless-stopped
 
 networks:
   internal:
