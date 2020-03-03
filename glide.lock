@@ -1,8 +1,8 @@
-hash: 5b51064faa7a760cb8bdd48de90b7239af2d7bf437e02f2e8352d67a7af1da14
-updated: 2020-03-03T09:57:15.610122+01:00
+hash: f728cbdf9d659ef43a8774d1210b31b9841bac980edfc222b5d10d70f8c52f97
+updated: 2020-03-03T13:12:42.826166+01:00
 imports:
 - name: cloud.google.com/go
-  version: c1a84217fa5f56019d4bd3487f0b6e61a64999a7
+  version: 7d5bf9e9f7c433f0c6c00fb6e3b3c93a7bc6089e
   subpackages:
   - compute/metadata
 - name: enterprise.getqor.com/microsite
@@ -62,6 +62,10 @@ imports:
   - service/sts/stsiface
 - name: github.com/azumads/faker
   version: 6cae71ddb10767f30fbb8a9d3d6b5baf792c33e7
+- name: github.com/biezhi/gorm-paginator
+  version: 7a5c8ed20334610e9560e561a21ee4f3fc66bef4
+  subpackages:
+  - pagination
 - name: github.com/BurntSushi/toml
   version: 3012a1dbe2e4bd1391d42b32f0577cb7bbc7f005
 - name: github.com/chris-ramon/douceur
@@ -209,7 +213,7 @@ imports:
 - name: github.com/qorpress/gomerchant
   version: 2d2d0a1ffa6eb11f5e2df7c7ac0c53e182e7e729
 - name: github.com/qorpress/gorm-paginator
-  version: 7a5c8ed20334610e9560e561a21ee4f3fc66bef4
+  version: 63a7a86b6f0999ee18ed7fe359b08ddff9522b36
   subpackages:
   - pagination
 - name: github.com/qorpress/help

@@ -104,6 +104,8 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 			"original": {Width: 560, Height: 700},
 		},
 	}})
+
+
 	post.Meta(&admin.Meta{Name: "MainImageURL", Valuer: func(record interface{}, context *qor.Context) interface{} {
 		if p, ok := record.(*posts.Post); ok {
 			result := bytes.NewBufferString("")
@@ -197,6 +199,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		"PostProperties",
 		"Description",
 		"PublishReady",
+		"Images",
 	)
 	post.ShowAttrs(post.EditAttrs())
 	post.NewAttrs(post.EditAttrs())

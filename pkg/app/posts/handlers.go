@@ -9,12 +9,14 @@ import (
 
 	"github.com/acoshift/paginate"
 	"github.com/k0kubun/pp"
-	"github.com/qorpress/gorm-paginator/pagination"
+	"github.com/biezhi/gorm-paginator/pagination"
+	// "github.com/qorpress/gorm-paginator/pagination"
 	"github.com/qorpress/render"
 
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 	"github.com/qorpress/qorpress-example/pkg/utils"
 )
+
 
 // Controller posts controller
 type Controller struct {

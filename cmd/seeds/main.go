@@ -303,6 +303,7 @@ func createCollections() {
 
 func createPosts() {
 	numberPosts := 200
+	// numberSubImgs := 4
 	minTags := 1
 	maxTags := 10
 
@@ -325,32 +326,34 @@ func createPosts() {
 			log.Fatalf("create post (%v) failure, got err %v", post, err)
 		}
 
-		image := posts.PostImage{Title: postName, SelectedType: "image"}
-		if file, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text=" + loremIpsumGenerator.Words(2)); err != nil {
-			fmt.Printf("open file failure, got err %v", err)
-		} else {
-			defer file.Close()
-			image.File.Scan(file)
-		}
-		if err := DraftDB.Create(&image).Error; err != nil {
-			log.Fatalf("create color_variation_image (%v) failure, got err %v", image, err)
-		}
-
 		Admin := qoradmin.New(&qoradmin.AdminConfig{
-			SiteName: "QOR DEMO",
+			SiteName: "QORPRESS DEMO",
 			Auth:     auth.AdminAuth{},
 			DB:       db.DB.Set(publish2.VisibleMode, publish2.ModeOff).Set(publish2.ScheduleMode, publish2.ModeOff),
 		})
+		image := posts.PostImage{Title: postName, SelectedType: "image"}
 
-		post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
-			Sizes: map[string]*media.Size{
-				"main":    {Width: 560, Height: 700},
-				"icon":    {Width: 50, Height: 50},
-				"preview": {Width: 300, Height: 300},
-				"listing": {Width: 640, Height: 640},
-			},
-		})
-		DraftDB.Save(&post)
+		//for j := 0; j < numberSubImgs; j++ {
+			if file, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text=" + loremIpsumGenerator.Words(2)); err != nil {
+				fmt.Printf("open file failure, got err %v", err)
+			} else {
+				defer file.Close()
+				image.File.Scan(file)
+			}
+			if err := DraftDB.Create(&image).Error; err != nil {
+				log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
+			}
+
+			post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+				Sizes: map[string]*media.Size{
+					"main":    {Width: 560, Height: 700},
+					"icon":    {Width: 50, Height: 50},
+					"preview": {Width: 300, Height: 300},
+					"listing": {Width: 640, Height: 640},
+				},
+			})
+			DraftDB.Save(&post)
+		//}
 
 		if len(post.MainImage.Files) == 0 {
 			post.MainImage.Files = []media_library.File{{

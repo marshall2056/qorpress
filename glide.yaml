@@ -4,6 +4,7 @@ ignore:
 - github.com/gocolly/colly
 - github.com/google/go-github
 - github.com/dgraph-io/badger
+- github.com/qor/assetfs
 import:
 - package: github.com/qorpress/gorm-paginator
   subpackages:
