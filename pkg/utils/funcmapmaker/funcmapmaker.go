@@ -12,7 +12,6 @@ import (
 	"github.com/qorpress/session"
 	"github.com/qorpress/session/manager"
 	"github.com/qorpress/widget"
-	// "github.com/k0kubun/pp"
 
 	"github.com/qorpress/qorpress-example/pkg/app/admin"
 	"github.com/qorpress/qorpress-example/pkg/config/i18n"

@@ -1,7 +1,7 @@
 package account
 
 import (
-	"strconv"
+	// "strconv"
 
 	"github.com/go-chi/chi"
 	"github.com/qorpress/admin"
@@ -54,8 +54,6 @@ func (app App) ConfigureApplication(application *application.Application) {
 func (App) ConfigureAdmin(Admin *admin.Admin) {
 	Admin.AddMenu(&admin.Menu{Name: "User Management", Priority: 3})
 	user := Admin.AddResource(&users.User{}, &admin.Config{Menu: []string{"User Management"}})
-	// user.Meta(&admin.Meta{Name: "Gender", Config: &admin.SelectOneConfig{Collection: []string{"Male", "Female", "Unknown"}}})
-	// user.Meta(&admin.Meta{Name: "Birthday", Type: "date"})
 	user.Meta(&admin.Meta{Name: "Role", Config: &admin.SelectOneConfig{Collection: []string{"Admin", "Maintainer", "Member"}}})
 	user.Meta(&admin.Meta{Name: "Password",
 		Type:   "password",
@@ -78,8 +76,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		}
 		return user.(*users.User).Confirmed
 	}})
-	// user.Meta(&admin.Meta{Name: "DefaultBillingAddress", Config: &admin.SelectOneConfig{Collection: userAddressesCollection}})
-	// user.Meta(&admin.Meta{Name: "DefaultShippingAddress", Config: &admin.SelectOneConfig{Collection: userAddressesCollection}})
 
 	user.Filter(&admin.Filter{
 		Name: "Role",
@@ -101,12 +97,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 			},
 		},
 		&admin.Section{
-			Title: "Credit Information",
-			Rows: [][]string{
-				{"Balance"},
-			},
-		},
-		&admin.Section{
 			Title: "Accepts",
 			Rows: [][]string{
 				{"AcceptPrivate", "AcceptLicense", "AcceptNews"},
@@ -116,6 +106,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	user.EditAttrs(user.ShowAttrs())
 }
 
+/*
 func userAddressesCollection(resource interface{}, context *qor.Context) (results [][]string) {
 	var (
 		user users.User
@@ -129,3 +120,4 @@ func userAddressesCollection(resource interface{}, context *qor.Context) (result
 	}
 	return
 }
+*/

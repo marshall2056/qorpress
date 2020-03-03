@@ -9,6 +9,7 @@ import (
 	"github.com/qorpress/auth/providers/github"
 	"github.com/qorpress/auth/providers/google"
 	"github.com/qorpress/auth/providers/twitter"
+	"github.com/qorpress/auth/providers/password"
 	"github.com/qorpress/auth_themes/clean"
 	"github.com/qorpress/render"
 
@@ -39,6 +40,7 @@ func init() {
 	Auth.RegisterProvider(google.New(&config.Config.Oauth.Google))
 	Auth.RegisterProvider(facebook.New(&config.Config.Oauth.Facebook))
 	Auth.RegisterProvider(twitter.New(&config.Config.Oauth.Twitter))
+	Auth.RegisterProvider(password.New(&password.Config{}))
 
 	Authority.Register("logged_in_half_hour", authority.Rule{TimeoutSinceLastLogin: time.Minute * 30})
 }

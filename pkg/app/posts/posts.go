@@ -45,6 +45,7 @@ func (app App) ConfigureApplication(application *application.Application) {
 	application.Router.Get("/posts", controller.Index)
 	application.Router.Get("/posts/{code}", controller.Show)
 	application.Router.Get("/category/{code}", controller.Category)
+	application.Router.Get("/tag/{code}", controller.Tag)
 }
 
 // ConfigureAdmin configure admin interface

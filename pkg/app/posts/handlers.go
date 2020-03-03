@@ -5,6 +5,7 @@ import (
 	"strings"
 	"strconv"
 	"log"
+	"fmt"
 
 	"github.com/k0kubun/pp"
 	"github.com/qorpress/render"
@@ -36,6 +37,7 @@ func (ctrl Controller) Index(w http.ResponseWriter, req *http.Request) {
 func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 	var (
 		post        posts.Post
+		tags 		[]posts.Tag
 		codes          = strings.Split(utils.URLParam("code", req), "_")
 		postCode    = codes[0]
 		tx             = utils.GetDB(req)
@@ -45,9 +47,36 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
 
-	// tx.Where(&posts.Post{ID: post.ID}).First(&post)
 	tx.First(&post)
-	ctrl.View.Execute("show", map[string]interface{}{"CurrentVariation": post}, req, w)
+	// tx.Where(&posts.Post{ID: post.ID}).First(&post)
+
+	// get tags for post
+	query := fmt.Sprintf(`SELECT T.Name FROM (POSTS S, TAGS T)
+	INNER JOIN POST_TAGS ST ON S.ID = ST.POST_ID 
+	INNER JOIN TAGS ON ST.TAG_ID = T.ID
+	WHERE S.ID=%d
+	GROUP BY T.NAME`, post.ID)
+	tx.Raw(query).Scan(&tags)	
+
+	ctrl.View.Execute("show", map[string]interface{}{
+		"CurrentVariation": post,
+		"Tags": tags,
+	}, req, w)
+}
+
+func (ctrl Controller) Tag(w http.ResponseWriter, req *http.Request) {
+	var (
+		tag posts.Tag
+		// Posts []posts.Post
+		tx       = utils.GetDB(req)
+	)
+	if tx.Where("name = ?", utils.URLParam("name", req)).First(&tag).RecordNotFound() {
+		http.Redirect(w, req, "/", http.StatusFound)
+	}
+	tx.First(&tag)
+	ctrl.View.Execute("tag", map[string]interface{}{
+		"Tag": tag,
+	}, req, w)	
 }
 
 // Category category show page
