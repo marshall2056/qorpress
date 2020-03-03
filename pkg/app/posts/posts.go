@@ -146,8 +146,8 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	})
 
 	type updateInfo struct {
-		CategoryID  uint
-		Category    *posts.Category
+		CategoryID uint
+		Category   *posts.Category
 	}
 
 	updateInfoRes := Admin.NewResource(&updateInfo{})

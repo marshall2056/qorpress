@@ -3,6 +3,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -15,14 +16,12 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"encoding/json"
 
+	slugger "github.com/gosimple/slug"
 	"github.com/jinzhu/gorm"
+	"github.com/jinzhu/now"
 	"github.com/nozzle/throttler"
 	qoradmin "github.com/qorpress/admin"
-	slugger "github.com/gosimple/slug"
-	loremipsum "gopkg.in/loremipsum.v1"
-	"github.com/jinzhu/now"
 	"github.com/qorpress/auth/auth_identity"
 	"github.com/qorpress/auth/providers/password"
 	"github.com/qorpress/banner_editor"
@@ -39,6 +38,7 @@ import (
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
+	loremipsum "gopkg.in/loremipsum.v1"
 
 	"github.com/qorpress/qorpress-example/pkg/app/admin"
 	"github.com/qorpress/qorpress-example/pkg/config/auth"
@@ -51,12 +51,11 @@ import (
 	"github.com/qorpress/qorpress-example/pkg/models/users"
 )
 
-
 var (
 	loremIpsumGenerator = loremipsum.NewWithSeed(1234)
-	AdminUser    *users.User
-	Notification = notification.New(&notification.Config{})
-	Tables       = []interface{}{
+	AdminUser           *users.User
+	Notification        = notification.New(&notification.Config{})
+	Tables              = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{}, &users.Address{},
 		&posts.Category{}, &posts.Collection{}, &posts.Tag{},
@@ -244,8 +243,8 @@ func createUsers() {
 
 			now := time.Now()
 			unique := fmt.Sprintf("%v", now.Unix())
-			
-			if file, err := openFileByURL("https://i.pravatar.cc/150?u="+unique); err != nil {
+
+			if file, err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
 				fmt.Printf("open file failure, got err %v", err)
 			} else {
 				defer file.Close()
@@ -327,7 +326,7 @@ func createPosts() {
 		}
 
 		image := posts.PostImage{Title: postName, SelectedType: "image"}
-		if file, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text="+loremIpsumGenerator.Words(2)); err != nil {
+		if file, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text=" + loremIpsumGenerator.Words(2)); err != nil {
 			fmt.Printf("open file failure, got err %v", err)
 		} else {
 			defer file.Close()
@@ -352,7 +351,7 @@ func createPosts() {
 			},
 		})
 		DraftDB.Save(&post)
-		
+
 		if len(post.MainImage.Files) == 0 {
 			post.MainImage.Files = []media_library.File{{
 				ID:  json.Number(fmt.Sprint(image.ID)),
@@ -370,7 +369,7 @@ func createPosts() {
 		}
 
 		// add random tags
-		countTags := rand.Intn(maxTags - minTags) + minTags
+		countTags := rand.Intn(maxTags-minTags) + minTags
 		for i := 0; i < countTags; i++ {
 			word := loremIpsumGenerator.Word()
 			t := &posts.Tag{
@@ -413,7 +412,7 @@ func createMediaLibraries() {
 	numberMedia := 100
 	for i := 0; i < numberMedia; i++ {
 		medialibrary := settings.MediaLibrary{}
-		medialibrary.Title =loremIpsumGenerator.Words(10)
+		medialibrary.Title = loremIpsumGenerator.Words(10)
 
 		if file, err := openFileByURL("https://loremflickr.com/640/360"); err != nil {
 			fmt.Printf("open file failure, got err %v", err)
@@ -541,28 +540,28 @@ func createWidgets() {
 
 func createHelps() {
 	helps := map[string][]string{
-		"How to setup a microsite":           []string{"micro_sites"},
-		"How to create a user":               []string{"users"},
-		"How to create an admin user":        []string{"users"},
-		"How to handle abandoned order":      []string{"abandoned_orders", "orders"},
-		"How to cancel a order":              []string{"orders"},
-		"How to create a order":              []string{"orders"},
+		"How to setup a microsite":        []string{"micro_sites"},
+		"How to create a user":            []string{"users"},
+		"How to create an admin user":     []string{"users"},
+		"How to handle abandoned order":   []string{"abandoned_orders", "orders"},
+		"How to cancel a order":           []string{"orders"},
+		"How to create a order":           []string{"orders"},
 		"How to upload post images":       []string{"posts", "post_images"},
 		"How to create a post":            []string{"posts"},
 		"How to create a discounted post": []string{"posts"},
-		"How to create a store":              []string{"stores"},
-		"How shop setting works":             []string{"shop_settings"},
-		"How to setup seo settings":          []string{"seo_settings"},
-		"How to setup seo for blog":          []string{"seo_settings"},
+		"How to create a store":           []string{"stores"},
+		"How shop setting works":          []string{"shop_settings"},
+		"How to setup seo settings":       []string{"seo_settings"},
+		"How to setup seo for blog":       []string{"seo_settings"},
 		"How to setup seo for post":       []string{"seo_settings"},
-		"How to setup seo for microsites":    []string{"micro_sites", "seo_settings"},
-		"How to setup promotions":            []string{"promotions"},
-		"How to publish a promotion":         []string{"schedules", "promotions"},
-		"How to create a publish event":      []string{"schedules", "scheduled_events"},
+		"How to setup seo for microsites": []string{"micro_sites", "seo_settings"},
+		"How to setup promotions":         []string{"promotions"},
+		"How to publish a promotion":      []string{"schedules", "promotions"},
+		"How to create a publish event":   []string{"schedules", "scheduled_events"},
 		"How to publish a post":           []string{"schedules", "posts"},
-		"How to publish a microsite":         []string{"schedules", "micro_sites"},
-		"How to create a scheduled data":     []string{"schedules"},
-		"How to take something offline":      []string{"schedules"},
+		"How to publish a microsite":      []string{"schedules", "micro_sites"},
+		"How to create a scheduled data":  []string{"schedules"},
+		"How to take something offline":   []string{"schedules"},
 	}
 
 	for key, value := range helps {
@@ -622,7 +621,7 @@ func openFileByURL(rawURL string) (*os.File, error) {
 	} else {
 		// path := fileURL.Path
 		// segments := strings.Split(path, "/")
-		fileName := Fake.UserName()+".png" // segments[len(segments)-1]
+		fileName := Fake.UserName() + ".png" // segments[len(segments)-1]
 
 		filePath := filepath.Join(os.TempDir(), fileName)
 

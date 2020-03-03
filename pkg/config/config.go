@@ -44,20 +44,20 @@ var Config = struct {
 		Region          string `env:"AWS_Region"`
 		S3Bucket        string `env:"AWS_Bucket"`
 	}
-	SMTP         SMTPConfig
+	SMTP  SMTPConfig
 	Oauth struct {
-		Github       github.Config
-		Google       google.Config
-		Facebook     facebook.Config
-		Twitter      twitter.Config
+		Github   github.Config
+		Google   google.Config
+		Facebook facebook.Config
+		Twitter  twitter.Config
 	}
 }{}
 
 var (
-	Root           = os.Getenv("GOPATH") + "/src/github.com/qorpress/qorpress-example"
-	Mailer         *mailer.Mailer
-	Render         = render.New()
-	RedirectBack   = redirect_back.New(&redirect_back.Config{
+	Root         = os.Getenv("GOPATH") + "/src/github.com/qorpress/qorpress-example"
+	Mailer       *mailer.Mailer
+	Render       = render.New()
+	RedirectBack = redirect_back.New(&redirect_back.Config{
 		SessionManager:  manager.SessionManager,
 		IgnoredPrefixes: []string{"/auth"},
 	})

@@ -1,9 +1,9 @@
 package funcmapmaker
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
-	"fmt"
 
 	"github.com/qorpress/action_bar"
 	"github.com/qorpress/i18n/inline_edit"

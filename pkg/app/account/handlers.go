@@ -18,7 +18,7 @@ type Controller struct {
 // Profile profile show page
 func (ctrl Controller) Profile(w http.ResponseWriter, req *http.Request) {
 	var (
-		currentUser                     = utils.GetCurrentUser(req)
+		currentUser = utils.GetCurrentUser(req)
 		// tx                              = utils.GetDB(req)
 	)
 
@@ -31,4 +31,3 @@ func (ctrl Controller) Profile(w http.ResponseWriter, req *http.Request) {
 func (ctrl Controller) Update(w http.ResponseWriter, req *http.Request) {
 	// FIXME
 }
-

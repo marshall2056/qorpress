@@ -8,12 +8,12 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/qorpress/l10n"
+	"github.com/qorpress/media/media_library"
 	"github.com/qorpress/publish2"
 	qor_seo "github.com/qorpress/seo"
 	"github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
 	"github.com/qorpress/validations"
-	"github.com/qorpress/media/media_library"
 
 	"github.com/qorpress/qorpress-example/pkg/models/seo"
 )
@@ -22,20 +22,20 @@ type Post struct {
 	gorm.Model
 	l10n.Locale
 	sorting.SortingDESC
-	Name                  string
-	NameWithSlug          slug.Slug `l10n:"sync"`
-	Featured              bool
-	Code                  string       `l10n:"sync"`
-	CategoryID            uint         `l10n:"sync"`
+	Name         string
+	NameWithSlug slug.Slug `l10n:"sync"`
+	Featured     bool
+	Code         string `l10n:"sync"`
+	CategoryID   uint   `l10n:"sync"`
 	//Categories []Category `gorm:"many2many:post_categories" l10n:"sync"`
-	Category              Category     `l10n:"sync"`
-	Collections           []Collection `l10n:"sync" gorm:"many2many:post_collections;"`
-	Tags         		  []Tag    	   `l10n:"sync" gorm:"many2many:post_tags"`
-	MainImage             media_library.MediaBox
-	Images         		  media_library.MediaBox
-	Description           string           `gorm:"type:longtext"`
-	PostProperties        PostProperties `sql:"type:text"`
-	Seo                   qor_seo.Setting
+	Category       Category     `l10n:"sync"`
+	Collections    []Collection `l10n:"sync" gorm:"many2many:post_collections;"`
+	Tags           []Tag        `l10n:"sync" gorm:"many2many:post_tags"`
+	MainImage      media_library.MediaBox
+	Images         media_library.MediaBox
+	Description    string         `gorm:"type:longtext"`
+	PostProperties PostProperties `sql:"type:text"`
+	Seo            qor_seo.Setting
 	publish2.Version
 	publish2.Schedule
 	publish2.Visible
@@ -43,10 +43,10 @@ type Post struct {
 
 type PostVariation struct {
 	gorm.Model
-	PostID *uint
-	Post   Post
-	Featured          bool
-	Images            media_library.MediaBox
+	PostID   *uint
+	Post     Post
+	Featured bool
+	Images   media_library.MediaBox
 }
 
 func (post Post) GetID() uint {

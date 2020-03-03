@@ -95,8 +95,8 @@ func SetupWidget(Admin *admin.Admin) {
 	type modelBuyLinkSetting struct {
 		PostName string
 		// Price       string
-		ButtonName  string
-		Link        string
+		ButtonName string
+		Link       string
 	}
 
 	type imageSetting struct {
@@ -139,15 +139,15 @@ func SetupWidget(Admin *admin.Admin) {
 		},
 	})
 	/*
-	banner_editor.RegisterElement(&banner_editor.Element{
-		Icon:     "<i class=material-icons>format_list_bulleted</i>",
-		Name:     "Add model buy block",
-		Template: "model_buy_link",
-		Resource: modelBuyLink,
-		Context: func(c *admin.Context, r interface{}) interface{} {
-			return r.(banner_editor.QorBannerEditorSettingInterface).GetSerializableArgument(r.(banner_editor.QorBannerEditorSettingInterface))
-		},
-	})
+		banner_editor.RegisterElement(&banner_editor.Element{
+			Icon:     "<i class=material-icons>format_list_bulleted</i>",
+			Name:     "Add model buy block",
+			Template: "model_buy_link",
+			Resource: modelBuyLink,
+			Context: func(c *admin.Context, r interface{}) interface{} {
+				return r.(banner_editor.QorBannerEditorSettingInterface).GetSerializableArgument(r.(banner_editor.QorBannerEditorSettingInterface))
+			},
+		})
 	*/
 	banner_editor.RegisterElement(&banner_editor.Element{
 		Icon:     "<i class=material-icons>format_align_justify</i>",

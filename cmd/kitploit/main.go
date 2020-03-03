@@ -38,15 +38,14 @@ import (
 	"github.com/qorpress/media/media_library"
 	"github.com/qorpress/oss/filesystem"
 	"github.com/qorpress/publish2"
+	ghclient "github.com/qorpress/qorpress/pkg/client"
+	"github.com/qorpress/qorpress/pkg/models"
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
 	"github.com/qorpress/validations"
 	log "github.com/sirupsen/logrus"
 	"github.com/x0rzkov/go-vcsurl"
-
-	ghclient "github.com/qorpress/qorpress/pkg/client"
-	"github.com/qorpress/qorpress/pkg/models"
 )
 
 var (

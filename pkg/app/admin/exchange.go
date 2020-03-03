@@ -4,9 +4,9 @@ import (
 	"github.com/qorpress/exchange"
 	"github.com/qorpress/qor"
 	"github.com/qorpress/qor/resource"
+
 	// "github.com/qorpress/qor/utils"
 	// "github.com/qorpress/validations"
-
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 )
 

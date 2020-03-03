@@ -1,24 +1,24 @@
 package posts
 
 import (
+	"fmt"
 	"log"
 	"strings"
-	"fmt"
 
 	"github.com/jinzhu/gorm"
 	"github.com/qorpress/l10n"
-	"github.com/qorpress/sorting"
 	qor_seo "github.com/qorpress/seo"
 	qor_slug "github.com/qorpress/slug"
+	"github.com/qorpress/sorting"
 	"github.com/qorpress/validations"
 )
 
 //go:generate gp-extender -structs Tag -output tag-funcs.go
 type Tag struct {
-	ID      uint `gorm:"primary_key" json:"id"`
-	Name    string `json:"name"`
-	Hashtag string `json:"hashtag"`
-	NameWithSlug qor_slug.Slug `l10n:"sync" json:"name_with_slug"`
+	ID           uint            `gorm:"primary_key" json:"id"`
+	Name         string          `json:"name"`
+	Hashtag      string          `json:"hashtag"`
+	NameWithSlug qor_slug.Slug   `l10n:"sync" json:"name_with_slug"`
 	Seo          qor_seo.Setting `json:"seo"`
 	l10n.Locale
 	sorting.Sorting
@@ -36,7 +36,6 @@ func (t Tag) DefaultPath() string {
 	}
 	return "/"
 }
-
 
 func (t *Tag) BeforeCreate() (err error) {
 	// t.LanguageCode = "en-US"

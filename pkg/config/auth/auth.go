@@ -8,8 +8,8 @@ import (
 	"github.com/qorpress/auth/providers/facebook"
 	"github.com/qorpress/auth/providers/github"
 	"github.com/qorpress/auth/providers/google"
-	"github.com/qorpress/auth/providers/twitter"
 	"github.com/qorpress/auth/providers/password"
+	"github.com/qorpress/auth/providers/twitter"
 	"github.com/qorpress/auth_themes/clean"
 	"github.com/qorpress/render"
 

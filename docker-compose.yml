@@ -32,7 +32,7 @@ services:
     ports:
     - 3306:3306
     volumes:
-    - ./docker/db:/etc/mysql/conf.d
+    - ./docker/mysql:/etc/mysql/conf.d
     - db-data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: qor_example

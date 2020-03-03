@@ -21,6 +21,7 @@ type AssetFSInterface interface {
 }
 
 var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSystem{}, Path: "pkg/config/bindatafs"}
+
 // var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSystem{}, Path: "themes/qorpress"}
 
 func init() {
@@ -100,7 +101,7 @@ func (assetFS *bindataFS) Glob(pattern string) (matches []string, err error) {
 func (assetFS *bindataFS) Compile() error {
 	fmt.Println("Compiling templates...")
 
-	// how to move that 
+	// how to move that
 	os.RemoveAll(filepath.Join(assetFS.Path, "templates"))
 	copyFiles(filepath.Join(assetFS.Path, "templates"), assetFS.viewPaths)
 	for _, fs := range assetFS.nameSpacedFS {
