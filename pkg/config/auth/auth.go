@@ -24,7 +24,10 @@ var (
 	Auth = clean.New(&auth.Config{
 		DB:         db.DB,
 		Mailer:     config.Mailer,
-		Render:     render.New(&render.Config{AssetFileSystem: bindatafs.AssetFS.NameSpace("auth")}),
+		Render:     render.New(
+			&render.Config{
+				AssetFileSystem: bindatafs.AssetFS.NameSpace("auth"),
+			}),
 		UserModel:  users.User{},
 		Redirector: auth.Redirector{RedirectBack: config.RedirectBack},
 	})
@@ -36,6 +39,7 @@ var (
 )
 
 func init() {
+
 	Auth.RegisterProvider(github.New(&config.Config.Oauth.Github))
 	Auth.RegisterProvider(google.New(&config.Config.Oauth.Google))
 	Auth.RegisterProvider(facebook.New(&config.Config.Oauth.Facebook))
