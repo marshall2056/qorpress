@@ -7,16 +7,10 @@
             <li><a href="{{ $category.DefaultPath }}">{{$category.Name}}</a></li>
           {{ end }}
       </ul>
-      <h2>Tags</h2>
-      <ul>
-          {{ range $tag := get_category_tags .CategoryID }}
-            <li><a href="{{ $tag.DefaultPath }}">{{$tag.Name}}</a></li>
-          {{ end }}
-      </ul>
     </div>
 
     <div class="grid__col is-10 post_lists">
-      <h1>{{ .CategoryName }}</h1>
+      <h1>{{ .TagName }}</h1>
       <ul class="grid ">
         {{range .Posts}}
           <li class="grid__col is-5">
@@ -28,7 +22,6 @@
                       <span class="post_name">{{.Name}}</span>
 
                       <div class="post_meta">
-
                       </div>
                     </div>
                   </div>
@@ -38,21 +31,7 @@
         {{end}}
       </ul>
       <div class="is-10">
-        <div>
-            <a href="?page=1">First</a>
-            <a href="?page={{.Pagination.Prev}}">Prev</a>
-            {{range .Pagination.Pages 2 2}}
-                {{if eq . 0}}
-                    <a class="disabled">...</a>
-                {{else if eq $.Page .}}
-                    <a class="active">{{.}}</a>
-                {{else}}
-                    <a href="?page={{.}}">{{.}}</a>
-                {{end}}
-            {{end}}
-            <a href="?page={{.Pagination.Next}}">Next</a>
-            <a href="?page={{.Pagination.MaxPage}}">Last</a>
-        </div>
+        Multi PAGE
       </div>
     </div>
 

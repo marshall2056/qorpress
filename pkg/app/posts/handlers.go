@@ -6,7 +6,9 @@ import (
 	"strconv"
 	"log"
 
+	"github.com/k0kubun/pp"
 	"github.com/qorpress/render"
+	"github.com/acoshift/paginate"
 	"github.com/qorpress/gorm-paginator/pagination"
 
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
@@ -88,7 +90,13 @@ func (ctrl Controller) Category(w http.ResponseWriter, req *http.Request) {
 
 	lastPage := (p.Page >= p.TotalPage)
 
+	pn := paginate.New(int64(page), int64(p.Limit), int64(p.TotalRecord))
+
+	pp.Println(pn)
+
 	ctrl.View.Execute("category", map[string]interface{}{
+		"Pagination": pn,
+		"CategoryID": category.ID, 
 		"CategoryName": category.Name, 
 		"Posts": Posts, 
 		"TotalRecord": p.TotalRecord,

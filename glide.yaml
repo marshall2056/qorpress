@@ -100,3 +100,5 @@ import:
 - package: golang.org/x/crypto
   subpackages:
   - bcrypt
+- package: github.com/acoshift/paginate
+  version: v1.1.2

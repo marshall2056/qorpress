@@ -44,7 +44,6 @@ func (app App) ConfigureApplication(application *application.Application) {
 
 	application.Router.Get("/posts", controller.Index)
 	application.Router.Get("/posts/{code}", controller.Show)
-	// application.Router.Get("/{gender:^(men|women|kids)$}", controller.Gender)
 	application.Router.Get("/category/{code}", controller.Category)
 }
 
@@ -52,9 +51,6 @@ func (app App) ConfigureApplication(application *application.Application) {
 func (App) ConfigureAdmin(Admin *admin.Admin) {
 	// Produc Management
 	Admin.AddMenu(&admin.Menu{Name: "Post Management", Priority: 1})
-	// color := Admin.AddResource(&posts.Color{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -5})
-	// Admin.AddResource(&posts.Size{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -4})
-	// Admin.AddResource(&posts.Material{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -4})
 
 	category := Admin.AddResource(&posts.Category{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -3})
 	category.Meta(&admin.Meta{Name: "Categories", Type: "select_many"})
@@ -72,10 +68,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		Operations: []string{"contains"},
 		Config:     &admin.SelectOneConfig{Collection: [][]string{{"video", "Video"}, {"image", "Image"}, {"file", "File"}, {"video_link", "Video Link"}}},
 	})
-	//PostImagesResource.Filter(&admin.Filter{
-	//	Name:   "Color",
-	//	Config: &admin.SelectOneConfig{RemoteDataResource: color},
-	//})
 	PostImagesResource.Filter(&admin.Filter{
 		Name:   "Category",
 		Config: &admin.SelectOneConfig{RemoteDataResource: category},
@@ -84,7 +76,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	// Add Post
 	post := Admin.AddResource(&posts.Post{}, &admin.Config{Menu: []string{"Post Management"}})
-	// post.Meta(&admin.Meta{Name: "Gender", Config: &admin.SelectOneConfig{Collection: Genders, AllowBlank: true}})
 
 	postPropertiesRes := post.Meta(&admin.Meta{Name: "PostProperties"}).Resource
 	postPropertiesRes.NewAttrs(&admin.Section{
@@ -140,11 +131,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		Name: "Code",
 	})
 
-	//post.Filter(&admin.Filter{
-	//	Name: "Price",
-	//	Type: "number",
-	//})
-
 	post.Filter(&admin.Filter{
 		Name: "CreatedAt",
 	})
@@ -161,8 +147,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	type updateInfo struct {
 		CategoryID  uint
 		Category    *posts.Category
-		//MadeCountry string
-		//Gender      string
 	}
 
 	updateInfoRes := Admin.NewResource(&updateInfo{})
@@ -177,12 +161,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 					if newPostInfo.Category != nil {
 						post.Category = *newPostInfo.Category
 					}
-					//f newPostInfo.MadeCountry != "" {
-					//	post.MadeCountry = newPostInfo.MadeCountry
-					//}
-					//if newPostInfo.Gender != "" {
-					//	post.Gender = newPostInfo.Gender
-					//}
 					argument.Context.GetDB().Save(post)
 				}
 			}
@@ -193,7 +171,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	post.UseTheme("grid")
 
-	post.SearchAttrs("Name", "Code", "Category.Name", "Brand.Name")
+	post.SearchAttrs("Name", "Code", "Category.Name", "Tag.Name")
 	post.IndexAttrs("MainImageURL", "Name", "Featured", "VersionName", "PublishLiveNow")
 	post.EditAttrs(
 		&admin.Section{
@@ -214,12 +192,12 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 				{"Category"},
 				{"Collections"},
 			}},
+		"Tags",
 		"PostProperties",
 		"Description",
-		// "ColorVariations",
 		"PublishReady",
 	)
-	// post.ShowAttrs(post.EditAttrs())
+	post.ShowAttrs(post.EditAttrs())
 	post.NewAttrs(post.EditAttrs())
 
 	post.Action(&admin.Action{

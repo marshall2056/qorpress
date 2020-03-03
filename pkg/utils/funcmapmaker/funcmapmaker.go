@@ -3,6 +3,7 @@ package funcmapmaker
 import (
 	"html/template"
 	"net/http"
+	"fmt"
 
 	"github.com/qorpress/action_bar"
 	"github.com/qorpress/i18n/inline_edit"
@@ -11,6 +12,7 @@ import (
 	"github.com/qorpress/session"
 	"github.com/qorpress/session/manager"
 	"github.com/qorpress/widget"
+	// "github.com/k0kubun/pp"
 
 	"github.com/qorpress/qorpress-example/pkg/app/admin"
 	"github.com/qorpress/qorpress-example/pkg/config/i18n"
@@ -71,6 +73,19 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 
 		funcMap["get_categories"] = func() (categories []posts.Category) {
 			utils.GetDB(req).Find(&categories)
+			return
+		}
+
+		funcMap["get_category_tags"] = func(catId uint) (tags []posts.Tag) {
+			query := fmt.Sprintf(`
+				SELECT T.*
+				FROM (POSTS S, TAGS T)
+				INNER JOIN POST_TAGS ST ON S.ID = ST.POST_ID 
+				INNER JOIN TAGS ON ST.TAG_ID = T.ID 
+				WHERE S.CATEGORY_ID=%d LIMIT 100`, catId)
+			utils.GetDB(req).Raw(query).Scan(&tags)
+			// pp.Println("tags:", tags)
+			// fmt.Println(query)
 			return
 		}
 

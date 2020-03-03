@@ -1,5 +1,5 @@
-hash: ae2f4da352070fefc65892a034b5c24b5f9f86eaa663a6a85efce491072cd490
-updated: 2020-03-02T17:00:18.611424+01:00
+hash: 5b51064faa7a760cb8bdd48de90b7239af2d7bf437e02f2e8352d67a7af1da14
+updated: 2020-03-03T07:34:12.740647+01:00
 imports:
 - name: cloud.google.com/go
   version: c1a84217fa5f56019d4bd3487f0b6e61a64999a7
@@ -11,10 +11,12 @@ imports:
   - develop/aws_manager
 - name: enterprise.getqor.com/promotion
   version: ""
+- name: github.com/acoshift/paginate
+  version: 2bbc1d85b93e56780b649a0941365f91ed43f14a
 - name: github.com/asaskevich/govalidator
   version: 475eaeb164960a651e97470412a7d3b0c5036105
 - name: github.com/aws/aws-sdk-go
-  version: 90ec15848eb44d569328d31dcc175fed0f7df961
+  version: d638243b7b0421c843469bce46b55aef23315202
   subpackages:
   - aws
   - aws/arn
@@ -315,7 +317,7 @@ imports:
   subpackages:
   - backend/diskcache
 - name: golang.org/x/crypto
-  version: 2aa609cf4a9d7d1126360de73b55b6002f9e052a
+  version: 78000ba7a073cafc0278790f6bce552a0f25850e
   subpackages:
   - bcrypt
   - blowfish
