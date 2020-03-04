@@ -30,7 +30,7 @@ require (
 	github.com/gorilla/css v1.0.1-0.20190627041119-4940b8d78103 // indirect
 	github.com/gorilla/securecookie v1.1.2-0.20191028042304-61b4ad17eb88 // indirect
 	github.com/gorilla/sessions v1.2.1-0.20200105164144-15ff35117046 // indirect
-	github.com/gosimple/slug v1.9.1-0.20191111214030-853565075b0c // indirect
+	github.com/gosimple/slug v1.9.1-0.20191111214030-853565075b0c
 	github.com/h2non/filetype v1.0.12
 	github.com/headzoo/surf v1.0.0 // indirect
 	github.com/headzoo/ut v0.0.0-20181013193318-a13b5a7a02ca // indirect
@@ -109,7 +109,7 @@ require (
 	google.golang.org/appengine v1.6.6-0.20191219230319-b6ce0843b556 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df // indirect
-	gopkg.in/loremipsum.v1 v1.1.0 // indirect
+	gopkg.in/loremipsum.v1 v1.1.0
 	gopkg.in/sourcegraph/go-vcsurl.v1 v1.0.0-20131114132947-6b12603ea6fd // indirect
 	gopkg.in/yaml.v2 v2.2.8 // indirect
 )

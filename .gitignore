@@ -57,7 +57,7 @@ npm-debug.log
 
 config/qorpress.yml
 public/microsites/*
-vendor/*
+# vendor/*
 .DS_Store
 
 *_env
