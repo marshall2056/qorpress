@@ -25,7 +25,7 @@ func init() {
 	AutoMigrate(&asset_manager.AssetManager{})
 
 	AutoMigrate(&posts.Post{}, &posts.PostVariation{}, &posts.PostImage{})
-	AutoMigrate(&posts.Category{}, &posts.Tag{}, &posts.Collection{})
+	AutoMigrate(&posts.Category{}, &posts.Tag{}, &posts.Collection{}, &posts.Comment{})
 
 	AutoMigrate(&users.User{}, &users.Address{})
 

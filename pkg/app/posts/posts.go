@@ -58,6 +58,8 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	collection := Admin.AddResource(&posts.Collection{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
 
+	Admin.AddResource(&posts.Comment{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
+
 	Admin.AddResource(&posts.Tag{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
 
 	// Add PostImage as Media Libraray

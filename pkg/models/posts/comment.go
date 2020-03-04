@@ -14,13 +14,13 @@ type Comment struct {
 	Content string `json:"name"`
 }
 
-func (t Tag) Validate(db *gorm.DB) {
-	if strings.TrimSpace(t.Content) == "" {
-		db.AddError(validations.NewError(t, "Name", "Comment can not be empty"))
+func (c Comment) Validate(db *gorm.DB) {
+	if strings.TrimSpace(c.Content) == "" {
+		db.AddError(validations.NewError(c, "Name", "Comment can not be empty"))
 	}
 }
 
-func (t *Tag) BeforeCreate() (err error) {
-	log.Printf("======> New comment: %#v\n", t.Content)
+func (c *Comment) BeforeCreate() (err error) {
+	log.Printf("======> New comment: %#v\n", c.Content)
 	return nil
 }
