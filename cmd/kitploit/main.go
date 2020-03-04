@@ -6,19 +6,16 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
-	"math/rand"
-	"strconv"
 
-	"github.com/qorpress/auth/providers/password"
-	qoradmin "github.com/qorpress/admin"
-	slugger "github.com/gosimple/slug"
 	"github.com/corpix/uarand"
 	badger "github.com/dgraph-io/badger"
 	"github.com/gocolly/colly/v2"
@@ -27,6 +24,7 @@ import (
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/parser"
 	"github.com/google/go-github/v29/github"
+	slugger "github.com/gosimple/slug"
 	"github.com/h2non/filetype"
 	"github.com/iancoleman/strcase"
 	"github.com/jinzhu/gorm"
@@ -35,8 +33,11 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/nozzle/throttler"
 	cmap "github.com/orcaman/concurrent-map"
+	qoradmin "github.com/qorpress/admin"
 	"github.com/qorpress/auth/auth_identity"
+	"github.com/qorpress/auth/providers/password"
 	i18n_database "github.com/qorpress/i18n/backends/database"
+
 	// "github.com/qorpress/l10n"
 	"github.com/qorpress/media"
 	"github.com/qorpress/media/asset_manager"
@@ -47,15 +48,17 @@ import (
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
+
 	// "github.com/qorpress/validations"
+	"github.com/qorpress/notification"
 	log "github.com/sirupsen/logrus"
 	"github.com/x0rzkov/go-vcsurl"
-	"github.com/qorpress/notification"
+
 	// "github.com/qorpress/notification/channels/database"
+	"github.com/jinzhu/now"
 	"github.com/qorpress/banner_editor"
 	"github.com/qorpress/help"
 	"github.com/qorpress/media/oss"
-	"github.com/jinzhu/now"
 	"github.com/qorpress/qor"
 	loremipsum "gopkg.in/loremipsum.v1"
 
@@ -74,22 +77,22 @@ var (
 	loremIpsumGenerator = loremipsum.NewWithSeed(1234)
 	AdminUser           *users.User
 	Notification        = notification.New(&notification.Config{})
-	clientManager *ghclient.ClientManager
-	clientGH      *ghclient.GHClient
-	store         *badger.DB
-	DB            *gorm.DB
-	storage       *filesystem.FileSystem
-	cachePath     = "./shared/data/httpcache"
-	storagePath   = "./shared/data/badger"
-	debug         = false
-	isSelenium    = false
-	isTwitter     = false
-	isFollow      = true
-	isStar        = true
-	isReadme      = true
-	logLevelStr   = "info"
-	maxTweetLen   = 280
-	addMedia      = false
+	clientManager       *ghclient.ClientManager
+	clientGH            *ghclient.GHClient
+	store               *badger.DB
+	DB                  *gorm.DB
+	storage             *filesystem.FileSystem
+	cachePath           = "./shared/data/httpcache"
+	storagePath         = "./shared/data/badger"
+	debug               = false
+	isSelenium          = false
+	isTwitter           = false
+	isFollow            = true
+	isStar              = true
+	isReadme            = true
+	logLevelStr         = "info"
+	maxTweetLen         = 280
+	addMedia            = false
 	Tables              = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{}, &users.Address{},
@@ -336,17 +339,17 @@ func main() {
 				category := findCategoryByName("News")
 
 				p := &posts.Post{
-					Name:   *repoInfo.Name,
-					Code:    "github-" + info.Username + "-" + info.Name,
-					Description:    string(html),
-					Summary: desc,
+					Name:        *repoInfo.Name,
+					Code:        "github-" + info.Username + "-" + info.Name,
+					Description: string(html),
+					Summary:     desc,
 					/*
-					Links: []posts.Link{
-						posts.Link{
-							Url:   key,
-							Title: desc,
+						Links: []posts.Link{
+							posts.Link{
+								Url:   key,
+								Title: desc,
+							},
 						},
-					},
 					*/
 					NameWithSlug: slug.Slug{"github-" + info.Username + "-" + info.Name},
 				}
@@ -404,7 +407,7 @@ func main() {
 						fmt.Printf("open file failure, got err %v", err)
 						continue
 					}
-					
+
 					head := make([]byte, 261)
 					file.Read(head)
 
@@ -419,7 +422,7 @@ func main() {
 						continue
 					}
 
-					image := posts.PostImage{Title: *repoInfo.Name, SelectedType: "image"}				
+					image := posts.PostImage{Title: *repoInfo.Name, SelectedType: "image"}
 					image.File.Scan(file)
 
 					if err := DraftDB.Create(&image).Error; err != nil {
@@ -439,7 +442,6 @@ func main() {
 							"listing": {Width: 640, Height: 640},
 						},
 					})
-
 
 					if err := DraftDB.Save(&post).Error; err != nil {
 						log.Fatalln(err)
@@ -580,7 +582,7 @@ func openFileByURL(rawURL string) (*os.File, int64, error) {
 		}
 		resp, err := check.Get(rawURL) // add a filter to check redirect
 		if err != nil {
-			return file,  0, err
+			return file, 0, err
 		}
 		defer resp.Body.Close()
 		fmt.Printf("----> Downloaded %v\n", rawURL)
@@ -1060,7 +1062,7 @@ func createUsers() {
 			now := time.Now()
 			unique := fmt.Sprintf("%v", now.Unix())
 
-			if file, _,err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
+			if file, _, err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
 				fmt.Printf("open file failure, got err %v", err)
 			} else {
 				defer file.Close()
@@ -1095,7 +1097,6 @@ func createUsers() {
 		log.Fatal(t.Err())
 	}
 }
-
 
 func createCategories() {
 	for _, c := range Seeds.Categories {

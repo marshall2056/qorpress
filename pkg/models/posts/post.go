@@ -27,14 +27,15 @@ type Post struct {
 	Featured     bool
 	Code         string `l10n:"sync"`
 	CategoryID   uint   `l10n:"sync"`
-	//Categories []Category `gorm:"many2many:post_categories" l10n:"sync"`
+	// Categories []Category `gorm:"many2many:post_categories" l10n:"sync"`
 	Category       Category     `l10n:"sync"`
 	Collections    []Collection `l10n:"sync" gorm:"many2many:post_collections;"`
 	Tags           []Tag        `l10n:"sync" gorm:"many2many:post_tags"`
+	Comments       []Comment    `l10n:"sync"`
 	MainImage      media_library.MediaBox
 	Images         media_library.MediaBox
 	Description    string         `gorm:"type:longtext"`
-	Summary    string         `gorm:"type:mediumtext"`
+	Summary        string         `gorm:"type:mediumtext"`
 	PostProperties PostProperties `sql:"type:text"`
 	Seo            qor_seo.Setting
 	publish2.Version

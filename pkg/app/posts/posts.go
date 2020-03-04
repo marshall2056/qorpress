@@ -105,7 +105,6 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		},
 	}})
 
-
 	post.Meta(&admin.Meta{Name: "MainImageURL", Valuer: func(record interface{}, context *qor.Context) interface{} {
 		if p, ok := record.(*posts.Post); ok {
 			result := bytes.NewBufferString("")

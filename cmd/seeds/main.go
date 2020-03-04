@@ -334,25 +334,25 @@ func createPosts() {
 		image := posts.PostImage{Title: postName, SelectedType: "image"}
 
 		//for j := 0; j < numberSubImgs; j++ {
-			if file, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text=" + loremIpsumGenerator.Words(2)); err != nil {
-				fmt.Printf("open file failure, got err %v", err)
-			} else {
-				defer file.Close()
-				image.File.Scan(file)
-			}
-			if err := DraftDB.Create(&image).Error; err != nil {
-				log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
-			}
+		if file, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text=" + loremIpsumGenerator.Words(2)); err != nil {
+			fmt.Printf("open file failure, got err %v", err)
+		} else {
+			defer file.Close()
+			image.File.Scan(file)
+		}
+		if err := DraftDB.Create(&image).Error; err != nil {
+			log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
+		}
 
-			post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
-				Sizes: map[string]*media.Size{
-					"main":    {Width: 560, Height: 700},
-					"icon":    {Width: 50, Height: 50},
-					"preview": {Width: 300, Height: 300},
-					"listing": {Width: 640, Height: 640},
-				},
-			})
-			DraftDB.Save(&post)
+		post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+			Sizes: map[string]*media.Size{
+				"main":    {Width: 560, Height: 700},
+				"icon":    {Width: 50, Height: 50},
+				"preview": {Width: 300, Height: 300},
+				"listing": {Width: 640, Height: 640},
+			},
+		})
+		DraftDB.Save(&post)
 		//}
 
 		if len(post.MainImage.Files) == 0 {
