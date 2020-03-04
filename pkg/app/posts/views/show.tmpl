@@ -2,14 +2,11 @@
 <link type="text/css" rel="stylesheet" src="/dist/home_posts.css" />
 
 <div class="container posts__details">
-  <div class="col-lg-9 post-content">
+  <div class="post-content">
     {{with .CurrentVariation }}
         <div class="grid">
             <div class="swiper-container posts__gallery--top">
               <ul class="slides">
-                {{range $image := .MainImage.Files}}
-                  <li style="background-image:url({{$image.Url}})"></li>
-                {{end}}
                 {{range $image := .Images.Files}}
                   <li style="background-image:url({{$image.Url}})"></li>
                 {{end}}
@@ -18,9 +15,6 @@
 
             <div class="swiper-container posts__gallery--thumbs">
               <ul class="slides">
-                {{range $image := .MainImage.Files}}
-                  <li style="background-image:url({{$image.Url}})"></li>
-                {{end}}
                 {{range $image := .Images.Files}}
                   <li style="background-image:url({{$image.Url}})"></li>
                 {{end}}
@@ -29,18 +23,22 @@
 
         </div>
 
-        <div class="grid posts__info">
+        <div class="grid posts__info is-12">
 
-          <div class="grid__col is-12">
+          <div class="grid__col is-9">
             <h6>{{ t "post.description" }}</h6>
             <p>{{raw .Description}}</p>
           </div>
 
-          <div class="grid__col is-12">
+          <div class="is-3 posts__tweets">
+            <h6>Latest tweets</h6>
+          </div>
+
+          <div class="grid__col is-9">
             <h6>{{ t "post.specs" }}</h6>
           </div>
 
-          <div class="grid__col is-12">
+          <div class="grid__col is-9">
             <h6>{{ t "post.tags" }}</h6>
           </div>
 
@@ -68,8 +66,5 @@
     <!-- end: featured post widget -->
   </div>
 
-  <div class="col-lg-3">
-    test side bar
-  </div>
 </div>
 <script src="/vendors/jquery.flexslider-min.js"></script>

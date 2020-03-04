@@ -44,7 +44,7 @@ import (
 	"github.com/qorpress/qorpress-example/pkg/config/auth"
 	"github.com/qorpress/qorpress-example/pkg/config/db"
 	_ "github.com/qorpress/qorpress-example/pkg/config/db/migrations"
-	"github.com/qorpress/qorpress-example/pkg/models/blogs"
+	"github.com/qorpress/qorpress-example/pkg/models/cms"
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 	adminseo "github.com/qorpress/qorpress-example/pkg/models/seo"
 	"github.com/qorpress/qorpress-example/pkg/models/settings"
@@ -62,7 +62,7 @@ var (
 		&posts.Post{}, &posts.PostImage{},
 		&settings.Setting{},
 		&adminseo.MySEOSetting{},
-		&blogs.Article{},
+		&cms.Article{},
 		&settings.MediaLibrary{},
 		&banner_editor.QorBannerEditorSetting{},
 
@@ -582,7 +582,7 @@ func createHelps() {
 func createArticles() {
 	for idx := 1; idx <= 10; idx++ {
 		title := fmt.Sprintf("Article %v", idx)
-		article := blogs.Article{Title: title}
+		article := cms.Article{Title: title}
 		article.PublishReady = true
 		DraftDB.Create(&article)
 

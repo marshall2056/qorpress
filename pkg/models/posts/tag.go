@@ -42,7 +42,6 @@ func (t *Tag) SetLanguageCode(code string) {
 }
 
 func (t *Tag) BeforeCreate() (err error) {
-	// t.LanguageCode = "en-US"
 	log.Printf("======> New tag: %#v\n", t.Name)
 	// to do: check that the # is the prefix of the string
 	return nil

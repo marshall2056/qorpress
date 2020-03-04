@@ -10,14 +10,10 @@ import (
 
 	"github.com/qorpress/qorpress-example/pkg/app/admin"
 	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/models/blogs"
-
-	// "github.com/qorpress/qorpress-example/pkg/models/orders"
+	"github.com/qorpress/qorpress-example/pkg/models/cms"
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 	"github.com/qorpress/qorpress-example/pkg/models/seo"
 	"github.com/qorpress/qorpress-example/pkg/models/settings"
-
-	// "github.com/qorpress/qorpress-example/pkg/models/stores"
 	"github.com/qorpress/qorpress-example/pkg/models/users"
 )
 
@@ -25,7 +21,8 @@ func init() {
 	AutoMigrate(&asset_manager.AssetManager{})
 
 	AutoMigrate(&posts.Post{}, &posts.PostVariation{}, &posts.PostImage{})
-	AutoMigrate(&posts.Category{}, &posts.Tag{}, &posts.Collection{}, &posts.Comment{})
+
+	AutoMigrate(&posts.Category{}, &posts.Tag{}, &posts.Collection{}, &posts.Comment{}, &posts.Link{})
 
 	AutoMigrate(&users.User{}, &users.Address{})
 
@@ -37,7 +34,7 @@ func init() {
 
 	AutoMigrate(&admin.QorWidgetSetting{})
 
-	AutoMigrate(&blogs.Page{}, &blogs.Article{})
+	AutoMigrate(&cms.Page{}, &cms.Article{})
 
 	AutoMigrate(&seo.MySEOSetting{})
 

@@ -66,7 +66,7 @@ import (
 	"github.com/qorpress/qorpress-example/pkg/config/auth"
 	"github.com/qorpress/qorpress-example/pkg/config/db"
 	_ "github.com/qorpress/qorpress-example/pkg/config/db/migrations"
-	"github.com/qorpress/qorpress-example/pkg/models/blogs"
+	"github.com/qorpress/qorpress-example/pkg/models/cms"
 	"github.com/qorpress/qorpress-example/pkg/models/posts"
 	adminseo "github.com/qorpress/qorpress-example/pkg/models/seo"
 	"github.com/qorpress/qorpress-example/pkg/models/settings"
@@ -100,7 +100,7 @@ var (
 		&posts.Post{}, &posts.PostImage{},
 		&settings.Setting{},
 		&adminseo.MySEOSetting{},
-		&blogs.Article{},
+		&cms.Article{},
 		&settings.MediaLibrary{},
 		&banner_editor.QorBannerEditorSetting{},
 
@@ -211,18 +211,10 @@ func main() {
 	q.Run(c)
 
 	log.Println("All github URLs:")
-	// log.Println("Collected", len(githubUrls), "URLs")
 	log.Println("Collected cmap: ", m.Count(), "URLs")
 
 	t := throttler.New(2, m.Count())
 
-	// storage = filesystem.New("./public")
-
-	// createSeo(DB)
-	// createCategories(DB)
-
-	// counter := 1
-	// counterFollow := 1
 	m.IterCb(func(key string, v interface{}) {
 		var topics string
 		_, ok := v.(string)
@@ -293,7 +285,9 @@ func main() {
 							imgLinksRel[i] = rawURL
 						}
 					}
+					imgLinksRel[i] = strings.Replace(imgLinksRel[i], "/blob/", "/raw/", -1)
 				}
+
 				imgLinks = append(imgLinks, imgLinksRel...)
 				imgLinks = removeDuplicates(imgLinks)
 				// pp.Println(imgLinksRel)
@@ -343,14 +337,13 @@ func main() {
 					Code:        "github-" + info.Username + "-" + info.Name,
 					Description: string(html),
 					Summary:     desc,
-					/*
-						Links: []posts.Link{
-							posts.Link{
-								Url:   key,
-								Title: desc,
-							},
+					Links: []posts.Link{
+						posts.Link{
+							Url:   key,
+							Name: "Download Link",
+							Title: desc,
 						},
-					*/
+					},
 					NameWithSlug: slug.Slug{"github-" + info.Username + "-" + info.Name},
 				}
 
@@ -412,13 +405,13 @@ func main() {
 					file.Read(head)
 
 					if filetype.IsImage(head) {
-						log.Println("File is an image")
+						log.Println("File is an image: ", img)
 					} else {
-						log.Println("Not an image")
+						log.Println("Not an image", img)
 						continue
 					}
 
-					if size < 10000 {
+					if size < 5000 {
 						continue
 					}
 
@@ -466,6 +459,46 @@ func main() {
 					}
 
 					file.Close()
+				}
+
+				if len(imgLinks) == 0 {
+					image := posts.PostImage{Title: "default image", SelectedType: "image"}
+					if file, _, err := openFileByURL("https://dummyimage.com/700/09f/fff.png"); err != nil {
+						fmt.Printf("open file failure, got err %v", err)
+					} else {
+						defer file.Close()
+						image.File.Scan(file)
+					}
+
+					if err := DraftDB.Create(&image).Error; err != nil {
+						log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
+					}
+
+					post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+						Sizes: map[string]*media.Size{
+							"main":    {Width: 560, Height: 700},
+							"icon":    {Width: 50, Height: 50},
+							"preview": {Width: 300, Height: 300},
+							"listing": {Width: 640, Height: 640},
+						},
+					})
+					DraftDB.Save(&post)
+
+					if len(post.MainImage.Files) == 0 {
+						post.MainImage.Files = []media_library.File{{
+							ID:  json.Number(fmt.Sprint(image.ID)),
+							Url: image.File.URL(),
+						}}
+						post.MainImage.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+							Sizes: map[string]*media.Size{
+								"main":    {Width: 560, Height: 700},
+								"icon":    {Width: 50, Height: 50},
+								"preview": {Width: 300, Height: 300},
+								"listing": {Width: 640, Height: 640},
+							},
+						})
+						DraftDB.Save(&post)
+					}
 				}
 
 				return nil
@@ -1402,7 +1435,7 @@ func createHelps() {
 func createArticles() {
 	for idx := 1; idx <= 10; idx++ {
 		title := fmt.Sprintf("Article %v", idx)
-		article := blogs.Article{Title: title}
+		article := cms.Article{Title: title}
 		article.PublishReady = true
 		DraftDB.Create(&article)
 

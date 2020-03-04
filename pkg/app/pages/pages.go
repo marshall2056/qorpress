@@ -14,7 +14,7 @@ import (
 	adminapp "github.com/qorpress/qorpress-example/pkg/app/admin"
 	"github.com/qorpress/qorpress-example/pkg/config/application"
 	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/models/blogs"
+	"github.com/qorpress/qorpress-example/pkg/models/cms"
 	"github.com/qorpress/qorpress-example/pkg/utils/funcmapmaker"
 )
 
@@ -48,7 +48,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	Admin.AddMenu(&admin.Menu{Name: "Pages Management", Priority: 4})
 
 	// Blog Management
-	article := Admin.AddResource(&blogs.Article{}, &admin.Config{Menu: []string{"Pages Management"}})
+	article := Admin.AddResource(&cms.Article{}, &admin.Config{Menu: []string{"Pages Management"}})
 	article.IndexAttrs("ID", "VersionName", "ScheduledStartAt", "ScheduledEndAt", "Author", "Title")
 
 	// Setup pages
@@ -75,7 +75,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	page := page_builder.New(&page_builder.Config{
 		Admin:       Admin,
-		PageModel:   &blogs.Page{},
+		PageModel:   &cms.Page{},
 		Containers:  PageBuilderWidgets,
 		AdminConfig: &admin.Config{Name: "Pages", Menu: []string{"Pages Management"}, Priority: 1},
 	})

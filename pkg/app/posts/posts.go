@@ -58,6 +58,8 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	collection := Admin.AddResource(&posts.Collection{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
 
+	Admin.AddResource(&posts.Link{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
+
 	Admin.AddResource(&posts.Comment{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
 
 	Admin.AddResource(&posts.Tag{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -2})
@@ -201,6 +203,8 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 		"Description",
 		"PublishReady",
 		"Images",
+		"Links",
+		"Comments",
 	)
 	post.ShowAttrs(post.EditAttrs())
 	post.NewAttrs(post.EditAttrs())
