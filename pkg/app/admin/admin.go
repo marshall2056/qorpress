@@ -7,6 +7,7 @@ import (
 	"github.com/qorpress/media/asset_manager"
 	"github.com/qorpress/media/media_library"
 
+	// "github.com/qorpress/qorpress-example/pkg/models/seo"
 	"github.com/qorpress/qorpress-example/pkg/config/application"
 	"github.com/qorpress/qorpress-example/pkg/config/i18n"
 	"github.com/qorpress/qorpress-example/pkg/models/settings"
@@ -52,6 +53,11 @@ func (app App) ConfigureApplication(application *application.Application) {
 	// Add action bar
 	ActionBar = action_bar.New(Admin)
 	ActionBar.RegisterAction(&action_bar.Action{Name: "Admin Dashboard", Link: "/admin"})
+
+	ActionBar.RegisterAction(&action_bar.Action{
+		Name: "New Post",
+		Link: "/admin",
+	})
 
 	// Add Translations
 	Admin.AddResource(i18n.I18n, &admin.Config{Menu: []string{"Site Management"}, Priority: -1})

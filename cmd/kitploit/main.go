@@ -37,8 +37,6 @@ import (
 	"github.com/qorpress/auth/auth_identity"
 	"github.com/qorpress/auth/providers/password"
 	i18n_database "github.com/qorpress/i18n/backends/database"
-
-	// "github.com/qorpress/l10n"
 	"github.com/qorpress/media"
 	"github.com/qorpress/media/asset_manager"
 	"github.com/qorpress/media/media_library"
@@ -48,13 +46,9 @@ import (
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
-
-	// "github.com/qorpress/validations"
 	"github.com/qorpress/notification"
 	log "github.com/sirupsen/logrus"
 	"github.com/x0rzkov/go-vcsurl"
-
-	// "github.com/qorpress/notification/channels/database"
 	"github.com/jinzhu/now"
 	"github.com/qorpress/banner_editor"
 	"github.com/qorpress/help"
@@ -85,19 +79,15 @@ var (
 	cachePath           = "./shared/data/httpcache"
 	storagePath         = "./shared/data/badger"
 	debug               = false
-	isSelenium          = false
-	isTwitter           = false
-	isFollow            = true
-	isStar              = true
-	isReadme            = true
 	logLevelStr         = "info"
-	maxTweetLen         = 280
 	addMedia            = false
+	minComments 		= 1
+	maxComments 		= 5
 	Tables              = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{}, &users.Address{},
 		&posts.Category{}, &posts.Collection{}, &posts.Tag{},
-		&posts.Post{}, &posts.PostImage{},
+		&posts.Post{}, &posts.PostImage{}, &posts.Link{}, &posts.Comment{},
 		&settings.Setting{},
 		&adminseo.MySEOSetting{},
 		&cms.Article{},
@@ -213,7 +203,7 @@ func main() {
 	log.Println("All github URLs:")
 	log.Println("Collected cmap: ", m.Count(), "URLs")
 
-	t := throttler.New(2, m.Count())
+	t := throttler.New(1, m.Count())
 
 	m.IterCb(func(key string, v interface{}) {
 		var topics string
@@ -339,7 +329,7 @@ func main() {
 					Summary:     desc,
 					Links: []posts.Link{
 						posts.Link{
-							Url:   key,
+							URL:   key,
 							Name: "Download Link",
 							Title: desc,
 						},
@@ -378,6 +368,19 @@ func main() {
 						log.Fatalln(err)
 					}
 					post.Tags = append(post.Tags, *t)
+				}
+
+				countComments := rand.Intn(maxComments-minComments) + minComments
+				for i := 0; i < countComments; i++ {
+					content := loremIpsumGenerator.Paragraphs(2)
+					c := &posts.Comment{
+						Content: content,
+					}
+					comment, err := createComment(DraftDB, c)
+					if err != nil {
+						panic(err)
+					}
+					post.Comments = append(post.Comments, *comment)
 				}
 
 				// for _, video := range videoLinks {
@@ -555,21 +558,10 @@ func removeContents(dir string) error {
 	return nil
 }
 
-/*
-func createCategories(db *gorm.DB) error {
-	categories := []string{"article", "publication", "blog", "video", "press_release", "event", "news"}
-	for _, category := range categories {
-		c := &posts.Category{
-			Name: category,
-			Code: category,
-		}
-		if _, err := createOrUpdateCategory(db, c); err != nil {
-			return err
-		}
-	}
-	return nil
+func createComment(db *gorm.DB, comment *posts.Comment) (*posts.Comment, error) {
+	err := db.Set("l10n:locale", "en-US").Create(comment).Error
+	return comment, err
 }
-*/
 
 func createOrUpdateCategory(db *gorm.DB, category *posts.Category) (*posts.Category, error) {
 	var existingCategory posts.Category
@@ -1132,6 +1124,7 @@ func createUsers() {
 }
 
 func createCategories() {
+	pp.Println("Seeds.Categories: ", Seeds.Categories)
 	for _, c := range Seeds.Categories {
 		category := posts.Category{}
 		category.Name = c.Name

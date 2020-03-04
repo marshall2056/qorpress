@@ -63,7 +63,10 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 
 		// Add `action_bar` method
 		funcMap["render_action_bar"] = func() template.HTML {
-			return admin.ActionBar.Actions(action_bar.Action{Name: "Edit SEO", Link: seo.SEOCollection.SEOSettingURL("/help")}).Render(w, req)
+			return admin.ActionBar.Actions(action_bar.Action{
+				Name: "Edit SEO", 
+				Link: seo.SEOCollection.SEOSettingURL("/help"),
+			}).Render(w, req)
 		}
 
 		funcMap["render_seo_tag"] = func() template.HTML {

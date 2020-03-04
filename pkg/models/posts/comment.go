@@ -1,7 +1,6 @@
 package posts
 
 import (
-	"log"
 	"strings"
 
 	"github.com/jinzhu/gorm"
@@ -10,8 +9,8 @@ import (
 
 //go:generate gp-extender -structs Tag -output tag-funcs.go
 type Comment struct {
-	ID      uint   `gorm:"primary_key" json:"id"`
-	Content string `json:"name"`
+	gorm.Model
+	Content string `gorm:"type:mediumtext" json:"content"`
 }
 
 func (c Comment) Validate(db *gorm.DB) {
@@ -21,6 +20,7 @@ func (c Comment) Validate(db *gorm.DB) {
 }
 
 func (c *Comment) BeforeCreate() (err error) {
-	log.Printf("======> New comment: %#v\n", c.Content)
+	// check if spam (black list, maybe a detector)
+	// log.Printf("======> New comment: %#v\n", c.Content)
 	return nil
 }

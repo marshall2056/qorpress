@@ -50,7 +50,7 @@ func (app App) ConfigureApplication(application *application.Application) {
 
 // ConfigureAdmin configure admin interface
 func (App) ConfigureAdmin(Admin *admin.Admin) {
-	// Produc Management
+	// Post Management
 	Admin.AddMenu(&admin.Menu{Name: "Post Management", Priority: 1})
 
 	category := Admin.AddResource(&posts.Category{}, &admin.Config{Menu: []string{"Post Management"}, Priority: -3})

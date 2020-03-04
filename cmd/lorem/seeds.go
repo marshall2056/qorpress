@@ -108,7 +108,7 @@ func init() {
 	Fake.Rand = rand.New(rand.NewSource(42))
 	rand.Seed(time.Now().UnixNano())
 
-	filepaths, _ := filepath.Glob(filepath.Join("cmd", "seeds", "data", "*.yml"))
+	filepaths, _ := filepath.Glob(filepath.Join("cmd", "lorem", "data", "*.yml"))
 	if err := configor.Load(&Seeds, filepaths...); err != nil {
 		panic(err)
 	}
