@@ -1,0 +1,28 @@
+{{define "news-card"}}
+<div class="card news-card flex-grow-1">
+    <div class="card-image">
+    {{ if .Images}}
+        <a href="/posts/{{.UUID }}"><img class="card-img-top img-fluid" src="/public{{(index .Images 0).File.URL}}"
+                                         alt=""></a>
+    {{ end }}
+
+    </div>
+    <div class="card-body">
+        <h5><a href="/posts/{{.UUID}}">{{ .Title}}</a></h5>
+    {{/*<p>{{.Body | stripSummaryTags | truncateBody 300 }}</p>*/}}
+    </div>
+{{ if .Categories}}
+    <div class="card-footer">
+        <p class="text-right">
+        {{with $c := .Categories}}
+        {{with $items := slice $c 0 1 }}
+        {{range $items}}
+            <a class="cat-list" href="/categories/{{.Name}}">{{ .Name}}</a>
+        {{end}}
+        {{end}}
+        {{end}}
+        </p>
+    </div>
+{{end}}
+</div>
+{{end}}

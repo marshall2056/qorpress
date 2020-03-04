@@ -1,0 +1,36 @@
+{{ define "home"}}
+{{template "base_header" .title}}
+<section class="jumbotron banner-header">
+    <div class="slide-item container text-center">
+        <h2 class="slide-title">Gopress</h2>
+        <p class="slide-content p-3 mt-4">New self-hosted cms in golang</p>
+    </div>
+</section>
+<section class="container programme-areas">
+    <div class="row">
+        <div class="col-lg">section 1</div>
+        <div class="col-lg">section 2</div>
+        <div class="col-lg">section 3</div>
+    </div>
+</section>
+<section class="latest-news container-fluid">
+    <div class="container">
+        <h5>Latest News</h5>
+        <div class="row post-top">
+            <div class="card-deck">
+            {{ range .postsTop}}
+                    {{template "card-item" .}}
+                {{end}}
+            </div>
+        </div>
+        <div class="row post-bottom">
+            <div class="card-deck">
+            {{ range .postsBottom}}
+            {{template "card-item" .}}
+        {{end}}
+            </div>
+        </div>
+    </div>
+</section>
+{{template "base_footer"}}
+{{end}}

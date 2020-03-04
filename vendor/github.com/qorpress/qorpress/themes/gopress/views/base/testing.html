@@ -1,0 +1,17 @@
+{{template "base_header"}}
+
+<section class="container">
+    <div class="row">
+    {{ range .albums}}
+        <div class="hovereffect">
+            <img class="img-responsive" src="{{.PrimaryPhotoExtra.Url}}" alt="">
+            <div class="t-overlay">
+                <h2>{{ .Title.Content}}</h2>
+                <a class="info align-bottom" href="#">link here</a>
+            </div>
+        </div>
+    {{end}}
+    </div>
+</section>
+
+{{template "base_footer"}}

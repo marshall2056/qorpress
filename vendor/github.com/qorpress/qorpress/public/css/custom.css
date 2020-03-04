@@ -1,0 +1,275 @@
+/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * cubano:
+ *   - http://typekit.com/eulas/00000000000000003b9afa9c
+ *   - http://typekit.com/eulas/00000000000000003b9afa9d
+ *
+ * © 2009-2018 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2018-08-09 21:23:45 UTC"}*/
+@import url("https://p.typekit.net/p.css?s=1&k=gzm2sba&ht=tk&f=15488.15493&a=10711453&app=typekit&e=css");
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+@font-face {
+    font-family: "cubano";
+    src: url("https://use.typekit.net/af/26f0fd/00000000000000003b9afa9c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3") format("woff2"), url("https://use.typekit.net/af/26f0fd/00000000000000003b9afa9c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3") format("woff"), url("https://use.typekit.net/af/26f0fd/00000000000000003b9afa9c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3") format("opentype");
+    font-style: italic;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "cubano";
+    src: url("https://use.typekit.net/af/a941cf/00000000000000003b9afa9d/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"), url("https://use.typekit.net/af/a941cf/00000000000000003b9afa9d/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"), url("https://use.typekit.net/af/a941cf/00000000000000003b9afa9d/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+    font-style: normal;
+    font-weight: 400;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+.tk-cubano, h1, h2, h3, h4 {
+    font-family: 'cubano', sans-serif;
+}
+
+#footer.container-fluid.bg-dark div.container.bg-dark div.float-right ul.list-inline {
+    margin-bottom: 0;
+}
+
+.jumbotron {
+    padding-bottom: 0;
+    padding-top: 0;
+    margin-bottom: 0;
+}
+
+span.cmsms-icon-calendar-8, span.cmsms-icon-comment-6 {
+    font-size: 0.8rem;
+}
+
+.programme-img-item {
+    border-radius: 0;
+}
+
+.programme-card-item {
+    border-width: 0;
+}
+
+.bottom-footer h4 {
+    color: #ffbd20;
+}
+
+.bottom-footer p {
+    color: #ffffff;
+    font-size: 0.8rem;
+}
+
+.home-banner {
+    background: url("/public/img/two-pots-cropped.jpg");
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 36rem;
+    position: relative;
+}
+
+.footer-bg {
+    background: url("/public/img/two-pots-cropped.jpg") no-repeat center;
+    background-color: rgba(0,0,0,0.7);
+    background-blend-mode: multiply;
+    height: 20rem;
+}
+
+.aboutus-header .jumbtron-fluid {
+    background-image: url("/public/img/About-us-header-1024x435.jpg");
+    background-size: cover;
+    height: 32rem;
+}
+
+.basefooter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
+
+/* Somebody may have cracked the equal height saga */
+.owl-carousel .owl-stage {
+    display: flex;
+}
+
+.owl-carousel .owl-item {
+    display: flex;
+    flex: 1 0 auto;
+}
+
+.owl-carousel .caption {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+}
+
+.owl-carousel .flex-text {
+    flex-grow: 1
+}
+
+.owl-carousel .thumbnail {
+    display: flex;
+    flex-direction: column;
+    margin: 0 15px;
+}
+
+.front-text {
+    padding-top: 3rem;
+    color: #ffbd20;
+}
+
+.banner-text {
+    font-size: 1.5rem;
+    color: #ffffff;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+div.front-item {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 16rem;
+}
+
+section#footer {
+    margin-bottom: 0;
+}
+
+#footer h4 {
+    text-align: center;
+    color: #ffbd20;
+    margin-top: 1rem;
+}
+
+section#about-us {
+    background-image: url("/public/img/midway.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff;
+
+}
+
+
+section#about-us h1{
+    color: #ffbd20;
+}
+ul.why-we-are{
+    list-style: none;
+}
+
+ul.why-we-are li{
+    margin-bottom: 4rem;
+}
+
+div.earth img, div.justice img, div.protest img{
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ffffff;
+    -webkit-border-radius: 2rem;
+    -moz-border-radius: 2rem;
+    border-radius: 2rem;
+
+}
+
+img.align-self-center{
+    width:4rem;
+    height: 4rem;
+}
+
+
+div.earth p, div.justice p, div.protest p{
+    width: 100%;
+}
+
+div.earth, div.justice, div.protest{
+    margin-bottom: 2rem;
+}
+
+div.flicker{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+div.flicker img{
+    margin: 0.2rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff;
+}
+
+img.gopress-logo{
+    height:75px;
+    -webkit-transition: height 0.35s ease;
+    -moz-transition: height 0.35s ease;
+    -ms-transition: height 0.35s ease;
+    -o-transition: height 0.35s ease;
+    transition: height 0.35s ease;
+}
+
+div.media-body{
+    height: 4rem;
+}
+
+div.media-body p {
+    margin-bottom: 0;
+}
+
+div.media {
+    margin-bottom: 2rem;
+}
+.scrolled{
+    height: 40px !important;
+}
+
+div.about-us-content h1 {
+    margin-top: 3rem;
+}
+div.about-us-content div.container{
+    padding-left: 0;
+}
+
+section.main{
+    margin-top: 8rem;
+}
+
+/* Bootstrap style overrides */
+.bg-dark {
+    background-color: rgba(40, 40, 40, 0.8) !important;
+}
+
+.bg-dark-scrolled{
+    background-color: rgba(0,0,0,0.5) !important;
+}
+
+a.post-title {
+    color: #000000;
+    font-family: 'cubano', sans-serif;
+}
+
+.navbar-nav li.nav-item a.nav-link {
+    color: #ffbd20;
+}
+
+nav.navbar{
+    transition: all 0.35s ease;
+}

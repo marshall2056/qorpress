@@ -1,0 +1,52 @@
+@import url("https://p.typekit.net/p.css?s=1&k=gzm2sba&ht=tk&f=15488.15493&a=10711453&app=typekit&e=css");
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+@font-face {
+    font-family: "cubano";
+    src: url("https://use.typekit.net/af/26f0fd/00000000000000003b9afa9c/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3") format("woff2"), url("https://use.typekit.net/af/26f0fd/00000000000000003b9afa9c/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3") format("woff"), url("https://use.typekit.net/af/26f0fd/00000000000000003b9afa9c/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=i4&v=3") format("opentype");
+    font-style: italic;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "cubano";
+    src: url("https://use.typekit.net/af/a941cf/00000000000000003b9afa9d/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"), url("https://use.typekit.net/af/a941cf/00000000000000003b9afa9d/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"), url("https://use.typekit.net/af/a941cf/00000000000000003b9afa9d/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+    font-style: normal;
+    font-weight: 400;
+}
+
+
+.tk-cubano, h1, h2, h3, h4 {
+    font-family: 'cubano', sans-serif;
+}
+
+section#about-us {
+    background-image: url("/public/img/midway.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff;
+
+}
+
+img.align-self-center {
+    width: 4rem;
+    height: 4rem;
+}
+
+.img-bg, .p-bg{
+    background-color:#f1b0b7;
+}
+
+.p-bg{
+    height: 4rem;
+}
+
+div.p-bg p {
+    margin-bottom: 0;
+}
+
+div.media{
+    margin-bottom: 10px;
+}

@@ -15,7 +15,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"errors"
 
+	"github.com/qorpress/grab"
 	"github.com/corpix/uarand"
 	badger "github.com/dgraph-io/badger"
 	"github.com/gocolly/colly/v2"
@@ -75,6 +77,7 @@ var (
 	clientGH            *ghclient.GHClient
 	store               *badger.DB
 	DB                  *gorm.DB
+	clientGrab 			= grab.NewClient()
 	storage             *filesystem.FileSystem
 	cachePath           = "./shared/data/httpcache"
 	storagePath         = "./shared/data/badger"
@@ -158,17 +161,17 @@ func main() {
 
 	// Create a callback on the XPath query searching for the URLs
 	c.OnXML("//sitemap/loc", func(e *colly.XMLElement) {
-		// knownUrls = append(knownUrls, e.Text)
 		q.AddURL(e.Text)
 	})
 
 	// Create a callback on the XPath query searching for the URLs
 	c.OnXML("//urlset/url/loc", func(e *colly.XMLElement) {
-		// knownUrls = append(knownUrls, e.Text)
 		q.AddURL(e.Text)
 	})
 
 	c.OnHTML("div.blog-posts.hfeed", func(e *colly.HTMLElement) {
+		// pp.Println(e)
+		// os.Exit(1)
 		e.ForEach("a[href]", func(_ int, eli *colly.HTMLElement) {
 			if strings.HasPrefix(eli.Attr("href"), "https://github.com") {
 				var vcsUrl string
@@ -574,6 +577,55 @@ func createOrUpdateCategory(db *gorm.DB, category *posts.Category) (*posts.Categ
 }
 
 func openFileByURL(rawURL string) (*os.File, int64, error) {
+	req, _ := grab.NewRequest(os.TempDir(), rawURL)
+	if req == nil {
+		return nil, 0, errors.New("could not make request.\n")		
+	}
+
+	// start download
+	fmt.Printf("Downloading %v...\n", req.URL())
+	resp := clientGrab.Do(req)
+	pp.Println(resp)
+	// fmt.Printf("  %v\n", resp.HTTPResponse.Status)
+
+	// start UI loop
+	t := time.NewTicker(500 * time.Millisecond)
+	defer t.Stop()
+
+Loop:
+	for {
+		select {
+		case <-t.C:
+			fmt.Printf("  transferred %v / %v bytes (%.2f%%)\n",
+				resp.BytesComplete(),
+				resp.Size,
+				100*resp.Progress())
+
+		case <-resp.Done:
+			// download is complete
+			break Loop
+		}
+	}
+
+	// check for errors
+	if err := resp.Err(); err != nil {
+		fmt.Fprintf(os.Stderr, "Download failed: %v\n", err)
+		// os.Exit(1)
+		return nil, 0, err
+	}
+
+	fmt.Printf("Download saved to %v \n", resp.Filename)
+	fi, err := os.Stat(resp.Filename)
+	if err != nil {
+		return nil, 0, err
+	}
+	file, _ := os.Open(resp.Filename)
+
+	return file, fi.Size(), nil
+
+}
+
+func openFileByURLOld(rawURL string) (*os.File, int64, error) {
 	if fileURL, err := url.Parse(rawURL); err != nil {
 		return nil, 0, err
 	} else {
@@ -1144,118 +1196,6 @@ func createCollections() {
 		}
 	}
 }
-
-// not used for kitploit
-/*
-func createPosts() {
-	numberPosts := 200
-	minTags := 1
-	maxTags := 10
-
-	for i := 0; i < numberPosts; i++ {
-		category := findCategoryByName("News")
-
-		post := posts.Post{}
-		post.CategoryID = category.ID
-
-		postName := loremIpsumGenerator.Words(20)
-
-		post.Name = postName
-		post.NameWithSlug = slug.Slug{createUniqueSlug(postName)}
-		post.Code = createUniqueSlug(postName)
-
-		post.Description = loremIpsumGenerator.Paragraphs(10)
-		post.PublishReady = true
-
-		if err := DraftDB.Create(&post).Error; err != nil {
-			log.Fatalf("create post (%v) failure, got err %v", post, err)
-		}
-
-		image := posts.PostImage{Title: postName, SelectedType: "image"}
-		if file, _, err := openFileByURL("https://dummyimage.com/600x400/000/fff.png&text=" + loremIpsumGenerator.Words(2)); err != nil {
-			fmt.Printf("open file failure, got err %v", err)
-		} else {
-			defer file.Close()
-			image.File.Scan(file)
-		}
-		if err := DraftDB.Create(&image).Error; err != nil {
-			log.Fatalf("create color_variation_image (%v) failure, got err %v", image, err)
-		}
-
-		Admin := qoradmin.New(&qoradmin.AdminConfig{
-			SiteName: "QOR DEMO",
-			Auth:     auth.AdminAuth{},
-			DB:       db.DB.Set(publish2.VisibleMode, publish2.ModeOff).Set(publish2.ScheduleMode, publish2.ModeOff),
-		})
-
-		post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
-			Sizes: map[string]*media.Size{
-				"main":    {Width: 560, Height: 700},
-				"icon":    {Width: 50, Height: 50},
-				"preview": {Width: 300, Height: 300},
-				"listing": {Width: 640, Height: 640},
-			},
-		})
-		DraftDB.Save(&post)
-
-		if len(post.MainImage.Files) == 0 {
-			post.MainImage.Files = []media_library.File{{
-				ID:  json.Number(fmt.Sprint(image.ID)),
-				Url: image.File.URL(),
-			}}
-			post.MainImage.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
-				Sizes: map[string]*media.Size{
-					"main":    {Width: 560, Height: 700},
-					"icon":    {Width: 50, Height: 50},
-					"preview": {Width: 300, Height: 300},
-					"listing": {Width: 640, Height: 640},
-				},
-			})
-			DraftDB.Save(&post)
-		}
-
-		// add random tags
-		countTags := rand.Intn(maxTags-minTags) + minTags
-		for i := 0; i < countTags; i++ {
-			word := loremIpsumGenerator.Word()
-			t := &posts.Tag{
-				Name: word,
-			}
-			tag, err := createOrUpdateTag(DraftDB, t)
-			if err != nil {
-				panic(err)
-			}
-			post.Tags = append(post.Tags, *tag)
-		}
-		DraftDB.Save(&post)
-
-		if i%3 == 0 {
-			start := time.Now().AddDate(0, 0, i-7)
-			end := time.Now().AddDate(0, 0, i-4)
-			post.SetVersionName("v1")
-			post.Name = postName + " - v1"
-			post.Description = strings.Replace(loremIpsumGenerator.Paragraphs(10), "\n", "<br/></br>", -1)
-			post.SetScheduledStartAt(&start)
-			post.SetScheduledEndAt(&end)
-			DraftDB.Save(&post)
-		}
-
-	}
-}
-*/
-
-/*
-func createOrUpdateTag(db *gorm.DB, tag *posts.Tag) (*posts.Tag, error) {
-	// post.Images = images
-	var existingTag posts.Tag
-	if db.Where("name = ?", tag.Name).First(&existingTag).RecordNotFound() {
-		err := db.Set("l10n:locale", "en-US").Create(tag).Error
-		return tag, err
-	}
-	tag.ID = existingTag.ID
-	return tag, db.Set("l10n:locale", "en-US").Save(tag).Error
-}
-*/
 
 func createMediaLibraries() {
 	numberMedia := 100

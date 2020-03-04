@@ -1,0 +1,30 @@
+{{define "post-detail"}}
+{{template "base_header" .title}}
+<section class="post-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 post-content">
+                <h1>{{ .post.Title}}</h1>
+                <p class="text-muted text-left">{{ .post.Created | displayDate}}</p>
+                {{ if eq (len .post.Images) 0 }}
+                {{ else }}
+                <img src="/public{{(index .post.Images 0).File.URL "big" }}" alt="" class="img-fluid">
+                {{ end }}
+            {{.post.Body | unsafeHtml}}
+            {{template "social-buttons" .post}}
+            {{ if .post.Categories}}
+                <div class="category-footer">
+                    <p class="text-right text-muted">{{ range .post.Categories}}
+                        <a class="cat-list-inverted text-muted" href="/categories/{{.Name}}">{{ .Name}}</a>,
+                    {{end}}</p>
+                </div>
+            {{ end }}
+            </div>
+            <div class="col-lg-3">
+            {{template "side_bar" .}}
+            </div>
+        </div>
+    </div>
+</section>
+{{template "base_footer"}}
+{{ end }}

@@ -63,6 +63,7 @@ require (
 	github.com/qorpress/banner_editor v0.0.0-20200228132043-f9ee5deee454
 	github.com/qorpress/cache v0.0.0-20200302061016-03b07d782f19 // indirect
 	github.com/qorpress/exchange v0.0.0-20200228131216-193a42cf6de6
+	github.com/qorpress/grab v2.0.0+incompatible // indirect
 	github.com/qorpress/help v0.0.0-20200229142404-f6a3a5356310
 	github.com/qorpress/i18n v0.0.0-20200228133635-af116c699cac
 	github.com/qorpress/l10n v0.0.0-20200228131815-b7d4c2b74c65

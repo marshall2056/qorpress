@@ -1,0 +1,14 @@
+{{define "flickr-gallery"}}
+<section class="flickr-gallery container">
+    <div class="row" >
+        <div class="col-12" >
+            <div id="lightgallery" >
+            {{ range .}}
+        {{template "gallery-item" .}}
+        {{end}}
+            </div>
+        </div>
+    </div>
+</section>
+
+{{end}}

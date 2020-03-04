@@ -56,7 +56,7 @@ func (app App) ConfigureApplication(application *application.Application) {
 
 	ActionBar.RegisterAction(&action_bar.Action{
 		Name: "New Post",
-		Link: "/admin",
+		Link: "/admin/posts/new",
 	})
 
 	// Add Translations

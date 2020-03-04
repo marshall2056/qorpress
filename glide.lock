@@ -1,8 +1,8 @@
 hash: f728cbdf9d659ef43a8774d1210b31b9841bac980edfc222b5d10d70f8c52f97
-updated: 2020-03-03T13:12:42.826166+01:00
+updated: 2020-03-04T15:08:19.306755+01:00
 imports:
 - name: cloud.google.com/go
-  version: 7d5bf9e9f7c433f0c6c00fb6e3b3c93a7bc6089e
+  version: 3e5ef4404a0c98073e1cd35889e7200874ee59b0
   subpackages:
   - compute/metadata
 - name: enterprise.getqor.com/microsite
@@ -16,7 +16,7 @@ imports:
 - name: github.com/asaskevich/govalidator
   version: 475eaeb164960a651e97470412a7d3b0c5036105
 - name: github.com/aws/aws-sdk-go
-  version: d638243b7b0421c843469bce46b55aef23315202
+  version: 55fe4280f64e8f89cf2a102b131b7a30bbf47010
   subpackages:
   - aws
   - aws/arn
@@ -176,7 +176,7 @@ imports:
 - name: github.com/qorpress/activity
   version: 6fb492e1858079ba2532e264aae1bf3809a26fa7
 - name: github.com/qorpress/admin
-  version: fb70246aef2f92569409254ffa4f35d82f914155
+  version: e19b0762b822df066e24d3c3689bf5e5026675d9
 - name: github.com/qorpress/amazon-pay-sdk-go
   version: 05a169f79ffd4e1431fe61d1173554535d409478
 - name: github.com/qorpress/assetfs
@@ -216,6 +216,10 @@ imports:
   version: 63a7a86b6f0999ee18ed7fe359b08ddff9522b36
   subpackages:
   - pagination
+- name: github.com/qorpress/grab
+  version: f15ef5b92e528cc2ec0993a8fa686e67031d8303
+  subpackages:
+  - bps
 - name: github.com/qorpress/help
   version: f6a3a53563101f7a5d4b8e10235994f6425dbb65
 - name: github.com/qorpress/i18n
@@ -266,7 +270,6 @@ imports:
   version: a0ea8f566eccc1bf575a792ed4dc60a41f0fc0d4
   subpackages:
   - pkg/client
-  - pkg/models
 - name: github.com/qorpress/redirect_back
   version: c30308f6928afd72850e0a5fd39cc26d00ba6723
 - name: github.com/qorpress/render

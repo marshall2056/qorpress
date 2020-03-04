@@ -1,0 +1,39 @@
+{{define "news_index"}}
+{{template "base_header"}}
+<section class="post-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 news-index">
+                <h1>News</h1>
+                <div class="d-flex flex-wrap align-content-start news-grid">
+                {{ range .newsitems}}
+                {{template "news-card" .}}
+                {{ end}}
+                </div>
+                <div class="news-index-footer">
+                    <a class="btn btn-outline-secondary" href="/news/{{.nextPage}}">More News ...</a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="recent-tweets">
+                    <h3>@Twitter</h3>
+                    <div class="tweets">
+
+                    </div>
+                </div>
+                <div class="recent-posts">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                    {{range .recentPosts}}
+                        <li class="d-flex align-items-center"><img src="/public{{(index .Images 0).File.URL}}" alt="">
+                            <p><a href="/posts/{{.ID}}">{{.Title}}</a></p></li>
+                    {{end}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{template "base_footer"}}
+{{ end}}

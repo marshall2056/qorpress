@@ -1,0 +1,196 @@
+/**
+ * @package 	WordPress Plugin
+ * @subpackage 	CMSMasters Contact Form Builder
+ * @version 	1.2.0
+ * 
+ * Contact Form Shortcode & Widget Styles
+ * Created by CMSMasters
+ * 
+ */
+
+
+/* ---------- Contact Form Default Styles ---------- */
+
+.cmsms-form-builder label {
+	display:inline-block;
+	padding-bottom:6px;
+}
+
+.cmsms-form-builder label span.color_3 {font-size:12px;}
+
+.cmsms-form-builder .cmsms-form-builder-captcha {display:inline-block;}
+
+.cmsms-form-builder .form_info {padding-bottom:10px;}
+
+.widget .cmsms-form-builder .form_info {padding-bottom:10px;}
+
+.form_info .button {vertical-align:bottom;}
+
+.cmsms-form-builder small.db {
+	display:block;
+	padding-top:5px;
+}
+
+.cmsms-form-builder textarea {
+	min-height:200px;
+	resize:vertical;
+}
+
+.widget .cmsms-form-builder textarea {min-height:70px;}
+
+.cmsms-form-builder .check_parent {
+	padding:5px 0;
+	position:relative;
+	overflow:hidden;
+}
+
+.cmsms-form-builder .check_parent label {padding:0;}
+
+.cmsms-form-builder .check_parent input[type="checkbox"], 
+.cmsms-form-builder .check_parent input[type="radio"] {
+	float:left;
+}
+
+.cmsms-form-builder .check_parent input[type="checkbox"] + label, 
+.cmsms-form-builder .check_parent input[type="radio"] + label {
+	display:block;
+	float:left;
+	padding:0 0 0 5px;
+	margin:0;
+	overflow:hidden;
+	position:relative;
+	cursor:pointer;
+	z-index:1;
+}
+
+.cmsms-form-builder .cmsms_checkbox .db, 
+.cmsms-form-builder .cmsms_radio .db, 
+.cmsms-form-builder .cmsms_checkboxes .db {
+	display:block;
+	padding-bottom:15px;
+}
+
+.loading {
+	position:relative;
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+
+
+/* ---------- Contact Form Validation Error Styles ---------- */
+
+.inputContainer {
+	position:relative;
+	float:left;
+}
+
+.formError {
+	display:block;
+	position:absolute;
+	top:300px;
+	left:300px;
+	cursor:pointer;
+	z-index:15;
+}
+
+.ajaxSubmit {
+	border:1px solid #999999;
+	background:#55ea55;
+	display:none;
+	padding:20px;
+}
+
+.formError .formErrorContent {
+	border:1px solid #333333;
+	background:#000000;
+	color:#ffffff;
+	font-family:Tahoma;
+	font-size:11px;
+	width:150px;
+	padding:4px 10px;
+	position:relative;
+	z-index:16;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+}
+
+.greenPopup .formErrorContent {background:#33be40;}
+
+.blackPopup .formErrorContent {
+	background:#393939;
+	color:#ffffff;
+}
+
+.formError .formErrorArrow {
+	width:15px;
+	margin:-2px 0 0 13px;
+	position:relative;
+	z-index:17;
+}
+
+.formError .formErrorArrowBottom {
+	margin:0 0 0 12px;
+	top:2px;
+}
+
+.formError .formErrorArrow div {
+	border-left:1px solid #333333;
+	border-right:1px solid #333333;
+	background:#000000;
+	font-size:0;
+	line-height:0;
+	display:block;
+	height:1px;
+	margin:0 auto;
+}
+
+.greenPopup .formErrorArrow div {background:#33be40;}
+
+.blackPopup .formErrorArrow div {
+	background:#393939;
+	color:#ffffff;
+}
+
+.formError .formErrorArrow .line10 {
+	border:0;
+	width:15px;
+}
+
+.formError .formErrorArrow .line9 {
+	border:0;
+	width:13px;
+}
+
+.formError .formErrorArrow .line8 {width:11px;}
+
+.formError .formErrorArrow .line7 {width:9px;}
+
+.formError .formErrorArrow .line6 {width:7px;}
+
+.formError .formErrorArrow .line5 {width:5px;}
+
+.formError .formErrorArrow .line4 {width:3px;}
+
+.formError .formErrorArrow .line3 {
+	border-bottom:0;
+	border-left:1px solid #333333;
+	border-right:1px solid #333333;
+	width:1px;
+}
+
+.formError .formErrorArrow .line2 {
+	border:0;
+	background:#333333;
+	width:1px;
+}
+
+.formError .formErrorArrow .line1 {
+	border:0;
+	background:#333333;
+	width:0;
+}
+
+.recaptchatable {
+	background-color:#ffffff;
+}

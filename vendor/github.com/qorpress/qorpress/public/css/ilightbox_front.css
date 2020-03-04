@@ -1,0 +1,75 @@
+/**************************
+*
+*	GENERAL
+*
+**************************/
+.ilightbox_clear {
+	clear: both;
+}
+
+.ilightbox_inline_gallery {
+	cursor: pointer !important;
+}
+
+.ilightbox_wrap {
+	width: 100%;
+}
+
+.ilightbox_wrap * {
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    outline:0 !important;
+    font-size:100% !important;
+    vertical-align:baseline !important;
+    background:transparent !important;
+}
+
+.ilightbox_wrap ul {
+	list-style: none !important;
+	margin-left: -3.3% !important;
+}
+
+.ilightbox_wrap ul li {
+	/*
+	max-width: 200px;
+	max-height: 200px;
+	*/
+	margin-left: 3.3% !important;
+	margin-bottom: 20px !important;
+	list-style: none !important;
+}
+
+.ilightbox_wrap ul li a {
+	display: block;
+	border: 3px solid #EEE !important;
+	-webkit-border-radius: 2px !important;
+	-moz-border-radius: 2px !important;
+	border-radius: 2px !important;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+.ilightbox_wrap ul li a:hover {
+	border-color: #0088cc !important;
+	-webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.55) !important;
+	-moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.55) !important;
+	box-shadow: 0 1px 4px rgba(0, 105, 214, 0.55) !important;
+}
+
+.ilightbox_wrap ul li a img {
+	display: block;
+	width: 100% !important;
+	
+	-webkit-border-radius: 0 !important;
+	-moz-border-radius: 0 !important;
+	border-radius: 0 !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}

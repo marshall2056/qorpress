@@ -1,0 +1,138 @@
+package: github.com/qorpress/qorpress
+ignore:
+- github.com/Masterminds/semver
+- github.com/olivere/elastic
+- github.com/dgraph-io/badger
+- github.com/gocolly/colly
+- github.com/go-acme/lego
+- github.com/go-playground/validator
+- github.com/google/go-github
+import:
+- package: github.com/biezhi/gorm-paginator
+  subpackages:  
+  - pagination
+- package: github.com/dgraph-io/badger
+- package: github.com/Masterminds/sprig
+- package: github.com/azumads/faker
+- package: github.com/c9s/inflect
+- package: github.com/containous/go-bindata
+- package: github.com/corpix/uarand
+- package: github.com/dghubble/oauth1
+- package: github.com/dgraph-io/badger
+- package: github.com/foomo/simplecert
+- package: github.com/foomo/tlsconfig
+- package: github.com/gin-gonic/autotls
+- package: github.com/gin-gonic/gin
+- package: github.com/go-openapi/swag
+- package: github.com/go-sql-driver/mysql
+- package: github.com/goccy/go-yaml
+- package: github.com/gocolly/colly
+  subpackages:
+  - v2
+  - v2/queue
+- package: github.com/golang/snappy
+- package: github.com/gomarkdown/markdown
+  subpackages:
+  - parser
+- package: github.com/google/go-github
+  subpackages:
+  - v29/github
+- package: github.com/gosimple/slug
+- package: github.com/h2non/filetype
+- package: github.com/iancoleman/strcase
+- package: github.com/jessevdk/go-assets
+- package: github.com/jinzhu/configor
+- package: github.com/jinzhu/copier
+- package: github.com/jinzhu/gorm
+  subpackages:
+  - dialects/mysql
+  - dialects/postgres
+  - dialects/sqlite
+- package: github.com/joho/godotenv
+- package: github.com/k0kubun/pp
+- package: github.com/karrick/godirwalk
+- package: github.com/kennygrant/sanitize
+- package: github.com/koreset/go-twitter
+  subpackages:
+  - twitter
+- package: github.com/koreset/gtf
+- package: github.com/manticoresoftware/go-sdk
+  subpackages:
+  - manticore
+- package: github.com/nozzle/throttler
+- package: github.com/olivere/elastic
+- package: github.com/onionltd/oniontree-tools
+  subpackages:
+  - pkg/types/service
+- package: github.com/orcaman/concurrent-map
+- package: github.com/qorpress/admin
+- package: github.com/qorpress/assetfs
+- package: github.com/qorpress/auth
+  subpackages:
+  - auth_identity
+  - providers/facebook
+  - providers/github
+  - providers/google
+  - providers/twitter
+- package: github.com/qorpress/auth_themes
+  subpackages:
+  - clean
+- package: github.com/qorpress/go-wordpress
+- package: github.com/qorpress/i18n
+  subpackages:
+  - backends/database
+  - backends/yaml
+- package: github.com/qorpress/l10n
+- package: github.com/qorpress/location
+- package: github.com/qorpress/mailer
+  subpackages:
+  - logger
+- package: github.com/qorpress/media
+  subpackages:
+  - asset_manager
+  - media_library
+  - oss
+- package: github.com/qorpress/oss
+  subpackages:
+  - filesystem
+  - s3
+- package: github.com/qorpress/page_builder
+- package: github.com/qorpress/publish2
+- package: github.com/qorpress/qor
+  subpackages:
+  - utils
+- package: github.com/qorpress/redirect_back
+- package: github.com/qorpress/seo
+- package: github.com/qorpress/session
+  subpackages:
+  - manager
+- package: github.com/qorpress/slug
+- package: github.com/qorpress/sorting
+- package: github.com/qorpress/validations
+- package: github.com/satori/go.uuid
+- package: github.com/semihalev/gin-stats
+- package: github.com/sirupsen/logrus
+- package: github.com/sniperkit/cacher
+- package: github.com/spf13/pflag
+- package: github.com/swaggo/files
+- package: github.com/swaggo/gin-swagger
+  subpackages:
+  - example/basic/docs
+- package: github.com/unrolled/render
+- package: github.com/x0rzkov/go-vcsurl
+- package: github.com/x0rzkov/httpcache
+  subpackages:
+  - backend/diskcache
+- package: golang.org/x/crypto
+  subpackages:
+  - acme/autocert
+- package: golang.org/x/oauth2
+- package: golang.org/x/tools
+  subpackages:
+  - imports
+- package: gopkg.in/loremipsum.v1
+- package: gopkg.in/yaml.v3
+testImport:
+- package: github.com/stretchr/testify
+  subpackages:
+  - suite
