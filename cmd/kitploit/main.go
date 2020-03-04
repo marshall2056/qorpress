@@ -13,7 +13,12 @@ import (
 	"regexp"
 	"strings"
 	"time"
+	"math/rand"
+	"strconv"
 
+	"github.com/qorpress/auth/providers/password"
+	qoradmin "github.com/qorpress/admin"
+	slugger "github.com/gosimple/slug"
 	"github.com/corpix/uarand"
 	badger "github.com/dgraph-io/badger"
 	"github.com/gocolly/colly/v2"
@@ -50,6 +55,9 @@ import (
 	"github.com/qorpress/banner_editor"
 	"github.com/qorpress/help"
 	"github.com/qorpress/media/oss"
+	"github.com/jinzhu/now"
+	"github.com/qorpress/qor"
+	loremipsum "gopkg.in/loremipsum.v1"
 
 	"github.com/qorpress/qorpress-example/pkg/app/admin"
 	"github.com/qorpress/qorpress-example/pkg/config/auth"
@@ -63,6 +71,9 @@ import (
 )
 
 var (
+	loremIpsumGenerator = loremipsum.NewWithSeed(1234)
+	AdminUser           *users.User
+	Notification        = notification.New(&notification.Config{})
 	clientManager *ghclient.ClientManager
 	clientGH      *ghclient.GHClient
 	store         *badger.DB
@@ -105,7 +116,7 @@ func main() {
 
 	TruncateTables(Tables...)
 
-	err := removeContents("./public/content/images/")
+	err := removeContents("./public/system/")
 	if err != nil {
 		log.Warn("Error deleting old images")
 	}
@@ -322,12 +333,13 @@ func main() {
 				start := time.Now().AddDate(0, 0, 0)
 				end := time.Now().AddDate(12, 0, 0)
 
+				category := findCategoryByName("News")
+
 				p := &posts.Post{
-					Title:   *repoInfo.Name,
-					UUID:    "github-" + info.Username + "-" + info.Name,
-					Body:    string(html),
+					Name:   *repoInfo.Name,
+					Code:    "github-" + info.Username + "-" + info.Name,
+					Description:    string(html),
 					Summary: desc,
-					Type:    "article",
 					/*
 					Links: []posts.Link{
 						posts.Link{
@@ -339,6 +351,8 @@ func main() {
 					NameWithSlug: slug.Slug{"github-" + info.Username + "-" + info.Name},
 				}
 
+				p.CategoryID = category.ID
+
 				p.LanguageCode = "en-US"
 				p.SetPublishReady(true)
 				p.SetVersionName("v1")
@@ -349,8 +363,8 @@ func main() {
 				for _, extTopic := range extTopics {
 					tag := &posts.Tag{
 						Name: extTopic,
-						// LanguageCode: "en-US",
 					}
+					tag.SetLanguageCode("en-US")
 					tags = append(tags, tag)
 				}
 
@@ -360,7 +374,7 @@ func main() {
 					log.Warnln(err)
 				}
 
-				postId := post.ID
+				// postId := post.ID
 
 				for _, tag := range tags {
 					t, err := createOrUpdateTag(DB, tag)
@@ -378,14 +392,19 @@ func main() {
 					os.Exit(1)
 				}
 
+				Admin := qoradmin.New(&qoradmin.AdminConfig{
+					SiteName: "QORPRESS DEMO",
+					Auth:     auth.AdminAuth{},
+					DB:       db.DB.Set(publish2.VisibleMode, publish2.ModeOff).Set(publish2.ScheduleMode, publish2.ModeOff),
+				})
+
 				for _, img := range imgLinks {
-					var image posts.Image
 					file, size, err := openFileByURL(img)
 					if err != nil {
-						file.Close()
+						fmt.Printf("open file failure, got err %v", err)
 						continue
 					}
-
+					
 					head := make([]byte, 261)
 					file.Read(head)
 
@@ -395,31 +414,56 @@ func main() {
 						log.Println("Not an image")
 						continue
 					}
-					image.File.Scan(file)
-					image.CreatedAt = time.Now()
-					image.UpdatedAt = time.Now()
-					image.PostID = postId
-					err = DB.Create(&image).Error
-					if err != nil {
-						file.Close()
+
+					if size < 10000 {
 						continue
 					}
 
-					if size > 20000 {
-						post.Images = append(post.Images, image)
-					}
-					file.Close()
-				}
+					image := posts.PostImage{Title: *repoInfo.Name, SelectedType: "image"}				
+					image.File.Scan(file)
 
-				if len(post.Images) > 0 {
-					post.MainImage.Files = []media_library.File{{
-						ID:  json.Number(fmt.Sprint(post.Images[0].ID)),
-						Url: post.Images[0].File.URL(),
-					}}
-				}
-				err = DB.Save(post).Error
-				if err != nil {
-					log.Warnln("save: ", err)
+					if err := DraftDB.Create(&image).Error; err != nil {
+						log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
+					}
+
+					post.Images.Files = append(post.Images.Files, media_library.File{
+						ID:  json.Number(fmt.Sprint(image.ID)),
+						Url: image.File.URL(),
+					})
+
+					post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+						Sizes: map[string]*media.Size{
+							"main":    {Width: 560, Height: 700},
+							"icon":    {Width: 50, Height: 50},
+							"preview": {Width: 300, Height: 300},
+							"listing": {Width: 640, Height: 640},
+						},
+					})
+
+
+					if err := DraftDB.Save(&post).Error; err != nil {
+						log.Fatalln(err)
+					}
+
+					if len(post.MainImage.Files) == 0 {
+						post.MainImage.Files = []media_library.File{{
+							ID:  json.Number(fmt.Sprint(image.ID)),
+							Url: image.File.URL(),
+						}}
+						post.MainImage.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+							Sizes: map[string]*media.Size{
+								"main":    {Width: 560, Height: 700},
+								"icon":    {Width: 50, Height: 50},
+								"preview": {Width: 300, Height: 300},
+								"listing": {Width: 640, Height: 640},
+							},
+						})
+						if err := DraftDB.Save(&post).Error; err != nil {
+							log.Fatalln(err)
+						}
+					}
+
+					file.Close()
 				}
 
 				return nil
@@ -476,6 +520,7 @@ func removeContents(dir string) error {
 	return nil
 }
 
+/*
 func createCategories(db *gorm.DB) error {
 	categories := []string{"article", "publication", "blog", "video", "press_release", "event", "news"}
 	for _, category := range categories {
@@ -489,6 +534,7 @@ func createCategories(db *gorm.DB) error {
 	}
 	return nil
 }
+*/
 
 func createOrUpdateCategory(db *gorm.DB, category *posts.Category) (*posts.Category, error) {
 	var existingCategory posts.Category
@@ -501,12 +547,18 @@ func createOrUpdateCategory(db *gorm.DB, category *posts.Category) (*posts.Categ
 }
 
 func openFileByURL(rawURL string) (*os.File, int64, error) {
-	if _, err := url.Parse(rawURL); err != nil {
-		return nil, err
+	if fileURL, err := url.Parse(rawURL); err != nil {
+		return nil, 0, err
 	} else {
-		// path := fileURL.Path
-		// segments := strings.Split(path, "/")
-		fileName := Fake.UserName() + ".png" // segments[len(segments)-1]
+		path := fileURL.Path
+		segments := strings.Split(path, "/")
+		extension := filepath.Ext(path)
+		var fileName string
+		if extension != "" {
+			fileName = segments[len(segments)-1]
+		} else {
+			fileName = Fake.UserName() + ".png"
+		}
 
 		filePath := filepath.Join(os.TempDir(), fileName)
 
@@ -517,7 +569,7 @@ func openFileByURL(rawURL string) (*os.File, int64, error) {
 
 		file, err := os.Create(filePath)
 		if err != nil {
-			return file, err
+			return file, 0, err
 		}
 
 		check := http.Client{
@@ -528,15 +580,21 @@ func openFileByURL(rawURL string) (*os.File, int64, error) {
 		}
 		resp, err := check.Get(rawURL) // add a filter to check redirect
 		if err != nil {
-			return file, err
+			return file,  0, err
 		}
 		defer resp.Body.Close()
 		fmt.Printf("----> Downloaded %v\n", rawURL)
 
 		_, err = io.Copy(file, resp.Body)
 		if err != nil {
-			return file, err
+			return file, 0, err
 		}
+
+		fi, err := file.Stat()
+		if err != nil {
+			return file, 0, err
+		}
+
 		return file, fi.Size(), nil
 	}
 }
@@ -547,7 +605,7 @@ func GetDB() *gorm.DB {
 
 func createOrUpdatePost(db *gorm.DB, post *posts.Post) (*posts.Post, error) {
 	var existingPost posts.Post
-	if db.Where("uuid = ?", post.UUID).First(&existingPost).RecordNotFound() {
+	if db.Where("code = ?", post.Code).First(&existingPost).RecordNotFound() {
 		err := db.Set("l10n:locale", "en-US").Create(post).Error
 		return post, err
 	}
@@ -556,7 +614,6 @@ func createOrUpdatePost(db *gorm.DB, post *posts.Post) (*posts.Post, error) {
 }
 
 func createOrUpdateTag(db *gorm.DB, tag *posts.Tag) (*posts.Tag, error) {
-	// post.Images = images
 	var existingTag posts.Tag
 	if db.Where("name = ?", tag.Name).First(&existingTag).RecordNotFound() {
 		err := db.Set("l10n:locale", "en-US").Create(tag).Error
@@ -979,7 +1036,7 @@ func createAdminUsers() {
 
 func createUsers() {
 	emailRegexp := regexp.MustCompile(".*(@.*)")
-	totalCount := 600
+	totalCount := 100
 	t := throttler.New(5, totalCount)
 
 	for i := 0; i < totalCount; i++ {
@@ -1039,7 +1096,7 @@ func createUsers() {
 	}
 }
 
-/*
+
 func createCategories() {
 	for _, c := range Seeds.Categories {
 		category := posts.Category{}
@@ -1050,7 +1107,6 @@ func createCategories() {
 		}
 	}
 }
-*/
 
 func createCollections() {
 	for _, c := range Seeds.Collections {
@@ -1062,6 +1118,8 @@ func createCollections() {
 	}
 }
 
+// not used for kitploit
+/*
 func createPosts() {
 	numberPosts := 200
 	minTags := 1
@@ -1157,6 +1215,7 @@ func createPosts() {
 
 	}
 }
+*/
 
 /*
 func createOrUpdateTag(db *gorm.DB, tag *posts.Tag) (*posts.Tag, error) {

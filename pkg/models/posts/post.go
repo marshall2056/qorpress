@@ -34,6 +34,7 @@ type Post struct {
 	MainImage      media_library.MediaBox
 	Images         media_library.MediaBox
 	Description    string         `gorm:"type:longtext"`
+	Summary    string         `gorm:"type:mediumtext"`
 	PostProperties PostProperties `sql:"type:text"`
 	Seo            qor_seo.Setting
 	publish2.Version

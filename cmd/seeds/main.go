@@ -319,7 +319,7 @@ func createPosts() {
 		post.NameWithSlug = slug.Slug{createUniqueSlug(postName)}
 		post.Code = createUniqueSlug(postName)
 
-		post.Description = loremIpsumGenerator.Paragraphs(10)
+		post.Description = strings.Replace(loremIpsumGenerator.Paragraphs(10), "\n", "<br/><br/>", -1)
 		post.PublishReady = true
 
 		if err := DraftDB.Create(&post).Error; err != nil {
@@ -391,7 +391,7 @@ func createPosts() {
 			end := time.Now().AddDate(0, 0, i-4)
 			post.SetVersionName("v1")
 			post.Name = postName + " - v1"
-			post.Description = strings.Replace(loremIpsumGenerator.Paragraphs(10), "\n", "<br/></br>", -1)
+			post.Description = strings.Replace(loremIpsumGenerator.Paragraphs(10), "\n", "<br/><br/>", -1)
 			post.SetScheduledStartAt(&start)
 			post.SetScheduledEndAt(&end)
 			DraftDB.Save(&post)

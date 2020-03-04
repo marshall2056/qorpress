@@ -37,6 +37,10 @@ func (t Tag) DefaultPath() string {
 	return "/"
 }
 
+func (t *Tag) SetLanguageCode(code string) {
+	t.LanguageCode = code
+}
+
 func (t *Tag) BeforeCreate() (err error) {
 	// t.LanguageCode = "en-US"
 	log.Printf("======> New tag: %#v\n", t.Name)
