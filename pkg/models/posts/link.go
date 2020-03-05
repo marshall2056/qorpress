@@ -2,7 +2,7 @@ package posts
 
 import (
 	"strings"
-	"log"
+	log "github.com/sirupsen/logrus"
 
 	"github.com/jinzhu/gorm"
 	"github.com/qorpress/validations"

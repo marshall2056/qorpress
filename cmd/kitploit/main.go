@@ -206,7 +206,7 @@ func main() {
 	log.Println("All github URLs:")
 	log.Println("Collected cmap: ", m.Count(), "URLs")
 
-	t := throttler.New(1, m.Count())
+	t := throttler.New(2, m.Count())
 
 	m.IterCb(func(key string, v interface{}) {
 		var topics string
@@ -229,9 +229,6 @@ func main() {
 					log.Warnln(err)
 					return err
 				}
-
-				// pp.Println(repoInfo)
-				// os.Exit(1)
 
 				readme, err := getReadme(clientGH.Client, info.Username, info.Name)
 				if err != nil {
@@ -375,7 +372,7 @@ func main() {
 
 				countComments := rand.Intn(maxComments-minComments) + minComments
 				for i := 0; i < countComments; i++ {
-					content := loremIpsumGenerator.Paragraphs(2)
+					content := loremIpsumGenerator.Words(20)
 					c := &posts.Comment{
 						Content: content,
 					}
@@ -437,8 +434,8 @@ func main() {
 						Sizes: map[string]*media.Size{
 							"main":    {Width: 560, Height: 700},
 							"icon":    {Width: 50, Height: 50},
-							"preview": {Width: 300, Height: 300},
-							"listing": {Width: 640, Height: 640},
+							// "preview": {Width: 300, Height: 300},
+							// "listing": {Width: 640, Height: 640},
 						},
 					})
 
@@ -455,8 +452,8 @@ func main() {
 							Sizes: map[string]*media.Size{
 								"main":    {Width: 560, Height: 700},
 								"icon":    {Width: 50, Height: 50},
-								"preview": {Width: 300, Height: 300},
-								"listing": {Width: 640, Height: 640},
+								// "preview": {Width: 300, Height: 300},
+								// "listing": {Width: 640, Height: 640},
 							},
 						})
 						if err := DraftDB.Save(&post).Error; err != nil {
@@ -484,8 +481,8 @@ func main() {
 						Sizes: map[string]*media.Size{
 							"main":    {Width: 560, Height: 700},
 							"icon":    {Width: 50, Height: 50},
-							"preview": {Width: 300, Height: 300},
-							"listing": {Width: 640, Height: 640},
+							// "preview": {Width: 300, Height: 300},
+							// "listing": {Width: 640, Height: 640},
 						},
 					})
 					DraftDB.Save(&post)
@@ -499,8 +496,8 @@ func main() {
 							Sizes: map[string]*media.Size{
 								"main":    {Width: 560, Height: 700},
 								"icon":    {Width: 50, Height: 50},
-								"preview": {Width: 300, Height: 300},
-								"listing": {Width: 640, Height: 640},
+								// "preview": {Width: 300, Height: 300},
+								// "listing": {Width: 640, Height: 640},
 							},
 						})
 						DraftDB.Save(&post)
@@ -579,13 +576,13 @@ func createOrUpdateCategory(db *gorm.DB, category *posts.Category) (*posts.Categ
 func openFileByURL(rawURL string) (*os.File, int64, error) {
 	req, _ := grab.NewRequest(os.TempDir(), rawURL)
 	if req == nil {
-		return nil, 0, errors.New("could not make request.\n")		
+		return nil, 0, errors.New("----> could not make request.\n")		
 	}
 
 	// start download
-	fmt.Printf("Downloading %v...\n", req.URL())
+	log.Printf("----> Downloading %v...\n", req.URL())
 	resp := clientGrab.Do(req)
-	pp.Println(resp)
+	// pp.Println(resp)
 	// fmt.Printf("  %v\n", resp.HTTPResponse.Status)
 
 	// start UI loop
@@ -596,7 +593,7 @@ Loop:
 	for {
 		select {
 		case <-t.C:
-			fmt.Printf("  transferred %v / %v bytes (%.2f%%)\n",
+			log.Printf("---->  transferred %v / %v bytes (%.2f%%)\n",
 				resp.BytesComplete(),
 				resp.Size,
 				100*resp.Progress())
@@ -609,12 +606,13 @@ Loop:
 
 	// check for errors
 	if err := resp.Err(); err != nil {
-		fmt.Fprintf(os.Stderr, "Download failed: %v\n", err)
+		log.Fprintf(os.Stderr, "----> Download failed: %v\n", err)
 		// os.Exit(1)
 		return nil, 0, err
 	}
 
-	fmt.Printf("Download saved to %v \n", resp.Filename)
+	// fmt.Printf("----> Downloaded %v\n", rawURL)
+	log.Printf("----> Download saved to %v \n", resp.Filename)
 	fi, err := os.Stat(resp.Filename)
 	if err != nil {
 		return nil, 0, err

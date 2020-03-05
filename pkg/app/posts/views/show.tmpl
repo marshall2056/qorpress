@@ -39,7 +39,10 @@
           </div>
 
           <div class="grid__col is-9">
-            <h6>{{ t "post.tags" }}</h6>
+            <h6>TAGS:</h6>
+            {{ range $tag := get_post_tags .ID }}
+              <a href="{{ $tag.DefaultPath }}">{{$tag.Name}}</a>,&nbsp;
+            {{ end }}
           </div>
 
         </div>

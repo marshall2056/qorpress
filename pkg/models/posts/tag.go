@@ -2,9 +2,9 @@ package posts
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/jinzhu/gorm"
 	"github.com/qorpress/l10n"
 	qor_seo "github.com/qorpress/seo"

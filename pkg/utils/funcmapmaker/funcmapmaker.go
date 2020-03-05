@@ -12,6 +12,7 @@ import (
 	"github.com/qorpress/session"
 	"github.com/qorpress/session/manager"
 	"github.com/qorpress/widget"
+	"github.com/k0kubun/pp"
 
 	"github.com/qorpress/qorpress-example/pkg/app/admin"
 	"github.com/qorpress/qorpress-example/pkg/config/i18n"
@@ -78,8 +79,15 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			return
 		}
 
-		funcMap["get_category_tags"] = func(catId uint) (tags []posts.Tag) {
+		funcMap["get_post_tags"] = func(postId uint) (tags []posts.Tag) {
+			query := fmt.Sprintf(`SELECT T.* FROM (POST_TAGS ST, TAGS T) WHERE ST.POST_ID=%d AND ST.tag_id=t.id`, postId)
+			utils.GetDB(req).Raw(query).Scan(&tags)
+			pp.Println("tags:", tags)
+			fmt.Println(query)
+			return
+		}
 
+		funcMap["get_category_tags"] = func(catId uint) (tags []posts.Tag) {
 			/*
 				db.DB.Table(table).
 				Where("created_at > ? AND created_at < ?", startdate, enddate).
@@ -88,7 +96,6 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 				Order("date(created_at)").
 				Scan(&res)
 			*/
-
 			query := fmt.Sprintf(`
 				SELECT T.*
 				FROM (POSTS S, TAGS T)
