@@ -44,7 +44,7 @@ import (
 	"github.com/qorpress/media/media_library"
 	"github.com/qorpress/oss/filesystem"
 	"github.com/qorpress/publish2"
-	ghclient "github.com/qorpress/qorpress/pkg/client"
+	ghclient "github.com/qorpress/qorpress-test/pkg/client"
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
@@ -58,15 +58,15 @@ import (
 	"github.com/qorpress/qor"
 	loremipsum "gopkg.in/loremipsum.v1"
 
-	"github.com/qorpress/qorpress-example/pkg/app/admin"
-	"github.com/qorpress/qorpress-example/pkg/config/auth"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	_ "github.com/qorpress/qorpress-example/pkg/config/db/migrations"
-	"github.com/qorpress/qorpress-example/pkg/models/cms"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	adminseo "github.com/qorpress/qorpress-example/pkg/models/seo"
-	"github.com/qorpress/qorpress-example/pkg/models/settings"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/config/auth"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	_ "github.com/qorpress/qorpress/pkg/config/db/migrations"
+	"github.com/qorpress/qorpress/pkg/models/cms"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	adminseo "github.com/qorpress/qorpress/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/models/settings"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 var (
@@ -248,6 +248,9 @@ func main() {
 				videoLinks = append(videoLinks, vidLinks...)
 
 				// pp.Println(readme)
+				([/|.|\w|\s|-])*\.(?:jpg|jpeg|JPEG|JPG|gif|GIF|png)
+
+
 				imgPatternRegexp, err := regexp.Compile(`(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|GIF|png|PNG|jpeg|JPG|JPEG)`)
 				// imgPatternRegexp, err := regexp.Compile(`(http(s?):)([/|.|\w|\s|-])*\.(?:gif|GIF)`)
 				if err != nil {

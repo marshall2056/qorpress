@@ -1,4 +1,4 @@
-module github.com/qorpress/qorpress-example
+module github.com/qorpress/qorpress
 
 go 1.14
 
@@ -16,6 +16,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible // indirect
 	github.com/disintegration/imaging v1.6.3-0.20200211210110-879073f2332f // indirect
 	github.com/fatih/color v1.9.0 // indirect
+	github.com/foomo/simplecert v1.6.8 // indirect
 	github.com/gin-gonic/gin v1.5.0 // indirect
 	github.com/go-chi/chi v4.0.4-0.20200226132540-acdf534d0ba4+incompatible
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
@@ -77,7 +78,7 @@ require (
 	github.com/qorpress/publish v0.0.0-20200229084207-1faed88bdae1 // indirect
 	github.com/qorpress/publish2 v0.0.0-20200228130659-7bfcbfc011a3
 	github.com/qorpress/qor v0.0.0-20200228123217-031b9b12d9c5
-	github.com/qorpress/qorpress v0.0.0-20200302063015-a0ea8f566ecc
+	github.com/qorpress/qorpress-test v0.0.0-20200302063015-a0ea8f566ecc // indirect
 	github.com/qorpress/redirect_back v0.0.0-20200228133801-c30308f6928a
 	github.com/qorpress/render v0.0.0-20200302114306-c4634617a897
 	github.com/qorpress/responder v0.0.0-20200228133719-06c57cd6c310 // indirect

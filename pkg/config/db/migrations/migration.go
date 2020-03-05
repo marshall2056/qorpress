@@ -8,13 +8,13 @@ import (
 	"github.com/qorpress/media/asset_manager"
 	"github.com/qorpress/transition"
 
-	"github.com/qorpress/qorpress-example/pkg/app/admin"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/models/cms"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	"github.com/qorpress/qorpress-example/pkg/models/seo"
-	"github.com/qorpress/qorpress-example/pkg/models/settings"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/cms"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/models/settings"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 func init() {

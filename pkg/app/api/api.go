@@ -4,12 +4,12 @@ import (
 	"github.com/qorpress/admin"
 	"github.com/qorpress/qor"
 
-	"github.com/qorpress/qorpress-example/pkg/config/application"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config/db"
 
-	// "github.com/qorpress/qorpress-example/pkg/models/orders"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
+	// "github.com/qorpress/qorpress/pkg/models/orders"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 // New new home app

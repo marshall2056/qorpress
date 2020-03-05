@@ -5,9 +5,9 @@ import (
 
 	"github.com/qorpress/render"
 
-	// "github.com/qorpress/qorpress-example/pkg/models/orders"
-	// "github.com/qorpress/qorpress-example/pkg/models/users"
-	"github.com/qorpress/qorpress-example/pkg/utils"
+	// "github.com/qorpress/qorpress/pkg/models/orders"
+	// "github.com/qorpress/qorpress/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/utils"
 )
 
 // Controller posts controller

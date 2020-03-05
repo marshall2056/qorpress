@@ -26,9 +26,13 @@
                   <div class="stats">
                     <div class="stats-container">
                       <span class="post_name">{{.Name}}</span>
-
                       <div class="post_meta">
                       {{.Summary}}
+                      </div>
+                      <div class="post_tags">
+                      {{ range $tag := get_post_tags .ID }}
+                        <a href="{{ $tag.DefaultPath }}">{{$tag.Name}}</a>,&nbsp;
+                      {{ end }}
                       </div>
                     </div>
                   </div>

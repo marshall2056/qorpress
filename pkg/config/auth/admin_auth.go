@@ -8,7 +8,7 @@ import (
 	"github.com/qorpress/qor"
 	"github.com/qorpress/roles"
 
-	"github.com/qorpress/qorpress-example/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 func init() {

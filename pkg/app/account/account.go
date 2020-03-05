@@ -10,10 +10,10 @@ import (
 	"github.com/qorpress/validations"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/qorpress/qorpress-example/pkg/config/application"
-	"github.com/qorpress/qorpress-example/pkg/config/auth"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
-	"github.com/qorpress/qorpress-example/pkg/utils/funcmapmaker"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config/auth"
+	"github.com/qorpress/qorpress/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // New new home app

@@ -15,7 +15,7 @@ import (
 	"github.com/qorpress/sorting"
 	"github.com/qorpress/validations"
 
-	"github.com/qorpress/qorpress-example/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/models/seo"
 )
 
 type Post struct {

@@ -13,10 +13,10 @@ import (
 	"github.com/qorpress/auth_themes/clean"
 	"github.com/qorpress/render"
 
-	"github.com/qorpress/qorpress-example/pkg/config"
-	"github.com/qorpress/qorpress-example/pkg/config/bindatafs"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config/bindatafs"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 var (

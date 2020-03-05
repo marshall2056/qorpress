@@ -4,8 +4,8 @@ import (
 	"github.com/qorpress/admin"
 	qor_seo "github.com/qorpress/seo"
 
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	"github.com/qorpress/qorpress-example/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/seo"
 )
 
 // SetupSEO add seo

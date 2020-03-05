@@ -13,9 +13,9 @@ import (
 	"github.com/qorpress/qor"
 	"github.com/qorpress/worker"
 
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/config/i18n"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/config/i18n"
+	"github.com/qorpress/qorpress/pkg/models/posts"
 )
 
 // SetupWorker setup worker

@@ -5,6 +5,16 @@
 .config/qorpress.yml
 qorpress-example
 
+letsencrypt
+letsencrypt/
+letsencrypt/*
+letsencrypt/**
+
+simplecert
+simplecert/
+simplecert/*
+simplecert/**
+
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 .env
 # Dockerfile

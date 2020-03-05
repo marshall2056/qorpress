@@ -1743,6 +1743,13 @@ html {
 	border-left: 1px solid rgba(0, 0, 0, .12)
 }
 
+.post_tags {
+	font-size: 9px;
+	margin: 12px 0;
+	padding: 12px 0 0 0;
+	border-top: 1px solid rgba(0, 0, 0, .12)	
+}
+
 .grid__col.is-9 img {
 	max-width: 100%;
 }

@@ -7,8 +7,8 @@ import (
 	"github.com/qorpress/i18n/backends/database"
 	"github.com/qorpress/i18n/backends/yaml"
 
-	"github.com/qorpress/qorpress-example/pkg/config"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config/db"
 )
 
 var I18n *i18n.I18n

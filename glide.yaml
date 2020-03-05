@@ -1,4 +1,4 @@
-package: github.com/qorpress/qorpress-example
+package: github.com/qorpress/qorpress
 ignore:
 - enterprise.getqor.com
 - github.com/gocolly/colly

@@ -12,9 +12,9 @@ import (
 	"github.com/qorpress/qor"
 	"github.com/qorpress/render"
 
-	"github.com/qorpress/qorpress-example/pkg/config/application"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	"github.com/qorpress/qorpress-example/pkg/utils/funcmapmaker"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // var Genders = []string{"Men", "Women", "Kids"}

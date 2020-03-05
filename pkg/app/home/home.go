@@ -3,8 +3,8 @@ package home
 import (
 	"github.com/qorpress/render"
 
-	"github.com/qorpress/qorpress-example/pkg/config/application"
-	"github.com/qorpress/qorpress-example/pkg/utils/funcmapmaker"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // New new home app

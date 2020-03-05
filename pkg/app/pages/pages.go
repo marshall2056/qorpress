@@ -11,11 +11,11 @@ import (
 	"github.com/qorpress/render"
 	"github.com/qorpress/widget"
 
-	adminapp "github.com/qorpress/qorpress-example/pkg/app/admin"
-	"github.com/qorpress/qorpress-example/pkg/config/application"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/models/cms"
-	"github.com/qorpress/qorpress-example/pkg/utils/funcmapmaker"
+	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/cms"
+	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // New new home app

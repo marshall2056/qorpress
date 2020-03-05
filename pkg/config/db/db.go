@@ -15,7 +15,7 @@ import (
 	"github.com/qorpress/sorting"
 	"github.com/qorpress/validations"
 
-	"github.com/qorpress/qorpress-example/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config"
 )
 
 // DB Global DB connection

@@ -7,10 +7,10 @@ import (
 	"github.com/qorpress/media/asset_manager"
 	"github.com/qorpress/media/media_library"
 
-	// "github.com/qorpress/qorpress-example/pkg/models/seo"
-	"github.com/qorpress/qorpress-example/pkg/config/application"
-	"github.com/qorpress/qorpress-example/pkg/config/i18n"
-	"github.com/qorpress/qorpress-example/pkg/models/settings"
+	// "github.com/qorpress/qorpress/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config/i18n"
+	"github.com/qorpress/qorpress/pkg/models/settings"
 )
 
 // ActionBar admin action bar

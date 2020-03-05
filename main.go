@@ -15,20 +15,21 @@ import (
 	"github.com/qorpress/qor"
 	"github.com/qorpress/qor/utils"
 
-	"github.com/qorpress/qorpress-example/pkg/app/account"
-	adminapp "github.com/qorpress/qorpress-example/pkg/app/admin"
-	"github.com/qorpress/qorpress-example/pkg/app/api"
-	"github.com/qorpress/qorpress-example/pkg/app/home"
-	"github.com/qorpress/qorpress-example/pkg/app/pages"
-	"github.com/qorpress/qorpress-example/pkg/app/posts"
-	"github.com/qorpress/qorpress-example/pkg/app/static"
-	"github.com/qorpress/qorpress-example/pkg/config"
-	"github.com/qorpress/qorpress-example/pkg/config/application"
-	"github.com/qorpress/qorpress-example/pkg/config/auth"
-	"github.com/qorpress/qorpress-example/pkg/config/bindatafs"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	_ "github.com/qorpress/qorpress-example/pkg/config/db/migrations"
-	"github.com/qorpress/qorpress-example/pkg/utils/funcmapmaker"
+	"github.com/foomo/simplecert"
+	"github.com/qorpress/qorpress/pkg/app/account"
+	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/app/api"
+	"github.com/qorpress/qorpress/pkg/app/home"
+	"github.com/qorpress/qorpress/pkg/app/pages"
+	"github.com/qorpress/qorpress/pkg/app/posts"
+	"github.com/qorpress/qorpress/pkg/app/static"
+	"github.com/qorpress/qorpress/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config/auth"
+	"github.com/qorpress/qorpress/pkg/config/bindatafs"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	_ "github.com/qorpress/qorpress/pkg/config/db/migrations"
+	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
 func main() {
@@ -102,12 +103,17 @@ func main() {
 	if *compileTemplate {
 		bindatafs.AssetFS.Compile()
 	} else {
-		fmt.Printf("Listening on: %v\n", config.Config.Port)
+		
 		if config.Config.HTTPS {
-			if err := http.ListenAndServeTLS(fmt.Sprintf(":%d", config.Config.Port), ".config/certs/server.crt", ".config/certs/server.key", Application.NewServeMux()); err != nil {
+			fmt.Print("Listening on: 443\n")
+			if err := simplecert.ListenAndServeTLS(":443", Application.NewServeMux(), "x0rzkov@protonmail.com", nil, "x0rzkov.com", "www.x0rzkov.com"); err != nil {
 				panic(err)
 			}
+			//if err := http.ListenAndServeTLS(fmt.Sprintf(":%d", config.Config.Port), "letsencrypt/cert.pem", "letsencrypt/key.pem", Application.NewServeMux()); err != nil {
+			//	panic(err)
+			//}
 		} else {
+			fmt.Printf("Listening on: %v\n", config.Config.Port)
 			if err := http.ListenAndServe(fmt.Sprintf(":%d", config.Config.Port), Application.NewServeMux()); err != nil {
 				panic(err)
 			}

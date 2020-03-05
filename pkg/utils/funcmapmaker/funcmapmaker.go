@@ -14,12 +14,12 @@ import (
 	"github.com/qorpress/widget"
 	"github.com/k0kubun/pp"
 
-	"github.com/qorpress/qorpress-example/pkg/app/admin"
-	"github.com/qorpress/qorpress-example/pkg/config/i18n"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	"github.com/qorpress/qorpress-example/pkg/models/seo"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
-	"github.com/qorpress/qorpress-example/pkg/utils"
+	"github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/config/i18n"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/utils"
 )
 
 // GetEditMode get edit mode

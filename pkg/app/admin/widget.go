@@ -15,8 +15,8 @@ import (
 	"github.com/qorpress/sorting"
 	"github.com/qorpress/widget"
 
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/posts"
 )
 
 var Widgets *widget.Widgets
@@ -128,7 +128,7 @@ func SetupWidget(Admin *admin.Admin) {
 	imageRes := Admin.NewResource(&imageSetting{})
 	imageRes.Meta(&admin.Meta{Name: "Image"})
 
-	banner_editor.RegisterViewPath("github.com/qorpress/qorpress-example/pkg/app/views/banner_editor")
+	banner_editor.RegisterViewPath("github.com/qorpress/qorpress/pkg/app/views/banner_editor")
 	banner_editor.RegisterElement(&banner_editor.Element{
 		Icon:     "<i class=material-icons>short_text</i>",
 		Name:     "Add Header",

@@ -54,7 +54,7 @@ var Config = struct {
 }{}
 
 var (
-	Root         = os.Getenv("GOPATH") + "/src/github.com/qorpress/qorpress-example"
+	Root         = os.Getenv("GOPATH") + "/src/github.com/qorpress/qorpress"
 	Mailer       *mailer.Mailer
 	Render       = render.New()
 	RedirectBack = redirect_back.New(&redirect_back.Config{

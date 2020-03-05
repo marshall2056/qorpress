@@ -13,9 +13,9 @@ import (
 	"github.com/qorpress/session"
 	"github.com/qorpress/session/manager"
 
-	"github.com/qorpress/qorpress-example/pkg/config/auth"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/config/auth"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 // GetCurrentUser get current user from request

@@ -40,15 +40,15 @@ import (
 	"github.com/qorpress/sorting"
 	loremipsum "gopkg.in/loremipsum.v1"
 
-	"github.com/qorpress/qorpress-example/pkg/app/admin"
-	"github.com/qorpress/qorpress-example/pkg/config/auth"
-	"github.com/qorpress/qorpress-example/pkg/config/db"
-	_ "github.com/qorpress/qorpress-example/pkg/config/db/migrations"
-	"github.com/qorpress/qorpress-example/pkg/models/cms"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	adminseo "github.com/qorpress/qorpress-example/pkg/models/seo"
-	"github.com/qorpress/qorpress-example/pkg/models/settings"
-	"github.com/qorpress/qorpress-example/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/config/auth"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	_ "github.com/qorpress/qorpress/pkg/config/db/migrations"
+	"github.com/qorpress/qorpress/pkg/models/cms"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	adminseo "github.com/qorpress/qorpress/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/models/settings"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 var (

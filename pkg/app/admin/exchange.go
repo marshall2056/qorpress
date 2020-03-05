@@ -7,7 +7,7 @@ import (
 
 	// "github.com/qorpress/qor/utils"
 	// "github.com/qorpress/validations"
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/posts"
 )
 
 // PostExchange post exchange

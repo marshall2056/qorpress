@@ -7,7 +7,7 @@ import (
 	"github.com/jinzhu/now"
 	"github.com/qorpress/admin"
 
-	"github.com/qorpress/qorpress-example/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/config/db"
 )
 
 type Chart struct {

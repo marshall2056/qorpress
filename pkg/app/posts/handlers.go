@@ -14,8 +14,8 @@ import (
 	// "github.com/qorpress/gorm-paginator/pagination"
 	"github.com/qorpress/render"
 
-	"github.com/qorpress/qorpress-example/pkg/models/posts"
-	"github.com/qorpress/qorpress-example/pkg/utils"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/utils"
 )
 
 // Controller posts controller

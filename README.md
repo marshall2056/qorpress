@@ -12,14 +12,14 @@ Chat Room: [![Join the chat at https://gitter.im/qor/qor](https://badges.gitter.
 
 ```shell
 # Get example app
-$ go get -ugithub.com/qorpress/qorpress-example
+$ go get -ugithub.com/qorpress/qorpress
 
 # Setup database
 $ mysql -uroot -p
 mysql> CREATE DATABASE qor_example;
 
 # Run Application
-$ cd $GOPATH/src/github.com/qorpress/qorpress-example
+$ cd $GOPATH/src/github.com/qorpress/qorpress
 $ go run main.go
 ```
 
@@ -45,11 +45,11 @@ $ go test $(go list ./... | grep -v /vendor/ | grep  -v /db/)
 
 ## Admin Management Interface
 
-[Qor Example admin configuration](https://github.com/qorpress/qorpress-example/blob/master/config/admin/admin.go)
+[Qor Example admin configuration](https://github.com/qorpress/qorpress/blob/master/config/admin/admin.go)
 
 ## RESTful API
 
-[QorPress Example API configuration](https://github.com/qorpress/qorpress-example/blob/master/config/api/api.go)
+[QorPress Example API configuration](https://github.com/qorpress/qorpress/blob/master/config/api/api.go)
 
 Online Example APIs:
 
