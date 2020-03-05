@@ -88,14 +88,6 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 		}
 
 		funcMap["get_category_tags"] = func(catId uint) (tags []posts.Tag) {
-			/*
-				db.DB.Table(table).
-				Where("created_at > ? AND created_at < ?", startdate, enddate).
-				Select("date(created_at) as date, count(*) as total").
-				Group("date(created_at)").
-				Order("date(created_at)").
-				Scan(&res)
-			*/
 			query := fmt.Sprintf(`
 				SELECT T.*
 				FROM (POSTS S, TAGS T)

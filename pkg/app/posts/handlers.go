@@ -69,15 +69,40 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 func (ctrl Controller) Tag(w http.ResponseWriter, req *http.Request) {
 	var (
 		tag posts.Tag
-		// Posts []posts.Post
+		Posts []posts.Post
 		tx = utils.GetDB(req)
 	)
-	if tx.Where("name = ?", utils.URLParam("name", req)).First(&tag).RecordNotFound() {
+
+	if tx.Where("name = ?", utils.URLParam("code", req)).First(&tag).RecordNotFound() {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
-	tx.First(&tag)
+
+	var ok bool
+	var pages, limits []string
+	pages, ok = req.URL.Query()["page"]
+	if !ok || len(pages[0]) < 1 {
+		log.Println("Url Param 'page' is missing")
+		pages = []string{"0"}
+	}
+
+	limits, ok = req.URL.Query()["limit"]
+	if !ok || len(pages[0]) < 1 {
+		log.Println("Url Param 'limit' is missing")
+		limits = []string{"20"}
+	}
+
+	page, _ := strconv.Atoi(pages[0])
+	limit, _ := strconv.Atoi(limits[0])
+
+	offset := page * limit
+	query := fmt.Sprintf(`SELECT P.* FROM (POSTS P, POST_TAGS PT) WHERE PT.POST_ID=P.ID AND PT.tag_id=%d LIMIT %d OFFSET %d`, tag.ID, limit, offset)
+	pp.Println(query)
+
+	tx.Raw(query).Scan(&Posts)
+
 	ctrl.View.Execute("tag", map[string]interface{}{
 		"Tag": tag,
+		"Posts": Posts,
 	}, req, w)
 }
 
@@ -116,7 +141,7 @@ func (ctrl Controller) Category(w http.ResponseWriter, req *http.Request) {
 		DB:    db,
 		Page:  page,
 		Limit: limit,
-		// OrderBy: []string{"id desc"},
+		OrderBy: []string{"id desc"},
 	}, &Posts)
 
 	lastPage := (p.Page >= p.TotalPage)

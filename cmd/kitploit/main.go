@@ -440,7 +440,7 @@ func main() {
 					})
 
 					if err := DraftDB.Save(&post).Error; err != nil {
-						log.Fatalln(err)
+						log.Warnln(err)
 					}
 
 					if len(post.MainImage.Files) == 0 {
@@ -457,7 +457,7 @@ func main() {
 							},
 						})
 						if err := DraftDB.Save(&post).Error; err != nil {
-							log.Fatalln(err)
+							log.Warnln(err)
 						}
 					}
 
@@ -606,7 +606,7 @@ Loop:
 
 	// check for errors
 	if err := resp.Err(); err != nil {
-		log.Fprintf(os.Stderr, "----> Download failed: %v\n", err)
+		log.Printf("----> Download failed: %v\n", err)
 		// os.Exit(1)
 		return nil, 0, err
 	}
