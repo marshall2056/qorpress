@@ -16,9 +16,9 @@ import (
 //go:generate gp-extender -structs Tag -output tag-funcs.go
 type Tag struct {
 	ID           uint            `gorm:"primary_key" json:"id"`
-	Name         string          `json:"name"`
-	Hashtag      string          `json:"hashtag"`
-	NameWithSlug qor_slug.Slug   `l10n:"sync" json:"name_with_slug"`
+	Name         string          `json:"name" gorm:"index:name"`
+	Hashtag      string          `json:"hashtag"` 
+	NameWithSlug qor_slug.Slug   `l10n:"sync" json:"name_with_slug" gorm:"index:name_with_slug"`
 	Seo          qor_seo.Setting `json:"seo"`
 	l10n.Locale
 	sorting.Sorting

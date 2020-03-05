@@ -11,8 +11,8 @@ import (
 //go:generate gp-extender -structs Link -output link-funcs.go
 type Link struct {
 	gorm.Model
-	URL      string
-	Name     string
+	URL      string `gorm:"index:name"`
+	Name     string 
 	Title    string `gorm:"type:mediumtext"`
 	ImageUrl string
 }

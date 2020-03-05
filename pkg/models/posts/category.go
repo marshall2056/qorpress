@@ -14,11 +14,11 @@ type Category struct {
 	gorm.Model
 	l10n.Locale
 	sorting.Sorting
-	Name string
-	Code string
+	Name string `gorm:"index:name"`
+	Code string `gorm:"index:code"`
 
 	Categories []Category
-	CategoryID uint
+	CategoryID uint `gorm:"index:category_id"`
 }
 
 func (category Category) Validate(db *gorm.DB) {

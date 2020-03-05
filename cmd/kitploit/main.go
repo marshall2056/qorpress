@@ -206,7 +206,7 @@ func main() {
 	log.Println("All github URLs:")
 	log.Println("Collected cmap: ", m.Count(), "URLs")
 
-	t := throttler.New(2, m.Count())
+	t := throttler.New(1, m.Count())
 
 	m.IterCb(func(key string, v interface{}) {
 		var topics string

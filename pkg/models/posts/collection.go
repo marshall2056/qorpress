@@ -7,6 +7,6 @@ import (
 
 type Collection struct {
 	gorm.Model
-	Name string
+	Name string `gorm:"index:name"`
 	l10n.LocaleCreatable
 }

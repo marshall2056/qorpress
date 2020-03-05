@@ -22,11 +22,11 @@ type Post struct {
 	gorm.Model
 	l10n.Locale
 	sorting.SortingDESC
-	Name         string
+	Name         string `gorm:"index:name"`
 	NameWithSlug slug.Slug `l10n:"sync"`
 	Featured     bool
-	Code         string `l10n:"sync"`
-	CategoryID   uint   `l10n:"sync"`
+	Code         string `l10n:"sync" gorm:"index:code"`
+	CategoryID   uint   `l10n:"sync" gorm:"index:category_id"`
 	// Categories []Category `gorm:"many2many:post_categories" l10n:"sync"`
 	Category       Category     `l10n:"sync"`
 	Collections    []Collection `l10n:"sync" gorm:"many2many:post_collections;"`
