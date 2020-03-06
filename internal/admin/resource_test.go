@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/fatih/color"
-	"github.com/qorpress/qor"
+	"github.com/gopress/internal/qor"
 )
 
 type Product struct {

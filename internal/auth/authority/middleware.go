@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/qor/utils"
 )
 
 // ClaimsContextKey authority claims key

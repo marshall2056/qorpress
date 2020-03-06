@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/qorpress/responder"
+	"github.com/gopress/internal/responder"
 )
 
 func checkRespond(request *http.Request, format string, t *testing.T) {

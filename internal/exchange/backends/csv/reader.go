@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/qorpress/exchange"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
+	"github.com/gopress/internal/exchange"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
 )
 
 // NewReader new csv reader

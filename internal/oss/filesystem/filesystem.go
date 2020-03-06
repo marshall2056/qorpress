@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/qorpress/oss"
+	"github.com/gopress/internal/oss"
 )
 
 // FileSystem file system storage

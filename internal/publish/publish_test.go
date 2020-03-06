@@ -5,9 +5,9 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/publish"
-	"github.com/qorpress/qor/test/utils"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/publish"
+	"github.com/gopress/internal/qor/test/utils"
 )
 
 var pb *publish.Publish

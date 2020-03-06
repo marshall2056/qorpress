@@ -7,12 +7,12 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
-	"github.com/qorpress/assetfs"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/session"
-	"github.com/qorpress/session/manager"
+	"github.com/gopress/internal/assetfs"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/session"
+	"github.com/gopress/internal/session/manager"
 	"github.com/theplant/cldr"
 )
 
@@ -99,7 +99,7 @@ func (admin *Admin) SetAssetFS(assetFS assetfs.Interface) {
 	globalAssetFSes = append(globalAssetFSes, assetFS)
 
 	admin.AssetFS.RegisterPath(filepath.Join(utils.AppRoot, "themes/gorpress/admin"))
-	admin.RegisterViewPath("github.com/qorpress/qorpress/themes/gorpress/admin")
+	admin.RegisterViewPath("github.com/gopress/internal/qorpress/themes/gorpress/admin")
 
 	for _, viewPath := range globalViewPaths {
 		admin.RegisterViewPath(viewPath)

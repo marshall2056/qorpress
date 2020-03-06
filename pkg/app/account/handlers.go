@@ -3,11 +3,10 @@ package account
 import (
 	"net/http"
 
-	"github.com/qorpress/render"
+	"github.com/gopress/internal/render"
 
-	// "github.com/qorpress/qorpress/pkg/models/orders"
-	// "github.com/qorpress/qorpress/pkg/models/users"
-	"github.com/qorpress/qorpress/pkg/utils"
+	// "github.com/gopress/qorpress/pkg/models/users"
+	"github.com/gopress/qorpress/pkg/utils"
 )
 
 // Controller posts controller

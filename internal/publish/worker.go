@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/roles"
-	"github.com/qorpress/worker"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/roles"
+	"github.com/gopress/internal/worker"
 )
 
 type workerJobLogger struct {

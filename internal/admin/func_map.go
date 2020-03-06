@@ -19,10 +19,10 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/roles"
-	"github.com/qorpress/session"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/roles"
+	"github.com/gopress/internal/session"
 )
 
 // FuncMap funcs map for current context

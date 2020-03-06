@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/utils"
 )
 
 func getPublishScheduleTime(context *qor.Context) string {

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/qor/utils"
 )
 
 const (

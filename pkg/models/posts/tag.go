@@ -5,11 +5,11 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/l10n"
-	qor_seo "github.com/qorpress/seo"
-	qor_slug "github.com/qorpress/slug"
-	"github.com/qorpress/sorting"
-	"github.com/qorpress/validations"
+	"github.com/gopress/internal/l10n"
+	qor_seo "github.com/gopress/internal/seo"
+	qor_slug "github.com/gopress/internal/slug"
+	"github.com/gopress/internal/sorting"
+	"github.com/gopress/internal/validations"
 	log "github.com/sirupsen/logrus"
 )
 

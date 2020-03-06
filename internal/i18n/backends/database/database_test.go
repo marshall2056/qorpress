@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/i18n"
-	"github.com/qorpress/i18n/backends/database"
-	"github.com/qorpress/qor/test/utils"
+	"github.com/gopress/internal/i18n"
+	"github.com/gopress/internal/i18n/backends/database"
+	"github.com/gopress/internal/qor/test/utils"
 )
 
 var db *gorm.DB

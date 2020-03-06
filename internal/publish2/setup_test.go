@@ -1,9 +1,9 @@
 package publish2_test
 
 import (
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/publish2"
-	"github.com/qorpress/qor/test/utils"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/publish2"
+	"github.com/gopress/internal/qor/test/utils"
 )
 
 var DB = utils.TestDB()

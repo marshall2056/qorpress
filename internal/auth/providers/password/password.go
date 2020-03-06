@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/qorpress/auth"
-	"github.com/qorpress/auth/claims"
-	"github.com/qorpress/auth/providers/password/encryptor"
-	"github.com/qorpress/auth/providers/password/encryptor/bcrypt_encryptor"
-	"github.com/qorpress/session"
+	"github.com/gopress/internal/auth"
+	"github.com/gopress/internal/auth/claims"
+	"github.com/gopress/internal/auth/providers/password/encryptor"
+	"github.com/gopress/internal/auth/providers/password/encryptor/bcrypt_encryptor"
+	"github.com/gopress/internal/session"
 )
 
 // Config password config

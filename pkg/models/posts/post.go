@@ -7,15 +7,15 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/media/media_library"
-	"github.com/qorpress/publish2"
-	qor_seo "github.com/qorpress/seo"
-	"github.com/qorpress/slug"
-	"github.com/qorpress/sorting"
-	"github.com/qorpress/validations"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/media/media_library"
+	"github.com/gopress/internal/publish2"
+	qor_seo "github.com/gopress/internal/seo"
+	"github.com/gopress/internal/slug"
+	"github.com/gopress/internal/sorting"
+	"github.com/gopress/internal/validations"
 
-	"github.com/qorpress/qorpress/pkg/models/seo"
+	"github.com/gopress/qorpress/pkg/models/seo"
 )
 
 type Post struct {

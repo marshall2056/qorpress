@@ -8,8 +8,8 @@ import (
 	"net/http/httptest"
 
 	beego_session "github.com/astaxie/beego/session"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/session"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/session"
 )
 
 var writer utils.ContextKey = "gorilla_writer"

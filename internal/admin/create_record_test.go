@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/qorpress/admin/tests/dummy"
+	. "github.com/gopress/internal/admin/tests/dummy"
 )
 
 func TestCreateRecord(t *testing.T) {

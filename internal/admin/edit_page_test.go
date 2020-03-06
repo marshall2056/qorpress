@@ -6,7 +6,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	. "github.com/qorpress/admin/tests/dummy"
+	. "github.com/gopress/internal/admin/tests/dummy"
 	"github.com/theplant/htmltestingutils"
 )
 

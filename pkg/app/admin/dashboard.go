@@ -5,9 +5,9 @@ import (
 	"time"
 
 	"github.com/jinzhu/now"
-	"github.com/qorpress/admin"
+	"github.com/gopress/internal/admin"
 
-	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/gopress/qorpress/pkg/config/db"
 )
 
 type Chart struct {

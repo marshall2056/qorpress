@@ -8,9 +8,9 @@ import (
 
 	"github.com/azumads/faker"
 	"github.com/jinzhu/configor"
-	"github.com/qorpress/publish2"
+	"github.com/gopress/internal/publish2"
 
-	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/gopress/internal/qorpress/pkg/config/db"
 )
 
 var Fake *faker.Faker

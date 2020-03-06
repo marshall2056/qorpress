@@ -11,16 +11,16 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/admin"
-	"github.com/qorpress/media"
-	"github.com/qorpress/media/oss"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/media"
+	"github.com/gopress/internal/media/oss"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
+	"github.com/gopress/internal/qor/utils"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/qorpress/media/media_library/views")
+	admin.RegisterViewPath("github.com/gopress/internal/media/media_library/views")
 }
 
 type MediaLibraryInterface interface {

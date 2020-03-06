@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/roles"
 )
 
 // Rule authority rule's definition

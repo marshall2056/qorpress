@@ -7,8 +7,8 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/responder"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/responder"
 )
 
 // New handle new setting page

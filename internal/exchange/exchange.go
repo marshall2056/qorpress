@@ -5,10 +5,10 @@ import (
 	"reflect"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
-	"github.com/qorpress/roles"
-	"github.com/qorpress/validations"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
+	"github.com/gopress/internal/roles"
+	"github.com/gopress/internal/validations"
 )
 
 // Resource defined an exchange resource, which includes importing/exporting fields definitions

@@ -6,17 +6,17 @@ import (
 
 	"github.com/go-gomail/gomail"
 	"github.com/jinzhu/configor"
-	"github.com/qorpress/auth/providers/facebook"
-	"github.com/qorpress/auth/providers/github"
-	"github.com/qorpress/auth/providers/google"
-	"github.com/qorpress/auth/providers/twitter"
-	"github.com/qorpress/mailer"
-	"github.com/qorpress/mailer/gomailer"
-	"github.com/qorpress/mailer/logger"
-	"github.com/qorpress/media/oss"
-	"github.com/qorpress/oss/s3"
-	"github.com/qorpress/redirect_back"
-	"github.com/qorpress/session/manager"
+	"github.com/gopress/internal/auth/providers/facebook"
+	"github.com/gopress/internal/auth/providers/github"
+	"github.com/gopress/internal/auth/providers/google"
+	"github.com/gopress/internal/auth/providers/twitter"
+	"github.com/gopress/internal/mailer"
+	"github.com/gopress/internal/mailer/gomailer"
+	"github.com/gopress/internal/mailer/logger"
+	"github.com/gopress/internal/media/oss"
+	"github.com/gopress/internal/oss/s3"
+	"github.com/gopress/internal/redirect_back"
+	"github.com/gopress/internal/session/manager"
 	"github.com/unrolled/render"
 )
 
@@ -54,7 +54,7 @@ var Config = struct {
 }{}
 
 var (
-	Root         = os.Getenv("GOPATH") + "/src/github.com/qorpress/qorpress"
+	Root         = os.Getenv("GOPATH") + "/src/github.com/gopress/qorpress"
 	Mailer       *mailer.Mailer
 	Render       = render.New()
 	RedirectBack = redirect_back.New(&redirect_back.Config{

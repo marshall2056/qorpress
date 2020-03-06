@@ -3,11 +3,11 @@ package home
 import (
 	"path/filepath"
 
-	"github.com/qorpress/render"
+	"github.com/gopress/internal/render"
 
-	"github.com/qorpress/qorpress/pkg/config"
-	"github.com/qorpress/qorpress/pkg/config/application"
-	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
+	"github.com/gopress/qorpress/pkg/config"
+	"github.com/gopress/qorpress/pkg/config/application"
+	"github.com/gopress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // New new home app

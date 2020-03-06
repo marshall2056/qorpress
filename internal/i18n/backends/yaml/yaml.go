@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/qorpress/i18n"
+	"github.com/gopress/internal/i18n"
 	"gopkg.in/yaml.v2"
 )
 

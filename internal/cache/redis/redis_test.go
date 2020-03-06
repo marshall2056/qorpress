@@ -6,7 +6,7 @@ import (
 
 	"gopkg.in/redis.v3"
 
-	"github.com/qorpress/cache"
+	"github.com/gopress/internal/cache"
 )
 
 var client cache.CacheStoreInterface

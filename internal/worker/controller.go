@@ -5,9 +5,9 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/responder"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/responder"
+	"github.com/gopress/internal/roles"
 )
 
 type workerController struct {

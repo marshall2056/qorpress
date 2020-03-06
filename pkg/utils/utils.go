@@ -8,14 +8,14 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/jinzhu/gorm"
 	"github.com/microcosm-cc/bluemonday"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/session"
-	"github.com/qorpress/session/manager"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/session"
+	"github.com/gopress/internal/session/manager"
 
-	"github.com/qorpress/qorpress/pkg/config/auth"
-	"github.com/qorpress/qorpress/pkg/config/db"
-	"github.com/qorpress/qorpress/pkg/models/users"
+	"github.com/gopress/qorpress/pkg/config/auth"
+	"github.com/gopress/qorpress/pkg/config/db"
+	"github.com/gopress/qorpress/pkg/models/users"
 )
 
 // GetCurrentUser get current user from request

@@ -1,6 +1,6 @@
 package notification
 
-import "github.com/qorpress/qor"
+import "github.com/gopress/internal/qor"
 
 func (notification *Notification) RegisterChannel(channel ChannelInterface) {
 	notification.Channels = append(notification.Channels, channel)

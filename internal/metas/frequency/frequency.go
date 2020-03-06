@@ -9,14 +9,14 @@ import (
 	"time"
 
 	"github.com/jinzhu/now"
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
+	"github.com/gopress/internal/qor/utils"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/qorpress/metas/frequency/views")
+	admin.RegisterViewPath("github.com/gopress/internal/metas/frequency/views")
 }
 
 // Frequencier frequencier interface

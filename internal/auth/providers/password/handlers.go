@@ -4,11 +4,11 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/qorpress/auth"
-	"github.com/qorpress/auth/auth_identity"
-	"github.com/qorpress/auth/claims"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/session"
+	"github.com/gopress/internal/auth"
+	"github.com/gopress/internal/auth/auth_identity"
+	"github.com/gopress/internal/auth/claims"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/session"
 )
 
 // DefaultAuthorizeHandler default authorize handler

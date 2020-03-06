@@ -3,7 +3,7 @@ package admin
 import (
 	"errors"
 
-	"github.com/qorpress/qor/resource"
+	"github.com/gopress/internal/qor/resource"
 )
 
 // SingleEditConfig meta configuration used for single edit

@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/roles"
 
-	"github.com/qorpress/qorpress/pkg/models/users"
+	"github.com/gopress/qorpress/pkg/models/users"
 )
 
 func init() {

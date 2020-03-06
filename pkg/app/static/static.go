@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/gopress/qorpress/pkg/config/application"
 )
 
 // New new home app

@@ -1,7 +1,7 @@
 package settings
 
 import (
-	"github.com/qorpress/media/media_library"
+	"github.com/gopress/internal/media/media_library"
 )
 
 type MediaLibrary struct {

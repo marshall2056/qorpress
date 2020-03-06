@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/qor/test/utils"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/qor/test/utils"
 )
 
 type Product struct {

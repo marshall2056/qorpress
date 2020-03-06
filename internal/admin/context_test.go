@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/qorpress/admin"
-	. "github.com/qorpress/admin/tests/dummy"
-	"github.com/qorpress/qor"
+	"github.com/gopress/internal/admin"
+	. "github.com/gopress/internal/admin/tests/dummy"
+	"github.com/gopress/internal/qor"
 )
 
 // Template helpers test

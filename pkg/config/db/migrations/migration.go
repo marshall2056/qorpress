@@ -1,20 +1,20 @@
 package migrations
 
 import (
-	"github.com/qorpress/activity"
-	"github.com/qorpress/auth/auth_identity"
-	"github.com/qorpress/banner_editor"
+	"github.com/gopress/internal/activity"
+	"github.com/gopress/internal/auth/auth_identity"
+	"github.com/gopress/internal/banner_editor"
 	"github.com/qorpress/help"
-	"github.com/qorpress/media/asset_manager"
-	"github.com/qorpress/transition"
+	"github.com/gopress/internal/media/asset_manager"
+	"github.com/gopress/internal/transition"
 
-	"github.com/qorpress/qorpress/pkg/app/admin"
-	"github.com/qorpress/qorpress/pkg/config/db"
-	"github.com/qorpress/qorpress/pkg/models/cms"
-	"github.com/qorpress/qorpress/pkg/models/posts"
-	"github.com/qorpress/qorpress/pkg/models/seo"
-	"github.com/qorpress/qorpress/pkg/models/settings"
-	"github.com/qorpress/qorpress/pkg/models/users"
+	"github.com/gopress/qorpress/pkg/app/admin"
+	"github.com/gopress/qorpress/pkg/config/db"
+	"github.com/gopress/qorpress/pkg/models/cms"
+	"github.com/gopress/qorpress/pkg/models/posts"
+	"github.com/gopress/qorpress/pkg/models/seo"
+	"github.com/gopress/qorpress/pkg/models/settings"
+	"github.com/gopress/qorpress/pkg/models/users"
 )
 
 func init() {

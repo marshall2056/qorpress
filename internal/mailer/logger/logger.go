@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/qorpress/mailer"
+	"github.com/gopress/internal/mailer"
 )
 
 // Sender gomail struct

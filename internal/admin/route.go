@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/roles"
 )
 
 // Middleware is a way to filter a request and response coming into your application

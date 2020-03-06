@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/jteeuwen/go-bindata"
-	"github.com/qorpress/assetfs"
+	"github.com/gopress/internal/assetfs"
 )
 
 type AssetFSInterface interface {

@@ -22,7 +22,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/ec2metadata"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
-	"github.com/qorpress/oss"
+	"github.com/gopress/internal/oss"
 )
 
 // Client S3 storage

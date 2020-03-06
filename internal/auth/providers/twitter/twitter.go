@@ -9,11 +9,11 @@ import (
 	"reflect"
 
 	"github.com/mrjones/oauth"
-	"github.com/qorpress/auth"
-	"github.com/qorpress/auth/auth_identity"
-	"github.com/qorpress/auth/claims"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/session"
+	"github.com/gopress/internal/auth"
+	"github.com/gopress/internal/auth/auth_identity"
+	"github.com/gopress/internal/auth/claims"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/session"
 )
 
 var UserInfoURL = "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true"
@@ -135,7 +135,7 @@ func (Provider) GetName() string {
 // ConfigAuth config auth
 func (provider *Provider) ConfigAuth(auth *auth.Auth) {
 	provider.Auth = auth
-	provider.Auth.Render.RegisterViewPath("github.com/qorpress/auth/providers/twitter/views")
+	provider.Auth.Render.RegisterViewPath("github.com/gopress/internal/auth/providers/twitter/views")
 }
 
 // NewConsumer new twitter consumer

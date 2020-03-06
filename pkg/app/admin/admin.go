@@ -1,16 +1,16 @@
 package admin
 
 import (
-	"github.com/qorpress/action_bar"
-	"github.com/qorpress/admin"
+	"github.com/gopress/internal/action_bar"
+	"github.com/gopress/internal/admin"
 	"github.com/qorpress/help"
-	"github.com/qorpress/media/asset_manager"
-	"github.com/qorpress/media/media_library"
+	"github.com/gopress/internal/media/asset_manager"
+	"github.com/gopress/internal/media/media_library"
 
-	// "github.com/qorpress/qorpress/pkg/models/seo"
-	"github.com/qorpress/qorpress/pkg/config/application"
-	"github.com/qorpress/qorpress/pkg/config/i18n"
-	"github.com/qorpress/qorpress/pkg/models/settings"
+	// "github.com/gopress/qorpress/pkg/models/seo"
+	"github.com/gopress/qorpress/pkg/config/application"
+	"github.com/gopress/qorpress/pkg/config/i18n"
+	"github.com/gopress/qorpress/pkg/models/settings"
 )
 
 // ActionBar admin action bar

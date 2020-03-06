@@ -5,8 +5,8 @@ import (
 
 	scssession "github.com/alexedwards/scs"
 	"github.com/alexedwards/scs/stores/memstore"
-	"github.com/qorpress/session/scs"
-	"github.com/qorpress/session/test"
+	"github.com/gopress/internal/session/scs"
+	"github.com/gopress/internal/session/test"
 )
 
 func TestAll(t *testing.T) {

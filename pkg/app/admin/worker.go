@@ -5,17 +5,17 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/exchange"
-	"github.com/qorpress/exchange/backends/csv"
-	"github.com/qorpress/i18n/exchange_actions"
-	"github.com/qorpress/media/oss"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/worker"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/exchange"
+	"github.com/gopress/internal/exchange/backends/csv"
+	"github.com/gopress/internal/i18n/exchange_actions"
+	"github.com/gopress/internal/media/oss"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/worker"
 
-	"github.com/qorpress/qorpress/pkg/config/db"
-	"github.com/qorpress/qorpress/pkg/config/i18n"
-	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/gopress/qorpress/pkg/config/db"
+	"github.com/gopress/qorpress/pkg/config/i18n"
+	"github.com/gopress/qorpress/pkg/models/posts"
 )
 
 // SetupWorker setup worker

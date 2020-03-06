@@ -7,16 +7,16 @@ import (
 	"path/filepath"
 
 	// "github.com/jinzhu/gorm"
-	"github.com/qorpress/admin"
-	"github.com/qorpress/media"
-	"github.com/qorpress/media/media_library"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/render"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/media"
+	"github.com/gopress/internal/media/media_library"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/render"
 
-	"github.com/qorpress/qorpress/pkg/config"
-	"github.com/qorpress/qorpress/pkg/config/application"
-	"github.com/qorpress/qorpress/pkg/models/posts"
-	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
+	"github.com/gopress/qorpress/pkg/config"
+	"github.com/gopress/qorpress/pkg/config/application"
+	"github.com/gopress/qorpress/pkg/models/posts"
+	"github.com/gopress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // var Genders = []string{"Men", "Women", "Kids"}

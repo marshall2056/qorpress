@@ -8,12 +8,12 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/qorpress/exchange"
-	csv_adaptor "github.com/qorpress/exchange/backends/csv"
-	"github.com/qorpress/exchange/tests"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
-	"github.com/qorpress/qor/test/utils"
+	"github.com/gopress/internal/exchange"
+	csv_adaptor "github.com/gopress/internal/exchange/backends/csv"
+	"github.com/gopress/internal/exchange/tests"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
+	"github.com/gopress/internal/qor/test/utils"
 )
 
 var db = utils.TestDB()

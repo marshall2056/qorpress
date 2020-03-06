@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/validations"
+	"github.com/gopress/internal/validations"
 	log "github.com/sirupsen/logrus"
 )
 

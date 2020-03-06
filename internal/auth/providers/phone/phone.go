@@ -1,6 +1,6 @@
 package phone
 
-import "github.com/qorpress/auth"
+import "github.com/gopress/internal/auth"
 
 func New() *PhoneProvider {
 	return &PhoneProvider{}

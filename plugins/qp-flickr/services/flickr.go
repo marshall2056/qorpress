@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/qorpress/qorpress/plugins/qp-flickr/models"
+	"github.com/gopress/internal/qorpress/plugins/qp-flickr/models"
 )
 
 func GetFlickrImages(number int) (payload models.Payload, err error) {

@@ -3,7 +3,7 @@ package admin
 import (
 	"html/template"
 
-	"github.com/qorpress/admin"
+	"github.com/gopress/internal/admin"
 )
 
 func initFuncMap(Admin *admin.Admin) {

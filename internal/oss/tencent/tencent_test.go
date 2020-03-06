@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"fmt"
-	"github.com/qorpress/oss/tests"
+	"github.com/gopress/internal/oss/tests"
 )
 
 func TestClient_Get(t *testing.T) {

@@ -3,11 +3,11 @@ package notification
 import (
 	"path"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
-	"github.com/qorpress/qor/utils"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
+	"github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/roles"
 )
 
 type Notification struct {
@@ -68,7 +68,7 @@ func (notification *Notification) GetNotification(user interface{}, messageID st
 func (notification *Notification) ConfigureQorResource(res resource.Resourcer) {
 	if res, ok := res.(*admin.Resource); ok {
 		Admin := res.GetAdmin()
-		Admin.RegisterViewPath("github.com/qorpress/notification/views")
+		Admin.RegisterViewPath("github.com/gopress/internal/notification/views")
 
 		if len(notification.Channels) == 0 {
 			utils.ExitWithMsg("No channel defined for notification")

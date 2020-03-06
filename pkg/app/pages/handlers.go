@@ -3,7 +3,7 @@ package pages
 import (
 	"net/http"
 
-	"github.com/qorpress/render"
+	"github.com/gopress/internal/render"
 )
 
 // Controller home controller

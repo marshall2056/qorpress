@@ -6,7 +6,7 @@ import (
 	"html/template"
 	"path/filepath"
 
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/qor/utils"
 )
 
 // Render find widget by name, render it based on current context

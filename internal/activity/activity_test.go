@@ -10,11 +10,11 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/admin"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/test/utils"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/test/utils"
+	"github.com/gopress/internal/roles"
 	"github.com/theplant/testingutils"
 )
 

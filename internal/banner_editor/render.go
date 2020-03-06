@@ -5,8 +5,8 @@ import (
 	"html/template"
 	"path/filepath"
 
-	"github.com/qorpress/assetfs"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/assetfs"
+	"github.com/gopress/internal/qor/utils"
 )
 
 // SetAssetFS set asset fs for render

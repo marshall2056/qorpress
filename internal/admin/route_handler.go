@@ -3,8 +3,8 @@ package admin
 import (
 	"strings"
 
-	"github.com/qorpress/qor"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/roles"
 )
 
 // RouteConfig config for admin routes

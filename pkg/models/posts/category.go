@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/sorting"
-	"github.com/qorpress/validations"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/sorting"
+	"github.com/gopress/internal/validations"
 )
 
 type Category struct {

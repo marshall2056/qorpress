@@ -1,8 +1,8 @@
 package seo
 
 import (
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/seo"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/seo"
 )
 
 type MySEOSetting struct {

@@ -4,19 +4,19 @@ import (
 	"path/filepath"
 
 	"github.com/go-chi/chi"
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/resource"
-	qorutils "github.com/qorpress/qor/utils"
-	"github.com/qorpress/render"
-	"github.com/qorpress/validations"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/resource"
+	qorutils "github.com/gopress/internal/qor/utils"
+	"github.com/gopress/internal/render"
+	"github.com/gopress/internal/validations"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/qorpress/qorpress/pkg/config"
-	"github.com/qorpress/qorpress/pkg/config/application"
-	"github.com/qorpress/qorpress/pkg/config/auth"
-	"github.com/qorpress/qorpress/pkg/models/users"
-	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
+	"github.com/gopress/qorpress/pkg/config"
+	"github.com/gopress/qorpress/pkg/config/application"
+	"github.com/gopress/qorpress/pkg/config/auth"
+	"github.com/gopress/qorpress/pkg/models/users"
+	"github.com/gopress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // New new home app

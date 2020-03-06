@@ -5,12 +5,12 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor/utils"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/qorpress/qorpress/themes/qorpress/action_bar")
+	admin.RegisterViewPath("github.com/gopress/internal/qorpress/themes/gopress/internal/action_bar")
 }
 
 // ActionBar stores configuration about a action bar.

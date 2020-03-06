@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/roles"
 )
 
 type controller struct {

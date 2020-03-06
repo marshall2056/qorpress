@@ -10,10 +10,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/i18n"
-	"github.com/qorpress/media/oss"
-	"github.com/qorpress/worker"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/i18n"
+	"github.com/gopress/internal/media/oss"
+	"github.com/gopress/internal/worker"
 )
 
 type ExportTranslationArgument struct {
@@ -33,7 +33,7 @@ func RegisterExchangeJobs(I18n *i18n.I18n, Worker *worker.Worker) {
 	}
 
 	Admin := I18n.Resource.GetAdmin()
-	Admin.RegisterViewPath("github.com/qorpress/i18n/exchange_actions/views")
+	Admin.RegisterViewPath("github.com/gopress/internal/i18n/exchange_actions/views")
 
 	// Export Translations
 	exportTranslationResource := Admin.NewResource(&ExportTranslationArgument{})

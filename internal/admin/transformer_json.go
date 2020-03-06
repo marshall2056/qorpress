@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"reflect"
 
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/roles"
 )
 
 // JSONTransformer json transformer

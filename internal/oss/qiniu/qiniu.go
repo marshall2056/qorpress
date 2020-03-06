@@ -18,7 +18,7 @@ import (
 
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/storage"
-	"github.com/qorpress/oss"
+	"github.com/gopress/internal/oss"
 )
 
 // Client Qiniu storage

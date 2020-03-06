@@ -1,6 +1,6 @@
 package widget
 
-import "github.com/qorpress/qor/utils"
+import "github.com/gopress/internal/qor/utils"
 
 var registeredScopes []*Scope
 

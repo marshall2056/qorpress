@@ -6,10 +6,10 @@ import (
 	"io/ioutil"
 	"strings"
 
-	"github.com/qorpress/media"
-	"github.com/qorpress/oss"
-	"github.com/qorpress/oss/filesystem"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/media"
+	"github.com/gopress/internal/oss"
+	"github.com/gopress/internal/oss/filesystem"
+	"github.com/gopress/internal/qor/utils"
 )
 
 var (

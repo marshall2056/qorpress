@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/qorpress/qorpress/pkg/services"
+	"github.com/gopress/internal/qorpress/pkg/services"
 )
 
 func GetFlickr(c *gin.Context) {

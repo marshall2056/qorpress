@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/qorpress/assetfs"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/assetfs"
+	"github.com/gopress/internal/qor/utils"
 )
 
 // DefaultLayout default layout name

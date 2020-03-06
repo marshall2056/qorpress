@@ -3,10 +3,10 @@ package dummy
 import (
 	"fmt"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/media"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/qor/test/utils"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/media"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/qor/test/utils"
 )
 
 // NewDummyAdmin generate admin for dummy app

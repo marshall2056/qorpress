@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/qor"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/qor"
+	"github.com/gopress/internal/roles"
 )
 
 // Download is a handler will return a specific file

@@ -5,9 +5,9 @@ import (
 	"reflect"
 
 	"github.com/jinzhu/copier"
-	"github.com/qorpress/auth/auth_identity"
-	"github.com/qorpress/auth/claims"
-	"github.com/qorpress/qor/utils"
+	"github.com/gopress/internal/auth/auth_identity"
+	"github.com/gopress/internal/auth/claims"
+	"github.com/gopress/internal/qor/utils"
 )
 
 // UserStorerInterface user storer interface

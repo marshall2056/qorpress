@@ -3,7 +3,7 @@ package filesystem
 import (
 	"testing"
 
-	"github.com/qorpress/oss/tests"
+	"github.com/gopress/internal/oss/tests"
 )
 
 func TestAll(t *testing.T) {

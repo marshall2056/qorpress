@@ -2,8 +2,8 @@ package settings
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/location"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/location"
 )
 
 // to do

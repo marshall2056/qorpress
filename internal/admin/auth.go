@@ -1,6 +1,6 @@
 package admin
 
-import "github.com/qorpress/qor"
+import "github.com/gopress/internal/qor"
 
 // Auth is an auth interface that used to qor admin
 // If you want to implement an authorization gateway for admin interface, you could implement this interface, and set it to the admin with `admin.SetAuth(auth)`

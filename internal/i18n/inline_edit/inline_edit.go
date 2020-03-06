@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/qorpress/admin"
-	"github.com/qorpress/i18n"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/i18n"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/qorpress/i18n/inline_edit/views")
+	admin.RegisterViewPath("github.com/gopress/internal/i18n/inline_edit/views")
 }
 
 // FuncMap generate func map for inline edit

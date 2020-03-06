@@ -10,9 +10,9 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/media"
-	"github.com/qorpress/media/filesystem"
-	"github.com/qorpress/qor/test/utils"
+	"github.com/gopress/internal/media"
+	"github.com/gopress/internal/media/filesystem"
+	"github.com/gopress/internal/qor/test/utils"
 )
 
 var db = utils.TestDB()

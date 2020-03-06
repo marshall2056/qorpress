@@ -2,7 +2,7 @@ package admin
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/qor"
+	"github.com/gopress/internal/qor"
 )
 
 // Scope register scope for qor resource

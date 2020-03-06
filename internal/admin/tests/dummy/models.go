@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/media/oss"
+	"github.com/gopress/internal/media/oss"
 )
 
 type CreditCard struct {

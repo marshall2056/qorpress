@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/l10n"
-	"github.com/qorpress/sorting"
+	"github.com/gopress/internal/l10n"
+	"github.com/gopress/internal/sorting"
 )
 
 type Brand struct {

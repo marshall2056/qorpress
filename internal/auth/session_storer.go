@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/qorpress/auth/claims"
-	"github.com/qorpress/session"
+	"github.com/gopress/internal/auth/claims"
+	"github.com/gopress/internal/session"
 )
 
 // SessionStorerInterface session storer interface for Auth

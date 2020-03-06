@@ -5,10 +5,10 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/admin"
-	"github.com/qorpress/audited"
-	"github.com/qorpress/qor/resource"
-	"github.com/qorpress/roles"
+	"github.com/gopress/internal/admin"
+	"github.com/gopress/internal/audited"
+	"github.com/gopress/internal/qor/resource"
+	"github.com/gopress/internal/roles"
 )
 
 // StateChangeLog a model that used to keep state change logs
