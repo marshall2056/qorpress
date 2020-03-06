@@ -3,28 +3,29 @@ version: "3.7"
 services:
 
   blog:
-    image: qopress/qorpress-example:latest
-    container_name: ${NAMESPACE}-blog
+    image: qopress/qorpress:latest
+    container_name: ${NAMESPACE}-core
     build:
       context: .
       dockerfile: Dockerfile
     ports:
     - "7000:7000"
+    - "80:80"
+    - "443:443"
     volumes:
-    - ./config/application.yml:/opt/qor/config/application.yml
-    - ./config/database.yml:/opt/qor/config/database.yml
-    - ./config/smtp.yml:/opt/qor/config/smtp.yml
+    - ./.config/qorpress.yml:/go/bin/config/qorpress.yml
+    - ./shared/public:/go/bin/public
     links:
     - mysql:mysql
     - manticore:manticore
     depends_on:
     - mysql
     - manticore
-    command: ["/go/bin/qorpress-example"]
-    restart: unless-stopped
     networks:
     - internal
     - web
+    restart: unless-stopped
+    command: ["/go/bin/qorpress"]
 
   mysql:
     image: mysql:5.7
@@ -35,13 +36,13 @@ services:
     - ./docker/mysql:/etc/mysql/conf.d
     - db-data:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: qor_example
-      MYSQL_PASSWORD: qor_example
-      MYSQL_ROOT_PASSWORD: 'qor_password'
-      MYSQL_USER: qor_user
-    restart: unless-stopped
+      MYSQL_DATABASE: qorpress_example
+      MYSQL_PASSWORD: qorpress_example
+      MYSQL_ROOT_PASSWORD: 'qorpress_password'
+      MYSQL_USER: qorpress_user
     networks:
     - internal
+    restart: unless-stopped
 
   elastic:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
@@ -89,7 +90,7 @@ services:
 
   backup:
     image: zeenlym/mariadb-backup
-    container_name: ${NAMESPACE}_backup
+    container_name: ${NAMESPACE}-backup
     depends_on:
     - mysql
     restart: unless-stopped
@@ -109,7 +110,7 @@ services:
 
   memcached:
     image: memcached:alpine
-    container_name: ${NAMESPACE}_memcached 
+    container_name: ${NAMESPACE}-memcached 
     restart: always
     ports:
     - "11211:11211"
@@ -120,16 +121,16 @@ services:
 
   redis:
     image: redis:5-alpine
-    container_name: ${NAMESPACE}_redis 
-    restart: unless-stopped
+    container_name: ${NAMESPACE}-redis 
     ports:
     - "6379:6379"
     networks:
     - internal
+    restart: unless-stopped
 
   imaginary:
     image: h2non/imaginary:latest
-    container_name: ${NAMESPACE}_imaginary
+    container_name: ${NAMESPACE}-imaginary
     volumes:
     - imaginary-data:/mnt/data
     environment:
