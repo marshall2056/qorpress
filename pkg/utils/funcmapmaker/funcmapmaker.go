@@ -12,8 +12,8 @@ import (
 	"github.com/qorpress/session"
 	"github.com/qorpress/session/manager"
 	"github.com/qorpress/widget"
-	// "github.com/k0kubun/pp"
 
+	// "github.com/k0kubun/pp"
 	"github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/config/i18n"
 	"github.com/qorpress/qorpress/pkg/models/posts"
@@ -65,7 +65,7 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 		// Add `action_bar` method
 		funcMap["render_action_bar"] = func() template.HTML {
 			return admin.ActionBar.Actions(action_bar.Action{
-				Name: "Edit SEO", 
+				Name: "Edit SEO",
 				Link: seo.SEOCollection.SEOSettingURL("/help"),
 			}).Render(w, req)
 		}

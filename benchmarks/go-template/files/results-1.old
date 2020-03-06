@@ -1,6 +1,6 @@
 goos: linux
 goarch: amd64
-pkg: github.com/SlinSo/goTemplateBenchmark
+pkg: github.com/qorpress/qorpress/benchmarks/go-template
 BenchmarkAce-8                    424944          8970 ns/op      1392 B/op           42 allocs/op
 BenchmarkAmber-8                  694688          5386 ns/op      1120 B/op           38 allocs/op
 BenchmarkGolang-8                 703208          5264 ns/op      1040 B/op           37 allocs/op
@@ -11,4 +11,4 @@ BenchmarkMustache-8               1000000         3357 ns/op      1568 B/op     
 BenchmarkPongo2-8                 1000000         3996 ns/op      2072 B/op           32 allocs/op
 BenchmarkSoy-8                    1317049         2795 ns/op      1392 B/op           25 allocs/op
 PASS
-ok  	github.com/SlinSo/goTemplateBenchmark	40.181s
+ok  	github.com/qorpress/qorpress/benchmarks/go-template	40.181s

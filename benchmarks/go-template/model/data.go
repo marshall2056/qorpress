@@ -2,9 +2,9 @@ package model
 
 type User struct {
 	FirstName      string
-	Email string
+	Email          string
 	FavoriteColors []string
-	RawContent string
+	RawContent     string
 	EscapedContent string
 }
 

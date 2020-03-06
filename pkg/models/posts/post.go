@@ -22,7 +22,7 @@ type Post struct {
 	gorm.Model
 	l10n.Locale
 	sorting.SortingDESC
-	Name         string `gorm:"index:name"`
+	Name         string    `gorm:"index:name"`
 	NameWithSlug slug.Slug `l10n:"sync"`
 	Featured     bool
 	Code         string `l10n:"sync" gorm:"index:code"`
@@ -32,7 +32,7 @@ type Post struct {
 	Collections    []Collection `l10n:"sync" gorm:"many2many:post_collections;"`
 	Tags           []Tag        `l10n:"sync" gorm:"many2many:post_tags"`
 	Comments       []Comment    `l10n:"sync"`
-	Links 		   []Link 		`l10n:"sync" gorm:"many2many:post_links"`
+	Links          []Link       `l10n:"sync" gorm:"many2many:post_links"`
 	MainImage      media_library.MediaBox
 	Images         media_library.MediaBox
 	Description    string         `gorm:"type:longtext"`

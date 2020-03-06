@@ -19,7 +19,7 @@ go install github.com/Joker/jade/cmd/jade
 
 qtc -dir quicktemplate
 ftmpl ftmpl/
-gorazor -prefix github.com/SlinSo/goTemplateBenchmark gorazor gorazor
+gorazor -prefix github.com/qorpress/qorpress/benchmarks/go-template gorazor gorazor
 hero -source hero/
 jade -d jade/ jade/simple.jade
 jade -d jade/ jade/index.jade

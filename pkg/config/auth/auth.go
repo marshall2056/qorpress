@@ -22,9 +22,9 @@ import (
 var (
 	// Auth initialize Auth for Authentication
 	Auth = clean.New(&auth.Config{
-		DB:     db.DB,
-		Mailer: config.Mailer,
-		Render: render.New(&render.Config{AssetFileSystem: bindatafs.AssetFS.NameSpace("auth")}),
+		DB:         db.DB,
+		Mailer:     config.Mailer,
+		Render:     render.New(&render.Config{AssetFileSystem: bindatafs.AssetFS.NameSpace("auth")}),
 		UserModel:  users.User{},
 		Redirector: auth.Redirector{RedirectBack: config.RedirectBack},
 	})

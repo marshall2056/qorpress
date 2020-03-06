@@ -5,9 +5,10 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/SlinSo/goTemplateBenchmark/model"
 	"html"
 	"os"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 func init() {

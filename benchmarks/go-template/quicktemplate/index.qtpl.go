@@ -9,10 +9,11 @@ import (
 	qtio422016 "io"
 
 	qt422016 "github.com/valyala/quicktemplate"
-)
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 
 //line quicktemplate/index.qtpl:1
-import "github.com/SlinSo/goTemplateBenchmark/model"
+)
 
 //line quicktemplate/index.qtpl:2
 var (

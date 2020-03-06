@@ -8,18 +8,18 @@ import (
 	"testing"
 	text "text/template"
 
-	"github.com/SlinSo/goTemplateBenchmark/golang"
-	"github.com/SlinSo/goTemplateBenchmark/model"
+	"github.com/hoisie/mustache"
 	"github.com/valyala/bytebufferpool"
 
-	"github.com/SlinSo/goTemplateBenchmark/ego"
-	"github.com/SlinSo/goTemplateBenchmark/egonslinso"
-	"github.com/SlinSo/goTemplateBenchmark/ftmpl"
-	"github.com/SlinSo/goTemplateBenchmark/gorazor"
-	herotmpl "github.com/SlinSo/goTemplateBenchmark/hero"
-	"github.com/SlinSo/goTemplateBenchmark/jade"
-	"github.com/SlinSo/goTemplateBenchmark/quicktemplate"
-	"github.com/hoisie/mustache"
+	"github.com/qorpress/qorpress/benchmarks/go-template/ego"
+	"github.com/qorpress/qorpress/benchmarks/go-template/egonslinso"
+	"github.com/qorpress/qorpress/benchmarks/go-template/ftmpl"
+	"github.com/qorpress/qorpress/benchmarks/go-template/golang"
+	"github.com/qorpress/qorpress/benchmarks/go-template/gorazor"
+	herotmpl "github.com/qorpress/qorpress/benchmarks/go-template/hero"
+	"github.com/qorpress/qorpress/benchmarks/go-template/jade"
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
+	"github.com/qorpress/qorpress/benchmarks/go-template/quicktemplate"
 )
 
 type tmplData struct {

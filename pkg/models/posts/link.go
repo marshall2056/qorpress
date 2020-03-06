@@ -2,17 +2,17 @@ package posts
 
 import (
 	"strings"
-	log "github.com/sirupsen/logrus"
 
 	"github.com/jinzhu/gorm"
 	"github.com/qorpress/validations"
+	log "github.com/sirupsen/logrus"
 )
 
 //go:generate gp-extender -structs Link -output link-funcs.go
 type Link struct {
 	gorm.Model
 	URL      string `gorm:"index:name"`
-	Name     string 
+	Name     string
 	Title    string `gorm:"type:mediumtext"`
 	ImageUrl string
 }

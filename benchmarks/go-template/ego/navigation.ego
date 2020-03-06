@@ -1,4 +1,4 @@
-<%% import "github.com/SlinSo/goTemplateBenchmark/model" %%>
+<%% import "github.com/qorpress/qorpress/benchmarks/go-template/model" %%>
 <%! func EgoNavigation(w io.Writer, nav []*model.Navigation) error %>
 <ul class="navigation">
 <%

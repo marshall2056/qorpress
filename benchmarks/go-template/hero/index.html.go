@@ -6,8 +6,9 @@ package template
 import (
 	"bytes"
 
-	"github.com/SlinSo/goTemplateBenchmark/model"
 	"github.com/shiyanhui/hero"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 func Index(u *model.User, nav []*model.Navigation, title string, buffer *bytes.Buffer) {

@@ -5,9 +5,10 @@
 package helper
 
 import (
-	"github.com/sipin/gorazor/gorazor"
 	"io"
 	"strings"
+
+	"github.com/sipin/gorazor/gorazor"
 )
 
 // Header generates gorazor/tpl/helper/header.gohtml

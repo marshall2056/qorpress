@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -15,12 +16,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"errors"
 
 	"github.com/Depado/bfchroma"
 	"github.com/alecthomas/chroma/formatters/html"
-	bf "github.com/russross/blackfriday/v2"
-	"github.com/qorpress/grab"
 	"github.com/corpix/uarand"
 	badger "github.com/dgraph-io/badger"
 	"github.com/gocolly/colly/v2"
@@ -34,6 +32,7 @@ import (
 	"github.com/iancoleman/strcase"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/jinzhu/now"
 	"github.com/joho/godotenv"
 	"github.com/k0kubun/pp"
 	"github.com/nozzle/throttler"
@@ -41,26 +40,27 @@ import (
 	qoradmin "github.com/qorpress/admin"
 	"github.com/qorpress/auth/auth_identity"
 	"github.com/qorpress/auth/providers/password"
+	"github.com/qorpress/banner_editor"
+	"github.com/qorpress/grab"
+	"github.com/qorpress/help"
 	i18n_database "github.com/qorpress/i18n/backends/database"
 	"github.com/qorpress/media"
 	"github.com/qorpress/media/asset_manager"
 	"github.com/qorpress/media/media_library"
+	"github.com/qorpress/media/oss"
+	"github.com/qorpress/notification"
 	"github.com/qorpress/oss/filesystem"
 	"github.com/qorpress/publish2"
-	ghclient "github.com/qorpress/qorpress-test/pkg/client"
+	"github.com/qorpress/qor"
 	"github.com/qorpress/seo"
 	"github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
-	"github.com/qorpress/notification"
+	bf "github.com/russross/blackfriday/v2"
 	log "github.com/sirupsen/logrus"
 	"github.com/x0rzkov/go-vcsurl"
-	"github.com/jinzhu/now"
-	"github.com/qorpress/banner_editor"
-	"github.com/qorpress/help"
-	"github.com/qorpress/media/oss"
-	"github.com/qorpress/qor"
 	loremipsum "gopkg.in/loremipsum.v1"
 
+	ghclient "github.com/qorpress/qorpress-test/pkg/client"
 	"github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/config/auth"
 	"github.com/qorpress/qorpress/pkg/config/db"
@@ -80,16 +80,16 @@ var (
 	clientGH            *ghclient.GHClient
 	store               *badger.DB
 	DB                  *gorm.DB
-	clientGrab 			= grab.NewClient()
+	clientGrab          = grab.NewClient()
 	storage             *filesystem.FileSystem
 	cachePath           = "./shared/data/httpcache"
 	storagePath         = "./shared/data/badger"
 	debug               = false
-	isChroma 			= false
+	isChroma            = false
 	logLevelStr         = "info"
 	addMedia            = false
-	minComments 		= 1
-	maxComments 		= 5
+	minComments         = 1
+	maxComments         = 5
 	Tables              = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{}, &users.Address{},
@@ -109,19 +109,18 @@ var (
 	}
 
 	// Defines the extensions that are used
- 	exts = bf.NoIntraEmphasis | bf.Tables | bf.FencedCode | bf.Autolink |
-	bf.Strikethrough | bf.SpaceHeadings | bf.BackslashLineBreak |
-	bf.DefinitionLists | bf.Footnotes
+	exts = bf.NoIntraEmphasis | bf.Tables | bf.FencedCode | bf.Autolink |
+		bf.Strikethrough | bf.SpaceHeadings | bf.BackslashLineBreak |
+		bf.DefinitionLists | bf.Footnotes
 
 	// Defines the HTML rendering flags that are used
- 	flags = bf.UseXHTML | bf.Smartypants | bf.SmartypantsFractions |
-	bf.SmartypantsDashes | bf.SmartypantsLatexDashes | bf.TOC
+	flags = bf.UseXHTML | bf.Smartypants | bf.SmartypantsFractions |
+		bf.SmartypantsDashes | bf.SmartypantsLatexDashes | bf.TOC
 )
 
 func init() {
 	// log.SetReportCaller(true)
 }
-
 
 func main() {
 
@@ -355,12 +354,11 @@ func main() {
 
 				category := findCategoryByName("News")
 
-
 				link := &posts.Link{
-							URL:   key,
-							Name: "Download Link",
-							Title: desc,
-						}
+					URL:   key,
+					Name:  "Download Link",
+					Title: desc,
+				}
 				l, err := createOrUpdateLink(DB, link)
 				if err != nil {
 					log.Fatalln("createOrUpdateTag: ", err)
@@ -373,11 +371,11 @@ func main() {
 					Summary:     desc,
 					PostProperties: []posts.PostProperty{
 						posts.PostProperty{
-							Name:"UpdatedAt", 
+							Name:  "UpdatedAt",
 							Value: repoInfo.UpdatedAt.String(),
 						},
 						posts.PostProperty{
-							Name:"CreatedAt", 
+							Name:  "CreatedAt",
 							Value: repoInfo.CreatedAt.String(),
 						},
 					},
@@ -507,33 +505,20 @@ func main() {
 				}
 
 				/*
-				if len(imgLinks) == 0 {
-					image := posts.PostImage{Title: "default image", SelectedType: "image"}
-					if file, _, err := openFileByURL("https://dummyimage.com/700/09f/fff.png"); err != nil {
-						fmt.Printf("open file failure, got err %v", err)
-					} else {
-						defer file.Close()
-						image.File.Scan(file)
-					}
+					if len(imgLinks) == 0 {
+						image := posts.PostImage{Title: "default image", SelectedType: "image"}
+						if file, _, err := openFileByURL("https://dummyimage.com/700/09f/fff.png"); err != nil {
+							fmt.Printf("open file failure, got err %v", err)
+						} else {
+							defer file.Close()
+							image.File.Scan(file)
+						}
 
-					if err := DraftDB.Create(&image).Error; err != nil {
-						log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
-					}
+						if err := DraftDB.Create(&image).Error; err != nil {
+							log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
+						}
 
-					post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
-						Sizes: map[string]*media.Size{
-							"main":    {Width: 560, Height: 700},
-							"icon":    {Width: 50, Height: 50},
-							// "preview": {Width: 300, Height: 300},
-							// "listing": {Width: 640, Height: 640},
-						},
-					})
-					if len(post.MainImage.Files) == 0 {
-						post.MainImage.Files = []media_library.File{{
-							ID:  json.Number(fmt.Sprint(image.ID)),
-							Url: image.File.URL(),
-						}}
-						post.MainImage.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+						post.Images.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
 							Sizes: map[string]*media.Size{
 								"main":    {Width: 560, Height: 700},
 								"icon":    {Width: 50, Height: 50},
@@ -541,8 +526,21 @@ func main() {
 								// "listing": {Width: 640, Height: 640},
 							},
 						})
+						if len(post.MainImage.Files) == 0 {
+							post.MainImage.Files = []media_library.File{{
+								ID:  json.Number(fmt.Sprint(image.ID)),
+								Url: image.File.URL(),
+							}}
+							post.MainImage.Crop(Admin.NewResource(&posts.PostImage{}), DraftDB, media_library.MediaOption{
+								Sizes: map[string]*media.Size{
+									"main":    {Width: 560, Height: 700},
+									"icon":    {Width: 50, Height: 50},
+									// "preview": {Width: 300, Height: 300},
+									// "listing": {Width: 640, Height: 640},
+								},
+							})
+						}
 					}
-				}
 				*/
 
 				if err := DraftDB.Save(&post).Error; err != nil {
@@ -645,7 +643,7 @@ func createOrUpdateCategory(db *gorm.DB, category *posts.Category) (*posts.Categ
 func openFileByURL(rawURL string) (*os.File, int64, error) {
 	req, _ := grab.NewRequest(os.TempDir(), rawURL)
 	if req == nil {
-		return nil, 0, errors.New("----> could not make request.\n")		
+		return nil, 0, errors.New("----> could not make request.\n")
 	}
 
 	// start download

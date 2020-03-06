@@ -3,8 +3,9 @@
 package jade
 
 import (
-	"github.com/SlinSo/goTemplateBenchmark/model"
 	pool "github.com/valyala/bytebufferpool"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 const (

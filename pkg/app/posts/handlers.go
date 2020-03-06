@@ -48,9 +48,9 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 	}
 
 	tx.First(&post)
-	pp.Println("post: ",post)
+	pp.Println("post: ", post)
 
-	// get tags for post 
+	// get tags for post
 	// to do: sounds wrong query, need to investigate
 	query := fmt.Sprintf(`SELECT T.Name FROM (POSTS S, TAGS T)
 	INNER JOIN POST_TAGS ST ON S.ID = ST.POST_ID 
@@ -67,9 +67,9 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 
 func (ctrl Controller) Tag(w http.ResponseWriter, req *http.Request) {
 	var (
-		tag posts.Tag
+		tag   posts.Tag
 		Posts []posts.Post
-		tx = utils.GetDB(req)
+		tx    = utils.GetDB(req)
 	)
 
 	if tx.Where("name = ?", utils.URLParam("code", req)).First(&tag).RecordNotFound() {
@@ -100,7 +100,7 @@ func (ctrl Controller) Tag(w http.ResponseWriter, req *http.Request) {
 	tx.Raw(query).Scan(&Posts)
 
 	ctrl.View.Execute("tag", map[string]interface{}{
-		"Tag": tag,
+		"Tag":   tag,
 		"Posts": Posts,
 	}, req, w)
 }
@@ -137,9 +137,9 @@ func (ctrl Controller) Category(w http.ResponseWriter, req *http.Request) {
 	db := tx.Where(&posts.Post{CategoryID: category.ID})
 
 	p := pagination.Paging(&pagination.Param{
-		DB:    db,
-		Page:  page,
-		Limit: limit,
+		DB:      db,
+		Page:    page,
+		Limit:   limit,
 		OrderBy: []string{"id desc"},
 	}, &Posts)
 

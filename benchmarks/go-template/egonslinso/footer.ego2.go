@@ -2,11 +2,12 @@
 // 🚫Edit at your own risk.
 
 package egonslinso
+
 import (
-"io"
+	"io"
 )
 
 func FooterTemplate(w io.Writer) error {
-io.WriteString(w, "<div class=\"footer\">copyright 2016</div>")
-return nil
+	io.WriteString(w, "<div class=\"footer\">copyright 2016</div>")
+	return nil
 }

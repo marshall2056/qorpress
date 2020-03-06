@@ -4,20 +4,20 @@ import (
 	"fmt"
 	"strings"
 
-	log "github.com/sirupsen/logrus"
 	"github.com/jinzhu/gorm"
 	"github.com/qorpress/l10n"
 	qor_seo "github.com/qorpress/seo"
 	qor_slug "github.com/qorpress/slug"
 	"github.com/qorpress/sorting"
 	"github.com/qorpress/validations"
+	log "github.com/sirupsen/logrus"
 )
 
 //go:generate gp-extender -structs Tag -output tag-funcs.go
 type Tag struct {
 	ID           uint            `gorm:"primary_key" json:"id"`
 	Name         string          `json:"name" gorm:"index:name"`
-	Hashtag      string          `json:"hashtag"` 
+	Hashtag      string          `json:"hashtag"`
 	NameWithSlug qor_slug.Slug   `l10n:"sync" json:"name_with_slug" gorm:"index:name_with_slug"`
 	Seo          qor_seo.Setting `json:"seo"`
 	l10n.Locale

@@ -10,13 +10,14 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+
 	// "github.com/go-chi/docgen"
+	"github.com/foomo/simplecert"
 	"github.com/qorpress/admin"
 	"github.com/qorpress/publish2"
 	"github.com/qorpress/qor"
 	"github.com/qorpress/qor/utils"
 
-	"github.com/foomo/simplecert"
 	"github.com/qorpress/qorpress/pkg/app/account"
 	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/app/api"
@@ -57,7 +58,7 @@ func main() {
 	Router.Use(func(handler http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			// for demo, don't use this for your production site
-			// to do: add to the yaml configuration file 
+			// to do: add to the yaml configuration file
 			w.Header().Add("Access-Control-Allow-Origin", "*")
 			handler.ServeHTTP(w, req)
 		})
@@ -107,7 +108,7 @@ func main() {
 	if *compileTemplate {
 		bindatafs.AssetFS.Compile()
 	} else {
-		
+
 		if config.Config.HTTPS {
 			fmt.Print("Listening on: 443\n")
 			if err := simplecert.ListenAndServeTLS(":443", Application.NewServeMux(), "x0rzkov@protonmail.com", nil, "x0rzkov.com", "www.x0rzkov.com"); err != nil {

@@ -5,9 +5,10 @@ package ego
 
 import (
 	"fmt"
-	"github.com/SlinSo/goTemplateBenchmark/model"
 	"html"
 	"io"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 var _ = fmt.Sprint("") // just so that we can keep the fmt import for now

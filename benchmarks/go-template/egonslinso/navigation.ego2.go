@@ -2,23 +2,25 @@
 // 🚫Edit at your own risk.
 
 package egonslinso
+
 import (
-"html"
-"io"
-"github.com/SlinSo/goTemplateBenchmark/model"
+	"html"
+	"io"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 func NavigationTemplate(w io.Writer, nav []*model.Navigation) error {
-io.WriteString(w, "\n")
-io.WriteString(w, "\n<ul class=\"navigation\">\n")
+	io.WriteString(w, "\n")
+	io.WriteString(w, "\n<ul class=\"navigation\">\n")
 
-	for _, item := range nav { 
-io.WriteString(w, "\n\t\t<li><a href=\"")
-io.WriteString(w, html.EscapeString(item.Link ))
-io.WriteString(w, "\">")
-io.WriteString(w, html.EscapeString(item.Item ))
-io.WriteString(w, "</a></li>\n")
-	} 
-io.WriteString(w, "\n</ul>")
-return nil
+	for _, item := range nav {
+		io.WriteString(w, "\n\t\t<li><a href=\"")
+		io.WriteString(w, html.EscapeString(item.Link))
+		io.WriteString(w, "\">")
+		io.WriteString(w, html.EscapeString(item.Item))
+		io.WriteString(w, "</a></li>\n")
+	}
+	io.WriteString(w, "\n</ul>")
+	return nil
 }

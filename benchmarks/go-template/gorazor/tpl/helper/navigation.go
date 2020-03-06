@@ -5,10 +5,12 @@
 package helper
 
 import (
-	"github.com/SlinSo/goTemplateBenchmark/model"
-	"github.com/sipin/gorazor/gorazor"
 	"io"
 	"strings"
+
+	"github.com/sipin/gorazor/gorazor"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 // Navigation generates gorazor/tpl/helper/navigation.gohtml

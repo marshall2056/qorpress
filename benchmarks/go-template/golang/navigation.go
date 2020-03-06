@@ -3,8 +3,9 @@ package golang
 import (
 	"html"
 
-	"github.com/SlinSo/goTemplateBenchmark/model"
 	"github.com/valyala/bytebufferpool"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 func Navigation(bb *bytebufferpool.ByteBuffer, nav []*model.Navigation) {

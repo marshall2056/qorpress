@@ -7,8 +7,9 @@ import (
 	"strconv"
 	"unsafe"
 
-	"github.com/SlinSo/goTemplateBenchmark/model"
 	"github.com/valyala/bytebufferpool"
+
+	"github.com/qorpress/qorpress/benchmarks/go-template/model"
 )
 
 var ()
