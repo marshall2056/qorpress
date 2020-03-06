@@ -139,7 +139,7 @@ func (qorHelpEntry *QorHelpEntry) ConfigureQorResource(res resource.Resourcer) {
 
 		res.ShowAttrs("Body")
 
-		Admin.RegisterViewPath("github.com/qorpress/qorpress/internalhelp/views")
+		Admin.RegisterViewPath("github.com/qorpress/qorpress/internal/help/views")
 		Admin.RegisterResourceRouters(res, "create", "update", "read", "delete")
 
 		Admin.RegisterFuncMap("get_help_category_name", func(param string, context *admin.Context) string {

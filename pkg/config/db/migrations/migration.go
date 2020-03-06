@@ -1,7 +1,7 @@
 package migrations
 
 import (
-	"github.com/qorpress/help"
+	"github.com/qorpress/qorpress/internal/help"
 
 	"github.com/qorpress/qorpress/internal/activity"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"

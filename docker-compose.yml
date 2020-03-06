@@ -2,7 +2,7 @@
 version: "3.7"
 services:
 
-  blog:
+  qorpress:
     image: qopress/qorpress:latest
     container_name: ${NAMESPACE}-core
     build:
@@ -25,7 +25,7 @@ services:
     - internal
     - web
     restart: unless-stopped
-    command: ["/go/bin/qorpress"]
+    command: ["/opt/qorpress/bin/qorpress"]
 
   mysql:
     image: mysql:5.7
@@ -98,7 +98,7 @@ services:
     - TIMEZONE=${TZ}
     - SCHEDULE=0 0 3 * *
     - BACKUP_METHOD=mysqldump
-    - MYSQL_HOST=${QORPRESS_DB_SERVER}
+    - MYSQL_HOST=${QORPRESS_DB_HOST}
     - MYSQL_DATABASE=${QORPRESS_DB_NAME}
     - MYSQL_USER=${QORPRESS_DB_USER}
     - MYSQL_PASSWORD=${QORPRESS_DB_PASSWORD}

@@ -14,3 +14,11 @@ vendor
 vendor/
 vendor/*
 vendor/**
+simplecert
+simplecert/
+simplecert/*
+simplecert/**
+shared
+shared/
+shared/*
+shared/**

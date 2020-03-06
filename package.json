@@ -1,11 +1,11 @@
 {
-  "name": "QOR",
+  "name": "QORPress",
   "version": "0.0.2",
-  "description": "QOR example",
+  "description": "QORPress instance",
   "main": "index.js",
   "scripts": {
     "dev": "webpack -d --watch --progress --colors",
-    "dist": "rimraf public/dist/* && NODE_ENV=postion webpack -p"
+    "dist": "rimraf themes/qorpress/public/dist/* && NODE_ENV=postion webpack -p"
   },
   "author": "Jason weng",
   "repository": "https://github.com/qorpress/qorpress",

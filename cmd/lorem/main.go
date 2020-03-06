@@ -21,9 +21,9 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/now"
 	"github.com/nozzle/throttler"
-	"github.com/qorpress/help"
 	loremipsum "gopkg.in/loremipsum.v1"
 
+	"github.com/qorpress/qorpress/internal/help"
 	qoradmin "github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/providers/password"

@@ -61,6 +61,7 @@ or from kitploit website dump
 
 ```go
 $ cd $GOPATH/src/github.com/qorpress/qorpress
+$ export GITHUB_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 $ go run cmd/kitploit/*.go
 ```
 
@@ -103,3 +104,5 @@ Online Example APIs:
 ## License
 
 Released under the MIT License.
+
+[@QORSDK](https://twitter.com/gopress)

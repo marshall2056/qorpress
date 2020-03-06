@@ -57,7 +57,6 @@ import (
 	"github.com/qorpress/qorpress/internal/oss/filesystem"
 	"github.com/qorpress/qorpress/internal/publish2"
 	"github.com/qorpress/qorpress/internal/qor"
-	ghclient "github.com/qorpress/qorpress/internal/qorpress-test/pkg/client"
 	"github.com/qorpress/qorpress/internal/seo"
 	"github.com/qorpress/qorpress/internal/slug"
 	"github.com/qorpress/qorpress/internal/sorting"
@@ -76,8 +75,8 @@ var (
 	loremIpsumGenerator = loremipsum.NewWithSeed(1234)
 	AdminUser           *users.User
 	Notification        = notification.New(&notification.Config{})
-	clientManager       *ghclient.ClientManager
-	clientGH            *ghclient.GHClient
+	clientManager       *ClientManager
+	clientGH            *GHClient
 	store               *badger.DB
 	DB                  *gorm.DB
 	clientGrab          = grab.NewClient()
@@ -168,7 +167,7 @@ func main() {
 	createRecords()
 
 	// github client init
-	clientManager = ghclient.NewManager(cachePath, []string{os.Getenv("GITHUB_TOKEN")})
+	clientManager = NewManager(cachePath, []string{os.Getenv("GITHUB_TOKEN")})
 	defer clientManager.Shutdown()
 	clientGH = clientManager.Fetch()
 
@@ -202,26 +201,16 @@ func main() {
 	})
 
 	c.OnHTML("div.blog-posts.hfeed", func(e *colly.HTMLElement) {
-		// pp.Println(e)
-		// os.Exit(1)
 		e.ForEach("a[href]", func(_ int, eli *colly.HTMLElement) {
 			if strings.HasPrefix(eli.Attr("href"), "https://github.com") {
 				var vcsUrl string
 				if info, err := vcsurl.Parse(eli.Attr("href")); err == nil {
 					vcsUrl = fmt.Sprintf("https://github.com/%s/%s", info.Username, info.Name)
-					// githubUrls = append(githubUrls, vcsUrl)
-					// githubUrls[vcsUrl] = true
 					log.Println("found href=", vcsUrl)
 				}
 				var topics []string
 				e.ForEach(".label-head > a", func(_ int, eli *colly.HTMLElement) {
-					topic := strcase.ToCamel(fmt.Sprintf("%s", eli.Attr("title")))
-					topic = strings.Replace(topic, " ", "", -1)
-					topic = strings.Replace(topic, "!", "", -1)
-					topic = strings.Replace(topic, "/", "", -1)
-					topic = strings.Replace(topic, "'", "", -1)
-					// log.Println("topic: ", fmt.Sprintf("#%s", topic))
-					topics = append(topics, fmt.Sprintf("%s", topic))
+					topics = append(topics, fmt.Sprintf("%s", eli.Attr("title")))
 				})
 				if vcsUrl != "" {
 					m.Set(vcsUrl, strings.Join(topics, ","))
