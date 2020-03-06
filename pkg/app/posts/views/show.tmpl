@@ -26,6 +26,16 @@
         <div class="grid posts__info is-12">
 
           <div class="grid__col is-9">
+            <h6>{{ t "post.links" }} #2</h6>
+            <ul>
+            {{range $link := .Links}}
+              <hr>
+              <li><a href="{{$link.Href}}" title="{{$link.Title}}">{{$link.Name}}</a></li>
+            {{end}}
+            </ul>
+          </div>
+
+          <div class="grid__col is-9">
             <h6>{{ t "post.description" }}</h6>
             <p>{{raw .Description}}</p>
           </div>
@@ -36,6 +46,9 @@
 
           <div class="grid__col is-9">
             <h6>{{ t "post.specs" }}</h6>
+            {{range $prop := .PostProperties}}
+              <li>{{$prop.Name}}: {{$prop.Value}}</li>
+            {{end}}
           </div>
 
           <div class="grid__col is-9">

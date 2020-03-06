@@ -20,7 +20,7 @@ mysql> CREATE DATABASE qor_example;
 
 # Run Application
 $ cd $GOPATH/src/github.com/qorpress/qorpress
-$ go run main.go
+$ go run --mod=mod main.go
 ```
 
 ### With Docker
@@ -33,8 +33,15 @@ docker-compose up --build
 
 ### Generate sample data
 
+based on lorem ipsum texts and fake images
 ```go
-$ go run cmd/seeds/*.go
+$ go run -mod=mod cmd/lorem/*.go
+```
+
+or from kitploit website dump
+
+```go
+$ go run -mod=mod cmd/kitploit/*.go
 ```
 
 ### Run tests (Pending)

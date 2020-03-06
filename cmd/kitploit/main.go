@@ -355,18 +355,22 @@ func main() {
 
 				category := findCategoryByName("News")
 
+
+				link := &posts.Link{
+							URL:   key,
+							Name: "Download Link",
+							Title: desc,
+						}
+				l, err := createOrUpdateLink(DB, link)
+				if err != nil {
+					log.Fatalln("createOrUpdateTag: ", err)
+				}
+
 				p := &posts.Post{
 					Name:        *repoInfo.Name,
 					Code:        "github-" + info.Username + "-" + info.Name,
 					Description: string(html),
 					Summary:     desc,
-					Links: []posts.Link{
-						posts.Link{
-							URL:   key,
-							Name: "Download Link",
-							Title: desc,
-						},
-					},
 					PostProperties: []posts.PostProperty{
 						posts.PostProperty{
 							Name:"UpdatedAt", 
@@ -380,6 +384,7 @@ func main() {
 					NameWithSlug: slug.Slug{"github-" + info.Username + "-" + info.Name},
 				}
 
+				p.Links = append(p.Links, *l)
 				p.CategoryID = category.ID
 
 				p.LanguageCode = "en-US"
@@ -687,7 +692,7 @@ Loop:
 
 }
 
-func openFileByURLOld(rawURL string) (*os.File, int64, error) {
+func openFileByURL2(rawURL string) (*os.File, int64, error) {
 	if fileURL, err := url.Parse(rawURL); err != nil {
 		return nil, 0, err
 	} else {
@@ -752,6 +757,16 @@ func createOrUpdatePost(db *gorm.DB, post *posts.Post) (*posts.Post, error) {
 	}
 	post.ID = existingPost.ID
 	return post, db.Set("l10n:locale", "en-US").Save(post).Error
+}
+
+func createOrUpdateLink(db *gorm.DB, link *posts.Link) (*posts.Link, error) {
+	var existingLink posts.Link
+	if db.Where("href = ?", link.URL).First(&existingLink).RecordNotFound() {
+		err := db.Set("l10n:locale", "en-US").Create(link).Error
+		return link, err
+	}
+	link.ID = existingLink.ID
+	return link, db.Set("l10n:locale", "en-US").Save(link).Error
 }
 
 func createOrUpdateTag(db *gorm.DB, tag *posts.Tag) (*posts.Tag, error) {
@@ -1201,7 +1216,7 @@ func createUsers() {
 			now := time.Now()
 			unique := fmt.Sprintf("%v", now.Unix())
 
-			if file, _, err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
+			if file, _, err := openFileByURL2("https://i.pravatar.cc/150?u=" + unique); err != nil {
 				fmt.Printf("open file failure, got err %v", err)
 			} else {
 				defer file.Close()

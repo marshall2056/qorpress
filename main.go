@@ -57,6 +57,7 @@ func main() {
 	Router.Use(func(handler http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			// for demo, don't use this for your production site
+			// to do: add to the yaml configuration file 
 			w.Header().Add("Access-Control-Allow-Origin", "*")
 			handler.ServeHTTP(w, req)
 		})

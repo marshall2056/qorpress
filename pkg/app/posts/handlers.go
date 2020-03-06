@@ -10,8 +10,6 @@ import (
 	"github.com/acoshift/paginate"
 	"github.com/biezhi/gorm-paginator/pagination"
 	"github.com/k0kubun/pp"
-
-	// "github.com/qorpress/gorm-paginator/pagination"
 	"github.com/qorpress/render"
 
 	"github.com/qorpress/qorpress/pkg/models/posts"
@@ -50,9 +48,10 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 	}
 
 	tx.First(&post)
-	// tx.Where(&posts.Post{ID: post.ID}).First(&post)
+	pp.Println("post: ",post)
 
-	// get tags for post
+	// get tags for post 
+	// to do: sounds wrong query, need to investigate
 	query := fmt.Sprintf(`SELECT T.Name FROM (POSTS S, TAGS T)
 	INNER JOIN POST_TAGS ST ON S.ID = ST.POST_ID 
 	INNER JOIN TAGS ON ST.TAG_ID = T.ID
