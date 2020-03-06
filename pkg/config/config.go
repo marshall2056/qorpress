@@ -22,6 +22,7 @@ import (
 )
 
 var Config = struct {
+
 	App struct {
 		Port  uint `default:"7000" env:"QORPRESS_PORT"`
 		HTTPS struct {
@@ -30,7 +31,10 @@ var Config = struct {
 			Email string `env:"QORPRESS_HTTPS_EMAIL"`
 			Domains string `env:"QORPRESS_HTTPS_DOMAINS"`
 		}
-		SMTP  SMTPConfig
+		Location struct {
+			BaiduAPI string
+			GoogleAPI string
+		}
 	}
 
 	DB    struct {
@@ -60,6 +64,8 @@ var Config = struct {
 		Twitter  twitter.Config
 	}
 
+	SMTP  SMTPConfig
+
 }{}
 
 type SMTPConfig struct {
@@ -85,6 +91,8 @@ func init() {
 		panic(err)
 	}
 
+
+
 	if Config.Cloud.AWS.S3.AccessKeyID != "" {
 		oss.Storage = s3.New(&s3.Config{
 			AccessID:  Config.Cloud.AWS.S3.AccessKeyID,
@@ -94,12 +102,12 @@ func init() {
 		})
 	}
 
-	portSmtp, err := strconv.Atoi(Config.App.SMTP.Port)
+	portSmtp, err := strconv.Atoi(Config.SMTP.Port)
 	if err != nil {
 		panic(err)
 	}
 
-	dialer := gomail.NewDialer(Config.App.SMTP.Host, portSmtp, Config.App.SMTP.User, Config.App.SMTP.Password)
+	dialer := gomail.NewDialer(Config.SMTP.Host, portSmtp, Config.SMTP.User, Config.SMTP.Password)
 	sender, err := dialer.Dial()
 	if err != nil {
 		Mailer = mailer.New(&mailer.Config{

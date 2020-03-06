@@ -7,11 +7,10 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-
-	// "github.com/go-chi/docgen"
 	"github.com/foomo/simplecert"
 
 	"github.com/qorpress/qorpress/internal/admin"
@@ -111,7 +110,13 @@ func main() {
 
 		if config.Config.App.HTTPS.Enabled {
 			fmt.Print("Listening on: 443\n")
-			if err := simplecert.ListenAndServeTLS(":443", Application.NewServeMux(), "x0rzkov@protonmail.com", nil, "x0rzkov.com", "www.x0rzkov.com"); err != nil {
+			domains := strings.Split(config.Config.App.HTTPS.Domains, ",")
+			if err := simplecert.ListenAndServeTLS(
+				fmt.Sprintf(":%d", config.Config.App.Port), 
+				Application.NewServeMux(), 
+				config.Config.App.HTTPS.Email, 
+				nil, 
+				domains...); err != nil {
 				panic(err)
 			}
 		} else {
