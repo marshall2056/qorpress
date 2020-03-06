@@ -8,7 +8,7 @@ import (
 	"github.com/qorpress/qorpress/internal/auth/providers/facebook"
 	"github.com/qorpress/qorpress/internal/auth/providers/github"
 	"github.com/qorpress/qorpress/internal/auth/providers/google"
-	"github.com/qorpress/qorpress/internal/auth/providers/password"
+	// "github.com/qorpress/qorpress/internal/auth/providers/password"
 	"github.com/qorpress/qorpress/internal/auth/providers/twitter"
 	"github.com/qorpress/qorpress/internal/auth_themes/clean"
 	"github.com/qorpress/qorpress/internal/render"
@@ -36,7 +36,7 @@ var (
 
 func init() {
 
-	Auth.RegisterProvider(password.New(&password.Config{}))
+	// Auth.RegisterProvider(password.New(&password.Config{}))
 	Auth.RegisterProvider(github.New(&config.Config.Oauth.Github))
 	Auth.RegisterProvider(google.New(&config.Config.Oauth.Google))
 	Auth.RegisterProvider(facebook.New(&config.Config.Oauth.Facebook))

@@ -217,7 +217,7 @@ func (assetFS *nameSpacedBindataFS) registerPath(path interface{}, prepend bool)
 }
 
 func (assetFS *nameSpacedBindataFS) RegisterPath(path string) error {
-	fmt.Println("RegisterPath: ", path)
+	// fmt.Println("RegisterPath: ", path)
 	return assetFS.registerPath(path, false)
 }
 
