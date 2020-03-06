@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gopress/internal/oss"
+	"github.com/qorpress/qorpress/internal/oss"
 )
 
 func TestAll(storage oss.StorageInterface, t *testing.T) {

@@ -4,8 +4,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 type GroupedWidgets struct {

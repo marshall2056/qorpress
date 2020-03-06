@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gopress/internal/auth/claims"
-	"github.com/gopress/internal/responder"
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/auth/claims"
+	"github.com/qorpress/qorpress/internal/responder"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 func respondAfterLogged(claims *claims.Claims, context *Context) {

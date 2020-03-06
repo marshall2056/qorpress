@@ -8,14 +8,14 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/media"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/media"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/seo/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/seo/views")
 }
 
 // New initialize a SeoCollection instance

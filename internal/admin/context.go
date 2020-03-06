@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/roles"
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/roles"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 // Context admin context, which is used for admin controller

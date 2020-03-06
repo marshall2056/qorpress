@@ -3,7 +3,7 @@ package admin
 import (
 	"testing"
 
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor"
 )
 
 func generateResourceMenu(resource *Resource) *Menu {

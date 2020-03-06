@@ -11,8 +11,8 @@ import (
 
 	"github.com/go-gomail/gomail"
 	"github.com/jinzhu/configor"
-	"github.com/gopress/internal/mailer"
-	"github.com/gopress/internal/mailer/gomailer"
+	"github.com/qorpress/qorpress/internal/mailer"
+	"github.com/qorpress/qorpress/internal/mailer/gomailer"
 )
 
 var Mailer *mailer.Mailer

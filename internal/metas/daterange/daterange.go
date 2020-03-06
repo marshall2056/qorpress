@@ -6,12 +6,12 @@ import (
 	"errors"
 	"time"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/metas/daterange/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/metas/daterange/views")
 }
 
 // DateRanger date ranger interface

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/publish2"
+	"github.com/qorpress/qorpress/internal/publish2"
 )
 
 type User struct {

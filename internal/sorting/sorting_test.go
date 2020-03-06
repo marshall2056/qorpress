@@ -6,10 +6,10 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/l10n"
-	"github.com/gopress/internal/publish"
-	"github.com/gopress/internal/qor/test/utils"
-	"github.com/gopress/internal/sorting"
+	"github.com/qorpress/qorpress/internal/l10n"
+	"github.com/qorpress/qorpress/internal/publish"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/sorting"
 )
 
 type User struct {

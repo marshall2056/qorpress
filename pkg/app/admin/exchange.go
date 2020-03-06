@@ -1,11 +1,11 @@
 package admin
 
 import (
-	"github.com/gopress/internal/exchange"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/exchange"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 
-	"github.com/gopress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/posts"
 )
 
 // PostExchange post exchange

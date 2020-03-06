@@ -20,10 +20,10 @@ import (
 	"github.com/gosimple/slug"
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 // CropOption includes crop options
@@ -247,7 +247,7 @@ func (b Base) IsSVG() bool {
 }
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/media/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/media/views")
 }
 
 // ConfigureQorMetaBeforeInitialize configure this field for Qor Admin

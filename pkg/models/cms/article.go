@@ -2,9 +2,9 @@ package cms
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/publish2"
+	"github.com/qorpress/qorpress/internal/publish2"
 
-	"github.com/gopress/qorpress/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 type Article struct {

@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gopress/internal/cache"
+	"github.com/qorpress/qorpress/internal/cache"
 )
 
 var client cache.CacheStoreInterface

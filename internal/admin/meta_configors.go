@@ -3,7 +3,7 @@ package admin
 import (
 	"errors"
 
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor"
 )
 
 // metaConfig meta config

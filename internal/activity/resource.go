@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
+	"github.com/qorpress/qorpress/internal/admin"
 )
 
 func prepareGetActivitiesDB(context *admin.Context, result interface{}, types ...string) *gorm.DB {

@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/notification"
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/notification"
+	"github.com/qorpress/qorpress/internal/qor"
 )
 
 type Config struct {

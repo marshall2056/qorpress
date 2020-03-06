@@ -1,9 +1,9 @@
 package worker
 
 import (
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 // Job is a struct that hold Qor Job definations

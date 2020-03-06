@@ -1,8 +1,8 @@
 package mailer
 
 import (
-	"github.com/gopress/internal/assetfs"
-	"github.com/gopress/internal/render"
+	"github.com/qorpress/qorpress/internal/assetfs"
+	"github.com/qorpress/qorpress/internal/render"
 )
 
 // SenderInterface sender's interface

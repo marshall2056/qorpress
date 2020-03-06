@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/gopress/internal/auth"
-	"github.com/gopress/internal/auth/auth_identity"
-	"github.com/gopress/internal/auth/claims"
-	"github.com/gopress/internal/mailer"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/auth"
+	"github.com/qorpress/qorpress/internal/auth/auth_identity"
+	"github.com/qorpress/qorpress/internal/auth/claims"
+	"github.com/qorpress/qorpress/internal/mailer"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 var (

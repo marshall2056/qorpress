@@ -1,11 +1,11 @@
 package admin
 
 import (
-	"github.com/gopress/internal/admin"
-	qor_seo "github.com/gopress/internal/seo"
+	"github.com/qorpress/qorpress/internal/admin"
+	qor_seo "github.com/qorpress/qorpress/internal/seo"
 
-	"github.com/gopress/qorpress/pkg/models/posts"
-	"github.com/gopress/qorpress/pkg/models/seo"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/seo"
 )
 
 // SetupSEO add seo

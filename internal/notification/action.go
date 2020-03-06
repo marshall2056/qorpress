@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 func (notification *Notification) Action(action *Action) error {

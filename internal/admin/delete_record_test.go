@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"testing"
 
-	. "github.com/gopress/internal/admin/tests/dummy"
+	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
 )
 
 func TestDeleteRecord(t *testing.T) {

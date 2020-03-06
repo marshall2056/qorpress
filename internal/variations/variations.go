@@ -3,13 +3,13 @@ package variations
 import (
 	"errors"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/variations/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/variations/views")
 }
 
 type VariationsConfig struct {

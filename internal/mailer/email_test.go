@@ -5,7 +5,7 @@ import (
 	"net/mail"
 	"testing"
 
-	"github.com/gopress/internal/mailer"
+	"github.com/qorpress/qorpress/internal/mailer"
 )
 
 func equalCheck(email1, email2 mailer.Email) error {

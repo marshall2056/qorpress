@@ -8,8 +8,8 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/now"
-	"github.com/gopress/internal/admin"
-	. "github.com/gopress/internal/admin/tests/dummy"
+	"github.com/qorpress/qorpress/internal/admin"
+	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
 	"github.com/theplant/testingutils"
 )
 

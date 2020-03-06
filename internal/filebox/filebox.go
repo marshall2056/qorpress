@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 // Filebox is a based object contains download folder path and admin.Auth used to get current user

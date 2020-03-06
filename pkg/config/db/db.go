@@ -9,13 +9,13 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"github.com/gopress/internal/l10n"
-	"github.com/gopress/internal/media"
-	"github.com/gopress/internal/publish2"
-	"github.com/gopress/internal/sorting"
-	"github.com/gopress/internal/validations"
+	"github.com/qorpress/qorpress/internal/l10n"
+	"github.com/qorpress/qorpress/internal/media"
+	"github.com/qorpress/qorpress/internal/publish2"
+	"github.com/qorpress/qorpress/internal/sorting"
+	"github.com/qorpress/qorpress/internal/validations"
 
-	"github.com/gopress/qorpress/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config"
 )
 
 // DB Global DB connection

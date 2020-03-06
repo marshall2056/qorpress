@@ -6,11 +6,11 @@ import (
 	"errors"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/slug"
-	"github.com/gopress/internal/widget"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/slug"
+	"github.com/qorpress/qorpress/internal/widget"
 )
 
 type Page struct {
@@ -120,6 +120,6 @@ func New(config *Config) *admin.Resource {
 			RemoteDataResource: config.Containers.WidgetSettingResource,
 		}})
 
-	admin.RegisterViewPath("github.com/gopress/internal/page_builder/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/page_builder/views")
 	return resource
 }

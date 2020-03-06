@@ -20,7 +20,7 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/now"
 	"github.com/microcosm-cc/bluemonday"
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor"
 
 	"strings"
 )

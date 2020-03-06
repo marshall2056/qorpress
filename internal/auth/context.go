@@ -3,8 +3,8 @@ package auth
 import (
 	"net/http"
 
-	"github.com/gopress/internal/auth/claims"
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/auth/claims"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 // Context context

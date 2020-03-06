@@ -13,9 +13,9 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
 )
 
 var db *gorm.DB

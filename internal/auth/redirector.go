@@ -3,7 +3,7 @@ package auth
 import (
 	"net/http"
 
-	"github.com/gopress/internal/redirect_back"
+	"github.com/qorpress/qorpress/internal/redirect_back"
 )
 
 // RedirectorInterface redirector interface

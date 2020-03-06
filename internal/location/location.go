@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/location/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/location/views")
 }
 
 var (

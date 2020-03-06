@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor"
 )
 
 // EventInterface defined methods needs for a publish event

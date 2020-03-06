@@ -2,7 +2,7 @@ package tencent
 
 import (
 	"os"
-	"github.com/gopress/internal/oss"
+	"github.com/qorpress/qorpress/internal/oss"
 	"io"
 	"fmt"
 	"io/ioutil"

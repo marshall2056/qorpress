@@ -1,12 +1,13 @@
+
 package admin_test
 
 import (
 	"fmt"
 	"testing"
 
-	"github.com/gopress/internal/admin"
-	. "github.com/gopress/internal/admin/tests/dummy"
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/admin"
+	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
+	"github.com/qorpress/qorpress/internal/qor"
 )
 
 // Template helpers test

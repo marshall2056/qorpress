@@ -3,7 +3,7 @@ package roles_test
 import (
 	"testing"
 
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 func TestAllow(t *testing.T) {

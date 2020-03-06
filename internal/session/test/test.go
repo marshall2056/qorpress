@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 var Server *httptest.Server

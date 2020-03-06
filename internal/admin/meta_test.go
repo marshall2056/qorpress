@@ -4,11 +4,11 @@ import (
 	"reflect"
 	"testing"
 
-	. "github.com/gopress/internal/admin/tests/dummy"
+	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 )
 
 func TestTextInput(t *testing.T) {

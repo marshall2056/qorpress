@@ -3,8 +3,8 @@ package admin
 import (
 	"path"
 
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 // GetMenus get all sidebar menus for admin

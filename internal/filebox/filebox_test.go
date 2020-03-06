@@ -12,10 +12,10 @@ import (
 	"testing"
 
 	"github.com/fatih/color"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/filebox"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/filebox"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 var Filebox *filebox.Filebox

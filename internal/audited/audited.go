@@ -1,6 +1,6 @@
 // Package audited is used to log last UpdatedBy and CreatedBy for your models
 //
-// Github: http://github.com/gopress/internal/audited
+// Github: http://github.com/qorpress/qorpress/internal/audited
 package audited
 
 import "fmt"

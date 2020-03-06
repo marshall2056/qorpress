@@ -8,12 +8,12 @@ import (
 	"testing"
 
 	"github.com/360EntSecGroup-Skylar/excelize"
-	"github.com/gopress/internal/exchange"
-	"github.com/gopress/internal/exchange/backends/excel"
-	"github.com/gopress/internal/exchange/tests"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/exchange"
+	"github.com/qorpress/qorpress/internal/exchange/backends/excel"
+	"github.com/qorpress/qorpress/internal/exchange/tests"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
 )
 
 var db = utils.TestDB()

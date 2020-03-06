@@ -1,6 +1,6 @@
 // Package responder respond differently according to request's accepted mime type
 //
-// Github: http://github.com/gopress/internal/responder
+// Github: http://github.com/qorpress/qorpress/internal/responder
 package responder
 
 import (

@@ -7,11 +7,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 // Global global language
@@ -190,7 +190,7 @@ func (l *Locale) ConfigureQorResource(res resource.Resourcer) {
 		}
 
 		// Inject for l10n
-		Admin.RegisterViewPath("github.com/gopress/internal/l10n/views")
+		Admin.RegisterViewPath("github.com/qorpress/qorpress/internal/l10n/views")
 
 		// Middleware
 		Admin.GetRouter().Use(&admin.Middleware{

@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/media"
-	"github.com/gopress/internal/media/oss"
+	"github.com/qorpress/qorpress/internal/media"
+	"github.com/qorpress/qorpress/internal/media/oss"
 )
 
 type User struct {

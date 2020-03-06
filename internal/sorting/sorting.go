@@ -6,8 +6,8 @@ import (
 	"reflect"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/publish"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/publish"
 )
 
 type sortingInterface interface {
@@ -45,7 +45,7 @@ type SortingDESC struct {
 func (SortingDESC) SortingDesc() {}
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/sorting/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/sorting/views")
 }
 
 func newModel(value interface{}) interface{} {

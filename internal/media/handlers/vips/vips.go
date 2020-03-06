@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/gopress/internal/media"
+	"github.com/qorpress/qorpress/internal/media"
 	"gopkg.in/h2non/bimg.v1"
 )
 

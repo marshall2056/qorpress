@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	"github.com/360EntSecGroup-Skylar/excelize"
-	"github.com/gopress/internal/exchange"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/exchange"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 )
 
 // NewReader new csv reader

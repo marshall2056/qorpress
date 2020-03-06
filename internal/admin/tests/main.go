@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/gopress/internal/admin/tests/dummy"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/admin/tests/dummy"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 func main() {

@@ -3,8 +3,8 @@ package admin
 import (
 	"testing"
 
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
 )
 
 type User struct {

@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/audited"
-	"github.com/gopress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/audited"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
 )
 
 type Product struct {

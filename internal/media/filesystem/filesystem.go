@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gopress/internal/media"
+	"github.com/qorpress/qorpress/internal/media"
 )
 
 var _ media.Media = &FileSystem{}

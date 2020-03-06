@@ -3,9 +3,9 @@ package exchange
 import (
 	"reflect"
 
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 // Meta defines importable/exportable fields

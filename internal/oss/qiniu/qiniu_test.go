@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/jinzhu/configor"
-	"github.com/gopress/internal/oss/qiniu"
-	"github.com/gopress/internal/oss/tests"
+	"github.com/qorpress/qorpress/internal/oss/qiniu"
+	"github.com/qorpress/qorpress/internal/oss/tests"
 )
 
 type Config struct {

@@ -4,11 +4,11 @@ import (
 	//"path"
 	//"regexp"
 	//"time"
-	"github.com/gopress/internal/admin"
-	// "github.com/gopress/internal/notification"
-	//"github.com/gopress/internal/notification/channels/database"
-	// "github.com/gopress/qorpress/pkg/config/db"
-	// "github.com/gopress/qorpress/pkg/models/orders"
+	"github.com/qorpress/qorpress/internal/admin"
+	// "github.com/qorpress/qorpress/internal/notification"
+	//"github.com/qorpress/qorpress/internal/notification/channels/database"
+	// "github.com/qorpress/qorpress/pkg/config/db"
+	// "github.com/qorpress/qorpress/pkg/models/orders"
 )
 
 // SetupNotification add notification

@@ -13,13 +13,13 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/banner_editor/test/config/bindatafs"
-	"github.com/gopress/internal/media"
-	"github.com/gopress/internal/media/media_library"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/test/utils"
-	qor_utils "github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/banner_editor/test/config/bindatafs"
+	"github.com/qorpress/qorpress/internal/media"
+	"github.com/qorpress/qorpress/internal/media/media_library"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
+	qor_utils "github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 var (
@@ -60,7 +60,7 @@ func init() {
 	buttonRes := Admin.NewResource(&buttonSetting{})
 	buttonRes.Meta(&admin.Meta{Name: "Text"})
 	buttonRes.Meta(&admin.Meta{Name: "Link"})
-	RegisterViewPath("github.com/gopress/internal/banner_editor/test/views")
+	RegisterViewPath("github.com/qorpress/qorpress/internal/banner_editor/test/views")
 
 	RegisterElement(&Element{
 		Name:     "Sub Header",

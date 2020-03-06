@@ -1,15 +1,15 @@
 package api
 
 import (
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
 
-	"github.com/gopress/qorpress/pkg/config/application"
-	"github.com/gopress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config/db"
 
-	// "github.com/gopress/qorpress/pkg/models/orders"
-	"github.com/gopress/qorpress/pkg/models/posts"
-	"github.com/gopress/qorpress/pkg/models/users"
+	// "github.com/qorpress/qorpress/pkg/models/orders"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 // New new home app

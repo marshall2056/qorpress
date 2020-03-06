@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gorilla/sessions"
-	"github.com/gopress/internal/middlewares"
-	"github.com/gopress/internal/session"
-	"github.com/gopress/internal/session/gorilla"
+	"github.com/qorpress/qorpress/internal/middlewares"
+	"github.com/qorpress/qorpress/internal/session"
+	"github.com/qorpress/qorpress/internal/session/gorilla"
 )
 
 // SessionManager default session manager

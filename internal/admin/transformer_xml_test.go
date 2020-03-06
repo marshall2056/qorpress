@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/gopress/internal/admin"
+	"github.com/qorpress/qorpress/internal/admin"
 )
 
 func TestXMLTransformerEncode(t *testing.T) {

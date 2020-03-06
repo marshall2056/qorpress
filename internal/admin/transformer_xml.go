@@ -8,8 +8,8 @@ import (
 	"strings"
 
 	"github.com/jinzhu/inflection"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 // XMLTransformer xml transformer

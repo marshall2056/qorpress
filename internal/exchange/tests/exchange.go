@@ -1,8 +1,8 @@
 package tests
 
 import (
-	"github.com/gopress/internal/exchange"
-	"github.com/gopress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/exchange"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
 )
 
 var (

@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/validations"
+	"github.com/qorpress/qorpress/internal/validations"
 )
 
 type Schedule struct {

@@ -8,8 +8,8 @@ import (
 
 	gorillaContext "github.com/gorilla/context"
 	"github.com/gorilla/sessions"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 // New initialize session manager for gorilla

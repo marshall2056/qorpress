@@ -8,10 +8,10 @@ import (
 	"runtime/debug"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/roles"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/roles"
 )
 
 const (
@@ -67,7 +67,7 @@ type Worker struct {
 // ConfigureQorResourceBeforeInitialize a method used to config Worker for qor admin
 func (worker *Worker) ConfigureQorResourceBeforeInitialize(res resource.Resourcer) {
 	if res, ok := res.(*admin.Resource); ok {
-		res.GetAdmin().RegisterViewPath("github.com/gopress/internal/worker/views")
+		res.GetAdmin().RegisterViewPath("github.com/qorpress/qorpress/internal/worker/views")
 		res.UseTheme("worker")
 
 		worker.Admin = res.GetAdmin()

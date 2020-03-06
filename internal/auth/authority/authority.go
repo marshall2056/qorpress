@@ -4,10 +4,10 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/gopress/internal/auth"
-	"github.com/gopress/internal/middlewares"
-	"github.com/gopress/internal/roles"
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/auth"
+	"github.com/qorpress/qorpress/internal/middlewares"
+	"github.com/qorpress/qorpress/internal/roles"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 var (

@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 type resolver struct {

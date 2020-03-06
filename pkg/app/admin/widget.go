@@ -6,17 +6,17 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/banner_editor"
-	"github.com/gopress/internal/l10n"
-	"github.com/gopress/internal/media/oss"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/sorting"
-	"github.com/gopress/internal/widget"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/banner_editor"
+	"github.com/qorpress/qorpress/internal/l10n"
+	"github.com/qorpress/qorpress/internal/media/oss"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/sorting"
+	"github.com/qorpress/qorpress/internal/widget"
 
-	"github.com/gopress/qorpress/pkg/config/db"
-	"github.com/gopress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/posts"
 )
 
 var Widgets *widget.Widgets
@@ -128,7 +128,7 @@ func SetupWidget(Admin *admin.Admin) {
 	imageRes := Admin.NewResource(&imageSetting{})
 	imageRes.Meta(&admin.Meta{Name: "Image"})
 
-	banner_editor.RegisterViewPath("github.com/gopress/qorpress/themes/gopress/internal/banner_editor")
+	banner_editor.RegisterViewPath("github.com/qorpress/qorpress/themes/gopress/internal/banner_editor")
 	banner_editor.RegisterElement(&banner_editor.Element{
 		Icon:     "<i class=material-icons>short_text</i>",
 		Name:     "Add Header",

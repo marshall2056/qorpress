@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/l10n"
-	"github.com/gopress/internal/publish"
+	"github.com/qorpress/qorpress/internal/l10n"
+	"github.com/qorpress/qorpress/internal/publish"
 )
 
 type Book struct {

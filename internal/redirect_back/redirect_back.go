@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gopress/internal/middlewares"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/session"
-	"github.com/gopress/internal/session/manager"
+	"github.com/qorpress/qorpress/internal/middlewares"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/session"
+	"github.com/qorpress/qorpress/internal/session/manager"
 )
 
 var returnToKey utils.ContextKey = "redirect_back_return_to"

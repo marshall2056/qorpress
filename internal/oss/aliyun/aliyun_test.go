@@ -6,8 +6,8 @@ import (
 
 	aliyunoss "github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/jinzhu/configor"
-	"github.com/gopress/internal/oss/aliyun"
-	"github.com/gopress/internal/oss/tests"
+	"github.com/qorpress/qorpress/internal/oss/aliyun"
+	"github.com/qorpress/qorpress/internal/oss/tests"
 )
 
 type Config struct {

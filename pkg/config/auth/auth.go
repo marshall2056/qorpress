@@ -3,20 +3,20 @@ package auth
 import (
 	"time"
 
-	"github.com/gopress/internal/auth"
-	"github.com/gopress/internal/auth/authority"
-	"github.com/gopress/internal/auth/providers/facebook"
-	"github.com/gopress/internal/auth/providers/github"
-	"github.com/gopress/internal/auth/providers/google"
-	"github.com/gopress/internal/auth/providers/password"
-	"github.com/gopress/internal/auth/providers/twitter"
-	"github.com/gopress/internal/auth_themes/clean"
-	"github.com/gopress/internal/render"
+	"github.com/qorpress/qorpress/internal/auth"
+	"github.com/qorpress/qorpress/internal/auth/authority"
+	"github.com/qorpress/qorpress/internal/auth/providers/facebook"
+	"github.com/qorpress/qorpress/internal/auth/providers/github"
+	"github.com/qorpress/qorpress/internal/auth/providers/google"
+	"github.com/qorpress/qorpress/internal/auth/providers/password"
+	"github.com/qorpress/qorpress/internal/auth/providers/twitter"
+	"github.com/qorpress/qorpress/internal/auth_themes/clean"
+	"github.com/qorpress/qorpress/internal/render"
 
-	"github.com/gopress/qorpress/pkg/config"
-	"github.com/gopress/qorpress/pkg/config/bindatafs"
-	"github.com/gopress/qorpress/pkg/config/db"
-	"github.com/gopress/qorpress/pkg/models/users"
+	"github.com/qorpress/qorpress/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config/bindatafs"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 var (

@@ -10,9 +10,9 @@ import (
 	"testing"
 
 	"github.com/fatih/color"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
 
 	"github.com/headzoo/surf"
 )

@@ -1,8 +1,8 @@
 package exchange
 
 import (
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 )
 
 // Container is an interface, any exporting/importing backends needs to implement this

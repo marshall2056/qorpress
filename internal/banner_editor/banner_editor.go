@@ -11,11 +11,11 @@ import (
 
 	mobiledetect "github.com/Shaked/gomobiledetect"
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/assetfs"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/serializable_meta"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/assetfs"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/serializable_meta"
 )
 
 var (
@@ -84,7 +84,7 @@ type configurePlatform struct {
 }
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/banner_editor/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/banner_editor/views")
 }
 
 // RegisterElement register a element

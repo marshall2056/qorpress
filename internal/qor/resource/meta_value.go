@@ -3,7 +3,7 @@ package resource
 import (
 	"reflect"
 
-	"github.com/gopress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor"
 )
 
 // MetaValues is slice of MetaValue

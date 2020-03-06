@@ -5,10 +5,10 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/assetfs"
-	"github.com/gopress/internal/middlewares"
-	"github.com/gopress/internal/wildcard_router"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/assetfs"
+	"github.com/qorpress/qorpress/internal/middlewares"
+	"github.com/qorpress/qorpress/internal/wildcard_router"
 )
 
 // MicroAppInterface micro app interface

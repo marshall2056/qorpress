@@ -3,7 +3,7 @@ package admin
 import (
 	"errors"
 
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 )
 
 // CollectionEditConfig meta configuration used for collection edit

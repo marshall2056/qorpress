@@ -6,10 +6,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	testutils "github.com/gopress/internal/qor/test/utils"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	testutils "github.com/qorpress/qorpress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 func format(value interface{}) string {

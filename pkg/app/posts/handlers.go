@@ -10,10 +10,10 @@ import (
 	"github.com/acoshift/paginate"
 	"github.com/biezhi/gorm-paginator/pagination"
 	"github.com/k0kubun/pp"
-	"github.com/gopress/internal/render"
+	"github.com/qorpress/qorpress/internal/render"
 
-	"github.com/gopress/qorpress/pkg/models/posts"
-	"github.com/gopress/qorpress/pkg/utils"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/utils"
 )
 
 // Controller posts controller

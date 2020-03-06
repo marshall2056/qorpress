@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/disintegration/imaging"
-	"github.com/gopress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/qor/utils"
 )
 
 func getImageFormat(url string) (*imaging.Format, error) {

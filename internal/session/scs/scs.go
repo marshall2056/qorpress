@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/alexedwards/scs"
-	"github.com/gopress/internal/session"
+	"github.com/qorpress/qorpress/internal/session"
 )
 
 // New initialize session manager for SCS

@@ -4,20 +4,20 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/page_builder"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/render"
-	"github.com/gopress/internal/widget"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/page_builder"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/render"
+	"github.com/qorpress/qorpress/internal/widget"
 
-	adminapp "github.com/gopress/qorpress/pkg/app/admin"
-	"github.com/gopress/qorpress/pkg/config/application"
-	"github.com/gopress/qorpress/pkg/config"
-	"github.com/gopress/qorpress/pkg/config/db"
-	"github.com/gopress/qorpress/pkg/models/cms"
-	"github.com/gopress/qorpress/pkg/utils/funcmapmaker"
+	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/pkg/models/cms"
+	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
 // New new home app

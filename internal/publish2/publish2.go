@@ -8,15 +8,15 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/validations"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/validations"
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/gopress/internal/publish2/views")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/publish2/views")
 }
 
 func (SharedVersion) ConfigureQorResource(res resource.Resourcer) {

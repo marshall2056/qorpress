@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"text/template"
 
-	"github.com/gopress/internal/admin"
+	"github.com/qorpress/qorpress/internal/admin"
 )
 
 func seoSections(context *admin.Context, collection *Collection) []interface{} {

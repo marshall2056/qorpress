@@ -9,10 +9,10 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/utils"
-	"github.com/gopress/internal/roles"
-	"github.com/gopress/internal/validations"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/internal/roles"
+	"github.com/qorpress/qorpress/internal/validations"
 )
 
 // Metaor interface

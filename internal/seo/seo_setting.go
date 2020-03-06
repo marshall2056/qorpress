@@ -9,10 +9,10 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/media/media_library"
-	"github.com/gopress/internal/qor"
-	"github.com/gopress/internal/qor/resource"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/media/media_library"
+	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/internal/qor/resource"
 )
 
 // QorSEOSettingInterface support customize Seo model

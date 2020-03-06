@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/gorilla/sessions"
-	"github.com/gopress/internal/session/gorilla"
-	"github.com/gopress/internal/session/test"
+	"github.com/qorpress/qorpress/internal/session/gorilla"
+	"github.com/qorpress/qorpress/internal/session/test"
 )
 
 func TestAll(t *testing.T) {

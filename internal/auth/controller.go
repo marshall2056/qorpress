@@ -5,7 +5,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/gopress/internal/auth/claims"
+	"github.com/qorpress/qorpress/internal/auth/claims"
 )
 
 // NewServeMux generate http.Handler for auth

@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/publish"
+	"github.com/qorpress/qorpress/internal/publish"
 )
 
 type createResourcePublishInterface struct {

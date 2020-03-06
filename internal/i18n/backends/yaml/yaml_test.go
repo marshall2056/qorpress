@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/gopress/internal/i18n"
-	"github.com/gopress/internal/i18n/backends/yaml"
+	"github.com/qorpress/qorpress/internal/i18n"
+	"github.com/qorpress/qorpress/internal/i18n/backends/yaml"
 )
 
 var values = map[string][][]string{

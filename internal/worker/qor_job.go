@@ -11,9 +11,9 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/audited"
-	"github.com/gopress/internal/serializable_meta"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/audited"
+	"github.com/qorpress/qorpress/internal/serializable_meta"
 )
 
 // QorJobInterface is a interface, defined methods that needs for a qor job

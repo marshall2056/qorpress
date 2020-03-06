@@ -16,10 +16,10 @@ import (
 
 	"github.com/jinzhu/configor"
 	"github.com/jinzhu/gorm"
-	"github.com/gopress/internal/media"
-	"github.com/gopress/internal/media/oss"
-	"github.com/gopress/internal/oss/s3"
-	"github.com/gopress/internal/qor/test/utils"
+	"github.com/qorpress/qorpress/internal/media"
+	"github.com/qorpress/qorpress/internal/media/oss"
+	"github.com/qorpress/qorpress/internal/oss/s3"
+	"github.com/qorpress/qorpress/internal/qor/test/utils"
 )
 
 var (

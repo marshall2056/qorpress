@@ -3,8 +3,8 @@ package activity
 import (
 	"net/http"
 
-	"github.com/gopress/internal/admin"
-	"github.com/gopress/internal/responder"
+	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/internal/responder"
 )
 
 type controller struct {
