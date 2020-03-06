@@ -1,6 +1,6 @@
 package help
 
-import "github.com/qorpress/admin"
+import "github.com/qorpress/qorpress/internal/admin"
 
 type controller struct {
 }

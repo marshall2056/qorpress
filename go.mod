@@ -5,18 +5,18 @@ go 1.14
 require (
 	cloud.google.com/go v0.53.1-0.20200303112543-7d5bf9e9f7c4 // indirect
 	github.com/Depado/bfchroma v1.2.0 // indirect
-	github.com/Shaked/gomobiledetect v0.0.0-20171211181707-25f014f66568 // indirect
+	github.com/Shaked/gomobiledetect v0.0.0-20171211181707-25f014f66568
 	github.com/acoshift/paginate v1.1.2
 	github.com/alecthomas/chroma v0.7.1 // indirect
-	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
-	github.com/aws/aws-sdk-go v1.25.14-0.20200302193708-d638243b7b04 // indirect
+	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
+	github.com/aws/aws-sdk-go v1.25.14-0.20200302193708-d638243b7b04
 	github.com/azumads/faker v0.0.0-20150921074035-6cae71ddb107
 	github.com/biezhi/gorm-paginator/pagination v0.0.0-20190124091837-7a5c8ed20334
 	github.com/chris-ramon/douceur v0.2.1-0.20160603235419-f3463056cd52 // indirect
 	github.com/corpix/uarand v0.1.2-0.20190826213412-6fd8ff1ca6b2
 	github.com/dgraph-io/badger v1.6.0
-	github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible // indirect
-	github.com/disintegration/imaging v1.6.3-0.20200211210110-879073f2332f // indirect
+	github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible
+	github.com/disintegration/imaging v1.6.3-0.20200211210110-879073f2332f
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/foomo/simplecert v1.6.8 // indirect
 	github.com/gin-gonic/gin v1.5.0 // indirect
@@ -28,21 +28,21 @@ require (
 	github.com/golang/snappy v0.0.2-0.20190904063534-ff6b7dc882cf
 	github.com/gomarkdown/markdown v0.0.0-20200127000047-1813ea067497
 	github.com/google/btree v1.0.1-0.20191016161528-479b5e81b0a9 // indirect
-	github.com/google/go-github v17.0.0+incompatible // indirect
+	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/go-github/v29 v29.0.3
-	github.com/gorilla/context v1.1.2-0.20190627024605-8559d4a6b87e // indirect
+	github.com/gorilla/context v1.1.2-0.20190627024605-8559d4a6b87e
 	github.com/gorilla/css v1.0.1-0.20190627041119-4940b8d78103 // indirect
 	github.com/gorilla/securecookie v1.1.2-0.20191028042304-61b4ad17eb88 // indirect
-	github.com/gorilla/sessions v1.2.1-0.20200105164144-15ff35117046 // indirect
+	github.com/gorilla/sessions v1.2.1-0.20200105164144-15ff35117046
 	github.com/gosimple/slug v1.9.1-0.20191111214030-853565075b0c
 	github.com/h2non/filetype v1.0.12
 	github.com/headzoo/surf v1.0.0 // indirect
 	github.com/headzoo/ut v0.0.0-20181013193318-a13b5a7a02ca // indirect
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334
 	github.com/jinzhu/configor v1.1.1
-	github.com/jinzhu/copier v0.0.0-20190924061706-b57f9002281a // indirect
+	github.com/jinzhu/copier v0.0.0-20190924061706-b57f9002281a
 	github.com/jinzhu/gorm v1.9.13-0.20200126152832-7180bd0f27d1
-	github.com/jinzhu/inflection v1.0.1-0.20200216102404-196e6ce06ca4 // indirect
+	github.com/jinzhu/inflection v1.0.1-0.20200216102404-196e6ce06ca4
 	github.com/jinzhu/now v1.1.1
 	github.com/joho/godotenv v1.3.1-0.20200301204615-d6ee6871f21d
 	github.com/jteeuwen/go-bindata v3.0.8-0.20180305030458-6025e8de665b+incompatible
@@ -54,7 +54,7 @@ require (
 	github.com/mattn/go-isatty v0.0.13-0.20200128103942-cb30d6282491 // indirect
 	github.com/mattn/go-sqlite3 v2.0.4-0.20200227082846-67986a7832dc+incompatible // indirect
 	github.com/microcosm-cc/bluemonday v1.0.3-0.20191119130333-0a75d7616912
-	github.com/mrjones/oauth v0.0.0-20190623134757-126b35219450 // indirect
+	github.com/mrjones/oauth v0.0.0-20190623134757-126b35219450
 	github.com/nozzle/throttler v0.0.0-20180817012639-2ea982251481
 	github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6
 	github.com/qorpress/action_bar v0.0.0-20200228131920-aa8ff64f08d8
@@ -100,8 +100,8 @@ require (
 	github.com/sirupsen/logrus v1.4.3-0.20200226234458-77ab282a06b0
 	github.com/sniperkit/cacher v0.0.0-20171213170759-61f2a1265daa // indirect
 	github.com/sourcegraph/go-vcsurl v0.0.0-20161114165620-2305ecca26ab // indirect
-	github.com/tealeg/xlsx v1.0.5 // indirect
-	github.com/theplant/cldr v0.0.0-20190423050709-9f76f7ce4ee8 // indirect
+	github.com/tealeg/xlsx v1.0.5
+	github.com/theplant/cldr v0.0.0-20190423050709-9f76f7ce4ee8
 	github.com/theplant/htmltestingutils v0.0.0-20190423050759-0e06de7b6967 // indirect
 	github.com/theplant/testingutils v0.0.0-20190603093022-26d8b4d95c61 // indirect
 	github.com/unrolled/render v1.0.2
@@ -110,11 +110,12 @@ require (
 	github.com/yosssi/gohtml v0.0.0-20190915184251-7ff6f235ecaf // indirect
 	golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073
 	golang.org/x/image v0.0.0-20200119044424-58c23975cae1 // indirect
+	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527 // indirect
 	google.golang.org/appengine v1.6.6-0.20191219230319-b6ce0843b556 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df // indirect
 	gopkg.in/loremipsum.v1 v1.1.0
 	gopkg.in/sourcegraph/go-vcsurl.v1 v1.0.0-20131114132947-6b12603ea6fd // indirect
-	gopkg.in/yaml.v2 v2.2.8 // indirect
+	gopkg.in/yaml.v2 v2.2.8
 )

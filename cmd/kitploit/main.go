@@ -42,7 +42,7 @@ import (
 	"github.com/qorpress/qorpress/internal/auth/providers/password"
 	"github.com/qorpress/qorpress/internal/banner_editor"
 	"github.com/qorpress/grab"
-	"github.com/qorpress/help"
+	"github.com/qorpress/qorpress/internal/help"
 	i18n_database "github.com/qorpress/qorpress/internal/i18n/backends/database"
 	"github.com/qorpress/qorpress/internal/media"
 	"github.com/qorpress/qorpress/internal/media/asset_manager"

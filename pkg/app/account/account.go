@@ -2,6 +2,7 @@ package account
 
 import (
 	"path/filepath"
+	"fmt"
 
 	"github.com/go-chi/chi"
 	"github.com/qorpress/qorpress/internal/admin"
@@ -38,7 +39,7 @@ func (app App) ConfigureApplication(application *application.Application) {
 	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", "qorpress", "views", "account"))
 	controller := &Controller{View: render.New(&render.Config{
 		AssetFileSystem: application.AssetFS.NameSpace("account"),
-	}, Root + "themes/app/account/views")}
+	}, themeDir)}
 
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	app.ConfigureAdmin(application.Admin)

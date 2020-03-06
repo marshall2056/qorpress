@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/qorpress/themes/gopress/internal/action_bar")
+	admin.RegisterViewPath("github.com/qorpress/qorpress/themes/qorpress/views/action_bar")
 }
 
 // ActionBar stores configuration about a action bar.

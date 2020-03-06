@@ -14,7 +14,7 @@ import (
 const DefaultLayout = "application"
 
 // DefaultViewPath default view path
-const DefaultViewPath = "pkg/app/views"
+const DefaultViewPath = "themes/qorpress/views/views"
 
 // Config render config
 type Config struct {

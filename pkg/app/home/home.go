@@ -2,6 +2,7 @@ package home
 
 import (
 	"path/filepath"
+	"fmt"
 
 	"github.com/qorpress/qorpress/internal/render"
 
