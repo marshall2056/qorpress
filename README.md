@@ -1,18 +1,22 @@
-# QorPress example application
+# QorPress 
 
-This is an example application to show and explain features of [QOR](http://getqor.com).
+QorPress is a blog engine based on the excellent Qor framework. It aims to be fast and dynamic.
 
-Chat Room: [![Join the chat at https://gitter.im/qor/qor](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/qor/qor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+## History
+The idea came from the fact that we could not find a blog engine alternative with a back-end/front-end coupled at the same time. 
+Hugo is designed for static website as we wanted something allowing to generate dynamic routes with a fast search engine.
 
-## Quick Started
+## Quick Start
 
 ### Locally
 
 #### Go version: 1.8+
 
 ```shell
-# Get example app
-$ go get -ugithub.com/qorpress/qorpress
+# Get QorPress
+$ mkdir -p $GOPATH/src/github.com/qorpress
+$ git clone --depth=1 https://github.com/qorpress/qorpress.git
+$ cd qorpress
 
 # Setup database
 $ mysql -uroot -p
@@ -29,6 +33,12 @@ $ go run main.go
 #### Docker version: 
 
 ```shell
+# Get QorPress
+$ mkdir -p $GOPATH/src/github.com/qorpress
+$ git clone --depth=1 https://github.com/qorpress/qorpress.git
+$ cd qorpress
+
+# Run docker containers
 docker-compose up --build
 ```
 
@@ -36,18 +46,21 @@ docker-compose up --build
 
 based on lorem ipsum texts and fake images
 ```go
-$ go run -mod=mod cmd/lorem/*.go
+$ cd $GOPATH/src/github.com/qorpress/qorpress
+$ go run cmd/lorem/*.go
 ```
 
 or from kitploit website dump
 
 ```go
-$ go run -mod=mod cmd/kitploit/*.go
+$ cd $GOPATH/src/github.com/qorpress/qorpress
+$ go run cmd/kitploit/*.go
 ```
 
 ### Run tests (Pending)
 
 ```
+$ cd $GOPATH/src/github.com/qorpress/qorpress
 $ go test $(go list ./... | grep -v /vendor/ | grep  -v /db/)
 ```
 
