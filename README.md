@@ -67,12 +67,17 @@ Online Example APIs:
 ## Screenshots
 
 ### Frontend
+#### full post page
 ![alt text](docs/screenshots/frontend-post_page.png "post page")
 
 ### Backend
-![alt text](docs/screenshots/backend-categories.png "backend categories")
-![alt text](docs/screenshots/backend-edit_posts.png "backend edit posts")
+#### post manager
 ![alt text](docs/screenshots/backend-list_posts.png "backend list posts")
+#### posts edition
+![alt text](docs/screenshots/backend-edit_posts.png "backend edit posts")
+#### categories manager
+![alt text](docs/screenshots/backend-categories.png "backend categories")
+
 
 ## License
 
