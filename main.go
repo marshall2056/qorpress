@@ -65,6 +65,9 @@ func main() {
 		})
 	)
 
+	// Register custom paths to manually saved views
+	bindatafs.AssetFS.RegisterPath(filepath.Join(config.Root, "themes/qorpress/views/admin"))
+
 	funcmapmaker.AddFuncMapMaker(auth.Auth.Config.Render)
 
 	Router.Use(func(handler http.Handler) http.Handler {

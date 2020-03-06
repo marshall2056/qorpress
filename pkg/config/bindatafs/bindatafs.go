@@ -26,7 +26,7 @@ var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSys
 // var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSystem{}, Path: "themes/qorpress"}
 
 func init() {
-	// assetfs.SetAssetFS(AssetFS)
+	assetfs.SetAssetFS(AssetFS)
 }
 
 type viewPath struct {
@@ -217,6 +217,7 @@ func (assetFS *nameSpacedBindataFS) registerPath(path interface{}, prepend bool)
 }
 
 func (assetFS *nameSpacedBindataFS) RegisterPath(path string) error {
+	fmt.Println("RegisterPath: ", path)
 	return assetFS.registerPath(path, false)
 }
 

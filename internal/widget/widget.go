@@ -8,6 +8,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 
+	// "github.com/qorpress/qorpress/config"
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/assetfs"
 	"github.com/qorpress/qorpress/internal/qor/resource"
@@ -27,6 +28,8 @@ type Config struct {
 	Admin         *admin.Admin
 	PreviewAssets []string
 }
+
+// 
 
 // New new widgets container
 func New(config *Config) *Widgets {

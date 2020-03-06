@@ -4,6 +4,8 @@ import (
 	"html/template"
 	"path/filepath"
 	"reflect"
+	// "os"
+	// "fmt"
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
@@ -99,8 +101,10 @@ func (admin *Admin) SetAssetFS(assetFS assetfs.Interface) {
 	admin.AssetFS = assetFS
 	globalAssetFSes = append(globalAssetFSes, assetFS)
 
-	admin.AssetFS.RegisterPath(filepath.Join(utils.AppRoot, "themes/gorpress/admin"))
-	admin.RegisterViewPath("github.com/qorpress/qorpress/internal/qorpress/themes/gorpress/admin")
+	p := filepath.Join(utils.AppRoot, "themes/qorpress/views/admin")
+
+	admin.AssetFS.RegisterPath(p)
+	admin.RegisterViewPath("github.com/qorpress/qorpress/themes/qorpress/views/admin")
 
 	for _, viewPath := range globalViewPaths {
 		admin.RegisterViewPath(viewPath)
