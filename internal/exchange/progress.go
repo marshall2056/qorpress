@@ -1,6 +1,8 @@
 package exchange
 
-import "github.com/qorpress/qorpress/internal/qor"
+import (
+	"github.com/qorpress/qorpress/internal/qor"
+)
 
 // Progress defined importing/exporting progress
 type Progress struct {

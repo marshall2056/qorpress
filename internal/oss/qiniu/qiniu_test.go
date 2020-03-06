@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/jinzhu/configor"
+
 	"github.com/qorpress/qorpress/internal/oss/qiniu"
 	"github.com/qorpress/qorpress/internal/oss/tests"
 )

@@ -2,6 +2,7 @@ package gomailer
 
 import (
 	"github.com/go-gomail/gomail"
+
 	"github.com/qorpress/qorpress/internal/mailer"
 )
 

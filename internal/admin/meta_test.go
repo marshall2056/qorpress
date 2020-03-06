@@ -4,9 +4,8 @@ import (
 	"reflect"
 	"testing"
 
-	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
-
 	"github.com/qorpress/qorpress/internal/admin"
+	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/resource"
 )

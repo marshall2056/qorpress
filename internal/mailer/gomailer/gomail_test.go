@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-gomail/gomail"
 	"github.com/jinzhu/configor"
+
 	"github.com/qorpress/qorpress/internal/mailer"
 	"github.com/qorpress/qorpress/internal/mailer/gomailer"
 )

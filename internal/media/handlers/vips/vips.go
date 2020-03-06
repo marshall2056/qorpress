@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/qorpress/qorpress/internal/media"
 	"gopkg.in/h2non/bimg.v1"
+
+	"github.com/qorpress/qorpress/internal/media"
 )
 
 type bimgImageHandler struct{}

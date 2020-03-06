@@ -1,6 +1,8 @@
 package roles
 
-import "net/http"
+import (
+	"net/http"
+)
 
 // Global global role instance
 var Global = &Role{}

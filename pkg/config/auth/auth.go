@@ -12,7 +12,6 @@ import (
 	"github.com/qorpress/qorpress/internal/auth/providers/twitter"
 	"github.com/qorpress/qorpress/internal/auth_themes/clean"
 	"github.com/qorpress/qorpress/internal/render"
-
 	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/bindatafs"
 	"github.com/qorpress/qorpress/pkg/config/db"

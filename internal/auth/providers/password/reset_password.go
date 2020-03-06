@@ -1,13 +1,12 @@
 package password
 
 import (
+	"html/template"
 	"net/mail"
 	"path"
 	"reflect"
 	"strings"
 	"time"
-
-	"html/template"
 
 	"github.com/qorpress/qorpress/internal/auth"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"

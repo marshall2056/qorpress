@@ -1,11 +1,10 @@
 package render
 
 import (
-	"regexp"
-	"testing"
-
 	"net/http/httptest"
 	"net/textproto"
+	"regexp"
+	"testing"
 )
 
 func TestExecute(t *testing.T) {

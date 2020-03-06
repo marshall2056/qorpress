@@ -1,6 +1,8 @@
 package publish_test
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestPublishManyToManyFromProduction(t *testing.T) {
 	name := "create_product_with_multi_categories_from_production"

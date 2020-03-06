@@ -1,6 +1,8 @@
 package utils
 
-import "io"
+import (
+	"io"
+)
 
 // ClosingReadSeeker implement Closer interface for ReadSeeker
 type ClosingReadSeeker struct {

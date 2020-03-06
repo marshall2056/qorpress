@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/l10n"
 	"github.com/qorpress/qorpress/internal/media/media_library"
 	"github.com/qorpress/qorpress/internal/publish2"
@@ -14,7 +15,6 @@ import (
 	"github.com/qorpress/qorpress/internal/slug"
 	"github.com/qorpress/qorpress/internal/sorting"
 	"github.com/qorpress/qorpress/internal/validations"
-
 	"github.com/qorpress/qorpress/pkg/models/seo"
 )
 

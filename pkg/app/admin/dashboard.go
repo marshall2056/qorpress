@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/jinzhu/now"
-	"github.com/qorpress/qorpress/internal/admin"
 
+	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/pkg/config/db"
 )
 
@@ -42,7 +42,7 @@ func GetChartData(table, start, end string) (res []Chart) {
 
 type Charts struct {
 	Posts []Chart
-	Users  []Chart
+	Users []Chart
 }
 
 func ReportsDataHandler(context *admin.Context) {

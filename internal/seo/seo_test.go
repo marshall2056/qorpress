@@ -13,6 +13,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/test/utils"

@@ -2,16 +2,16 @@ package publish
 
 import (
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/resource"
 	"github.com/qorpress/qorpress/internal/qor/utils"
 	"github.com/qorpress/qorpress/internal/worker"
-
-	"reflect"
 )
 
 const (

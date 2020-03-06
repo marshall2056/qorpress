@@ -10,6 +10,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
+
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/resource"
 	"github.com/qorpress/qorpress/internal/qor/utils"
@@ -36,13 +37,13 @@ type Resource struct {
 	ParentResource *Resource
 	SearchHandler  func(keyword string, context *qor.Context) *gorm.DB
 
-	params  string
-	admin   *Admin
-	metas   []*Meta
-	actions []*Action
-	scopes  []*Scope
-	filters []*Filter
-	mounted bool
+	params   string
+	admin    *Admin
+	metas    []*Meta
+	actions  []*Action
+	scopes   []*Scope
+	filters  []*Filter
+	mounted  bool
 	sections struct {
 		IndexSections                  []*Section
 		OverriddingIndexAttrs          bool

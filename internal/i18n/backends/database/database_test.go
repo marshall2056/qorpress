@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/i18n"
 	"github.com/qorpress/qorpress/internal/i18n/backends/database"
 	"github.com/qorpress/qorpress/internal/qor/test/utils"

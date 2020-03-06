@@ -1,6 +1,8 @@
 package auth
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	// ErrInvalidPassword invalid password error

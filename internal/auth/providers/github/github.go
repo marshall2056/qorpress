@@ -7,11 +7,12 @@ import (
 	"reflect"
 
 	"github.com/google/go-github/github"
+	"golang.org/x/oauth2"
+
 	"github.com/qorpress/qorpress/internal/auth"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/claims"
 	"github.com/qorpress/qorpress/internal/qor/utils"
-	"golang.org/x/oauth2"
 )
 
 var (

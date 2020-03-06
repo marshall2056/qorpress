@@ -1,17 +1,16 @@
 package badger
 
 import (
-	"log"
 	"encoding/json"
+	"log"
 
-	"github.com/golang/snappy"
 	"github.com/dgraph-io/badger"
+	"github.com/golang/snappy"
 )
 
 type Badger struct {
 	Client *badger.DB
 }
-
 
 func New(basePath string) *Badger {
 	client, err := badger.Open(badger.DefaultOptions(basePath))
@@ -66,7 +65,7 @@ func (b *Badger) Set(key string, value interface{}) error {
 		err = txn.Set([]byte(key), cnt)
 		return err
 	})
-	return err 
+	return err
 }
 
 func (b *Badger) Fetch(key string, fc func() interface{}) (string, error) {
@@ -121,4 +120,3 @@ func compress(data []byte) ([]byte, error) {
 func decompress(data []byte) ([]byte, error) {
 	return snappy.Decode([]byte{}, data)
 }
-

@@ -1,18 +1,18 @@
 package account
 
 import (
-	"path/filepath"
 	"fmt"
+	"path/filepath"
 
 	"github.com/go-chi/chi"
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/resource"
 	qorutils "github.com/qorpress/qorpress/internal/qor/utils"
 	"github.com/qorpress/qorpress/internal/render"
 	"github.com/qorpress/qorpress/internal/validations"
-	"golang.org/x/crypto/bcrypt"
-
 	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/auth"

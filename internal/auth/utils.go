@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/auth/claims"
 	"github.com/qorpress/qorpress/internal/qor/utils"
 )

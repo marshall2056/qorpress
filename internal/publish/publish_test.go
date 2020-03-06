@@ -5,6 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
+
 	"github.com/qorpress/qorpress/internal/l10n"
 	"github.com/qorpress/qorpress/internal/publish"
 	"github.com/qorpress/qorpress/internal/qor/test/utils"

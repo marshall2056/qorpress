@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/fatih/color"
+
 	"github.com/qorpress/qorpress/internal/qor"
 )
 

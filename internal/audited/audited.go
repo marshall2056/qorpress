@@ -3,7 +3,9 @@
 // Github: http://github.com/qorpress/qorpress/internal/audited
 package audited
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // AuditedModel make Model Auditable, embed `audited.AuditedModel` into your model as anonymous field to make the model auditable
 //    type User struct {

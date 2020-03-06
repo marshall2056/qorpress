@@ -5,6 +5,7 @@ import (
 
 	scssession "github.com/alexedwards/scs"
 	"github.com/alexedwards/scs/stores/memstore"
+
 	"github.com/qorpress/qorpress/internal/session/scs"
 	"github.com/qorpress/qorpress/internal/session/test"
 )

@@ -16,6 +16,7 @@ import (
 
 	"github.com/jinzhu/configor"
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/media"
 	"github.com/qorpress/qorpress/internal/media/oss"
 	"github.com/qorpress/qorpress/internal/oss/s3"

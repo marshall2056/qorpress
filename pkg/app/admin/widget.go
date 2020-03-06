@@ -14,7 +14,6 @@ import (
 	"github.com/qorpress/qorpress/internal/qor/resource"
 	"github.com/qorpress/qorpress/internal/sorting"
 	"github.com/qorpress/qorpress/internal/widget"
-
 	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/pkg/models/posts"
 )

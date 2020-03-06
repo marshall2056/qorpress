@@ -1,6 +1,8 @@
 package bcrypt_encryptor
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"golang.org/x/crypto/bcrypt"
+)
 
 // Config BcryptEncryptor config
 type Config struct {

@@ -1,6 +1,8 @@
 package password
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	// ErrInvalidResetPasswordToken invalid reset password token

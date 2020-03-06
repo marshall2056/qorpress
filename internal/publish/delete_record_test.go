@@ -1,6 +1,8 @@
 package publish_test
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestDeleteStructFromDraft(t *testing.T) {
 	name := "delete_product_from_draft"

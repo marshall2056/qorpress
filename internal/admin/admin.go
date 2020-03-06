@@ -7,13 +7,14 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/inflection"
+	"github.com/theplant/cldr"
+
 	"github.com/qorpress/qorpress/internal/assetfs"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/resource"
 	"github.com/qorpress/qorpress/internal/qor/utils"
 	"github.com/qorpress/qorpress/internal/session"
 	"github.com/qorpress/qorpress/internal/session/manager"
-	"github.com/theplant/cldr"
 )
 
 // AdminConfig admin config struct

@@ -10,11 +10,11 @@ import (
 	"testing"
 
 	"github.com/fatih/color"
+	"github.com/headzoo/surf"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/test/utils"
-
-	"github.com/headzoo/surf"
 )
 
 var Server *httptest.Server

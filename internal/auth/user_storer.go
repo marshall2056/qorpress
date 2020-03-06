@@ -5,6 +5,7 @@ import (
 	"reflect"
 
 	"github.com/jinzhu/copier"
+
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/claims"
 	"github.com/qorpress/qorpress/internal/qor/utils"

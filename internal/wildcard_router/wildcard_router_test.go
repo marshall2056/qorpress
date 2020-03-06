@@ -9,6 +9,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/gin-gonic/gin"
+
 	"github.com/qorpress/qorpress/internal/wildcard_router"
 )
 

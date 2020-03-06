@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/jinzhu/inflection"
+
 	"github.com/qorpress/qorpress/internal/qor/utils"
 	"github.com/qorpress/qorpress/internal/roles"
 )

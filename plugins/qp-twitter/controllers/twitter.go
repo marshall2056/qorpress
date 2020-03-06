@@ -5,10 +5,9 @@ import (
 
 	"github.com/dghubble/oauth1"
 	"github.com/gin-gonic/gin"
-	"github.com/koreset/go-twitter/twitter"
-
 	"github.com/gopress/internal/qorpress/pkg/config"
 	"github.com/gopress/internal/qorpress/pkg/utils"
+	"github.com/koreset/go-twitter/twitter"
 )
 
 func GetTweets(c *gin.Context) {

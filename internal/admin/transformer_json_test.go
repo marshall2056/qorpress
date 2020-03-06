@@ -8,9 +8,10 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/now"
+	"github.com/theplant/testingutils"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
-	"github.com/theplant/testingutils"
 )
 
 func TestJSONTransformerEncode(t *testing.T) {

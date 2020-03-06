@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/audited"
 	"github.com/qorpress/qorpress/internal/qor/resource"
@@ -52,7 +53,7 @@ func GetStateChangeLogs(model interface{}, db *gorm.DB) []StateChangeLog {
 func GetLastStateChange(model interface{}, db *gorm.DB) *StateChangeLog {
 	var (
 		changelog StateChangeLog
-		scope      = db.NewScope(model)
+		scope     = db.NewScope(model)
 	)
 
 	db.Where("refer_table = ? AND refer_id = ?", scope.TableName(), GenerateReferenceKey(model, db)).Last(&changelog)

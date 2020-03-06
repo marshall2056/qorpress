@@ -7,12 +7,13 @@ import (
 	"net/http"
 	"reflect"
 
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/facebook"
+
 	"github.com/qorpress/qorpress/internal/auth"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/claims"
 	"github.com/qorpress/qorpress/internal/qor/utils"
-	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/facebook"
 )
 
 var UserInfoURL = "https://graph.facebook.com/me?access_token="

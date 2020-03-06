@@ -6,6 +6,7 @@ import (
 
 	aliyunoss "github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/jinzhu/configor"
+
 	"github.com/qorpress/qorpress/internal/oss/aliyun"
 	"github.com/qorpress/qorpress/internal/oss/tests"
 )

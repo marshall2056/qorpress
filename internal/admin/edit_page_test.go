@@ -6,8 +6,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
 	"github.com/theplant/htmltestingutils"
+
+	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
 )
 
 func TestEditPage(t *testing.T) {

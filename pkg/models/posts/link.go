@@ -4,18 +4,19 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qorpress/qorpress/internal/validations"
 	log "github.com/sirupsen/logrus"
+
+	"github.com/qorpress/qorpress/internal/validations"
 )
 
 //go:generate gp-extender -structs Link -output link-funcs.go
 type Link struct {
-	ID           uint            `gorm:"primary_key" json:"id"`
+	ID       uint   `gorm:"primary_key" json:"id"`
 	URL      string `gorm:"index:name"`
 	Name     string
 	Title    string `gorm:"type:mediumtext"`
 	ImageUrl string
-	PostID uint
+	PostID   uint
 }
 
 func (l Link) Validate(db *gorm.DB) {

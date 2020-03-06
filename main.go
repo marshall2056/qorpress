@@ -13,11 +13,11 @@ import (
 
 	// "github.com/go-chi/docgen"
 	"github.com/foomo/simplecert"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/publish2"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/utils"
-
 	"github.com/qorpress/qorpress/pkg/app/account"
 	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/app/api"
@@ -109,14 +109,14 @@ func main() {
 		bindatafs.AssetFS.Compile()
 	} else {
 
-		if config.Config.HTTPS {
+		if config.Config.App.HTTPS.Enabled {
 			fmt.Print("Listening on: 443\n")
 			if err := simplecert.ListenAndServeTLS(":443", Application.NewServeMux(), "x0rzkov@protonmail.com", nil, "x0rzkov.com", "www.x0rzkov.com"); err != nil {
 				panic(err)
 			}
 		} else {
-			fmt.Printf("Listening on: %v\n", config.Config.Port)
-			if err := http.ListenAndServe(fmt.Sprintf(":%d", config.Config.Port), Application.NewServeMux()); err != nil {
+			fmt.Printf("Listening on: %v\n", config.Config.App.Port)
+			if err := http.ListenAndServe(fmt.Sprintf(":%d", config.Config.App.Port), Application.NewServeMux()); err != nil {
 				panic(err)
 			}
 		}

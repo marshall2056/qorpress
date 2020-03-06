@@ -9,6 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/i18n"
 	"github.com/qorpress/qorpress/internal/i18n/backends/database"

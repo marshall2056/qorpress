@@ -1,6 +1,8 @@
 package render
 
-import "os"
+import (
+	"os"
+)
 
 func isExistingDir(pth string) bool {
 	if fi, err := os.Stat(pth); err == nil {

@@ -1,6 +1,8 @@
 package qor
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+)
 
 // Config qor config struct
 type Config struct {

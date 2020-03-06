@@ -1,6 +1,8 @@
 package worker
 
-import "time"
+import (
+	"time"
+)
 
 // Scheduler is a interface, for job used to `GetScheduleTime`
 type Scheduler interface {

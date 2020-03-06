@@ -1,6 +1,8 @@
 package mailer
 
-import "net/mail"
+import (
+	"net/mail"
+)
 
 // Email email struct
 type Email struct {

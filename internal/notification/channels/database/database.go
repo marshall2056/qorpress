@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/notification"
 	"github.com/qorpress/qorpress/internal/qor"
 )

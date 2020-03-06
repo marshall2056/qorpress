@@ -2,7 +2,9 @@
 
 package bindatafs
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var _bindata = map[string]interface{}{}
 

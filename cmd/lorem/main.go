@@ -21,11 +21,13 @@ import (
 	"github.com/jinzhu/gorm"
 	"github.com/jinzhu/now"
 	"github.com/nozzle/throttler"
+	"github.com/qorpress/help"
+	loremipsum "gopkg.in/loremipsum.v1"
+
 	qoradmin "github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/providers/password"
 	"github.com/qorpress/qorpress/internal/banner_editor"
-	"github.com/qorpress/help"
 	i18n_database "github.com/qorpress/qorpress/internal/i18n/backends/database"
 	"github.com/qorpress/qorpress/internal/media"
 	"github.com/qorpress/qorpress/internal/media/asset_manager"
@@ -38,8 +40,6 @@ import (
 	"github.com/qorpress/qorpress/internal/seo"
 	"github.com/qorpress/qorpress/internal/slug"
 	"github.com/qorpress/qorpress/internal/sorting"
-	loremipsum "gopkg.in/loremipsum.v1"
-
 	"github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/config/auth"
 	"github.com/qorpress/qorpress/pkg/config/db"

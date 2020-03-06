@@ -1,6 +1,8 @@
 package auth
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Provider define Provider interface
 type Provider interface {

@@ -9,8 +9,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/qorpress/qorpress/internal/i18n"
 	"gopkg.in/yaml.v2"
+
+	"github.com/qorpress/qorpress/internal/i18n"
 )
 
 var _ i18n.Backend = &Backend{}

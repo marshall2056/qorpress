@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	. "github.com/qorpress/qorpress/internal/admin/tests/dummy"
 )

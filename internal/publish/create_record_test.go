@@ -1,6 +1,8 @@
 package publish_test
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestCreateStructFromDraft(t *testing.T) {
 	name := "create_product_from_draft"

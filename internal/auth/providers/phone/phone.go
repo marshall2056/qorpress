@@ -1,6 +1,8 @@
 package phone
 
-import "github.com/qorpress/qorpress/internal/auth"
+import (
+	"github.com/qorpress/qorpress/internal/auth"
+)
 
 func New() *PhoneProvider {
 	return &PhoneProvider{}

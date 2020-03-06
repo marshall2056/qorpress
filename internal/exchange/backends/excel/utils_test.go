@@ -1,6 +1,8 @@
 package excel
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestToAxis(t *testing.T) {
 	results := map[string][]int{

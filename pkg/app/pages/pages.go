@@ -11,10 +11,9 @@ import (
 	"github.com/qorpress/qorpress/internal/qor/utils"
 	"github.com/qorpress/qorpress/internal/render"
 	"github.com/qorpress/qorpress/internal/widget"
-
 	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
-	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config"
+	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/pkg/models/cms"
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"

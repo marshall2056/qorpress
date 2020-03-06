@@ -2,10 +2,10 @@ package main
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/mattn/go-sqlite3"
-	"github.com/qorpress/qorpress/internal/admin"
-
 	"github.com/kataras/iris/v12"
+	_ "github.com/mattn/go-sqlite3"
+
+	"github.com/qorpress/qorpress/internal/admin"
 )
 
 // Create a GORM-backend model

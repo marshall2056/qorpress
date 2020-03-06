@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/jteeuwen/go-bindata"
+
 	"github.com/qorpress/qorpress/internal/assetfs"
 )
 

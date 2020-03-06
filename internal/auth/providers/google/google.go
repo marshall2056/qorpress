@@ -9,12 +9,13 @@ import (
 	"reflect"
 	"strings"
 
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
+
 	"github.com/qorpress/qorpress/internal/auth"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/claims"
 	"github.com/qorpress/qorpress/internal/qor/utils"
-	"golang.org/x/oauth2"
-	"golang.org/x/oauth2/google"
 )
 
 var UserInfoURL = "https://www.googleapis.com/oauth2/v3/userinfo"

@@ -1,9 +1,10 @@
 package admin
 
 import (
+	"github.com/qorpress/help"
+
 	"github.com/qorpress/qorpress/internal/action_bar"
 	"github.com/qorpress/qorpress/internal/admin"
-	"github.com/qorpress/help"
 	"github.com/qorpress/qorpress/internal/media/asset_manager"
 	"github.com/qorpress/qorpress/internal/media/media_library"
 

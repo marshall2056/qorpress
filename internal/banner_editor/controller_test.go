@@ -13,6 +13,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/banner_editor/test/config/bindatafs"
 	"github.com/qorpress/qorpress/internal/media"

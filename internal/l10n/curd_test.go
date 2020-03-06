@@ -3,11 +3,11 @@ package l10n_test
 import (
 	"testing"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/qorpress/qorpress/internal/l10n"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/qorpress/qorpress/internal/l10n"
 )
 
 func checkHasErr(t *testing.T, err error) {

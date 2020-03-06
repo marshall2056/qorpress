@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/astaxie/beego/session"
+
 	"github.com/qorpress/qorpress/internal/session/beego_session"
 	"github.com/qorpress/qorpress/internal/session/test"
 )

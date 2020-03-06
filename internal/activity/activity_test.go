@@ -10,12 +10,13 @@ import (
 	"testing"
 
 	"github.com/jinzhu/gorm"
+	"github.com/theplant/testingutils"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/l10n"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/test/utils"
 	"github.com/qorpress/qorpress/internal/roles"
-	"github.com/theplant/testingutils"
 )
 
 var db *gorm.DB

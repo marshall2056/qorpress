@@ -9,6 +9,7 @@ import (
 	"reflect"
 
 	"github.com/mrjones/oauth"
+
 	"github.com/qorpress/qorpress/internal/auth"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/claims"

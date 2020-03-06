@@ -6,6 +6,8 @@ import (
 
 	"github.com/go-gomail/gomail"
 	"github.com/jinzhu/configor"
+	"github.com/unrolled/render"
+
 	"github.com/qorpress/qorpress/internal/auth/providers/facebook"
 	"github.com/qorpress/qorpress/internal/auth/providers/github"
 	"github.com/qorpress/qorpress/internal/auth/providers/google"
@@ -17,8 +19,48 @@ import (
 	"github.com/qorpress/qorpress/internal/oss/s3"
 	"github.com/qorpress/qorpress/internal/redirect_back"
 	"github.com/qorpress/qorpress/internal/session/manager"
-	"github.com/unrolled/render"
 )
+
+var Config = struct {
+	App struct {
+		Port  uint `default:"7000" env:"QORPRESS_PORT"`
+		HTTPS struct {
+			Enabled bool `default:"false" env:"QORPRESS_HTTPS"`
+			Local bool `default:"false" env:"QORPRESS_HTTPS_LOCAL"`
+			Email string `env:"QORPRESS_HTTPS_EMAIL"`
+			Domains string `env:"QORPRESS_HTTPS_DOMAINS"`
+		}
+		SMTP  SMTPConfig
+	}
+
+	DB    struct {
+		Name     string `env:"QORPRESS_DB_NAME" default:"qor_example"`
+		Adapter  string `env:"QORPRESS_DB_ADAPTER" default:"mysql"`
+		Host     string `env:"QORPRESS_DB_HOST" default:"localhost"`
+		Port     string `env:"QORPRESS_DB_PORT" default:"3306"`
+		User     string `env:"QORPRESS_DB_USER"`
+		Password string `env:"QORPRESS_DB_PASSWORD"`
+	}
+
+	Cloud struct {
+		AWS struct {
+			S3 struct {
+				AccessKeyID     string `env:"AWS_ACCESS_KEY_ID"`
+				SecretAccessKey string `env:"AWS_SECRET_ACCESS_KEY"`
+				Region          string `env:"AWS_REGION"`
+				S3Bucket        string `env:"AWS_BUCKET"`
+			}
+		}
+	}
+
+	Oauth struct {
+		Github   github.Config
+		Google   google.Config
+		Facebook facebook.Config
+		Twitter  twitter.Config
+	}
+
+}{}
 
 type SMTPConfig struct {
 	Host     string
@@ -27,31 +69,6 @@ type SMTPConfig struct {
 	Password string
 }
 
-var Config = struct {
-	HTTPS bool `default:"false" env:"HTTPS"`
-	Port  uint `default:"7000" env:"PORT"`
-	DB    struct {
-		Name     string `env:"DBName" default:"qor_example"`
-		Adapter  string `env:"DBAdapter" default:"mysql"`
-		Host     string `env:"DBHost" default:"localhost"`
-		Port     string `env:"DBPort" default:"3306"`
-		User     string `env:"DBUser"`
-		Password string `env:"DBPassword"`
-	}
-	S3 struct {
-		AccessKeyID     string `env:"AWS_ACCESS_KEY_ID"`
-		SecretAccessKey string `env:"AWS_SECRET_ACCESS_KEY"`
-		Region          string `env:"AWS_Region"`
-		S3Bucket        string `env:"AWS_Bucket"`
-	}
-	SMTP  SMTPConfig
-	Oauth struct {
-		Github   github.Config
-		Google   google.Config
-		Facebook facebook.Config
-		Twitter  twitter.Config
-	}
-}{}
 
 var (
 	Root         = os.Getenv("GOPATH") + "/src/github.com/qorpress/qorpress"
@@ -68,21 +85,21 @@ func init() {
 		panic(err)
 	}
 
-	if Config.S3.AccessKeyID != "" {
+	if Config.Cloud.AWS.S3.AccessKeyID != "" {
 		oss.Storage = s3.New(&s3.Config{
-			AccessID:  Config.S3.AccessKeyID,
-			AccessKey: Config.S3.SecretAccessKey,
-			Region:    Config.S3.Region,
-			Bucket:    Config.S3.S3Bucket,
+			AccessID:  Config.Cloud.AWS.S3.AccessKeyID,
+			AccessKey: Config.Cloud.AWS.S3.SecretAccessKey,
+			Region:    Config.Cloud.AWS.S3.Region,
+			Bucket:    Config.Cloud.AWS.S3.S3Bucket,
 		})
 	}
 
-	portSmtp, err := strconv.Atoi(Config.SMTP.Port)
+	portSmtp, err := strconv.Atoi(Config.App.SMTP.Port)
 	if err != nil {
 		panic(err)
 	}
 
-	dialer := gomail.NewDialer(Config.SMTP.Host, portSmtp, Config.SMTP.User, Config.SMTP.Password)
+	dialer := gomail.NewDialer(Config.App.SMTP.Host, portSmtp, Config.App.SMTP.User, Config.App.SMTP.Password)
 	sender, err := dialer.Dial()
 	if err != nil {
 		Mailer = mailer.New(&mailer.Config{

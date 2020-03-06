@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/jteeuwen/go-bindata"
+
 	"github.com/qorpress/qorpress/internal/assetfs"
 )
 
@@ -21,6 +22,7 @@ type AssetFSInterface interface {
 }
 
 var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSystem{}, Path: "pkg/config/bindatafs"}
+
 // var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSystem{}, Path: "themes/qorpress"}
 
 func init() {

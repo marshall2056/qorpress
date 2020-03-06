@@ -37,11 +37,16 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/nozzle/throttler"
 	cmap "github.com/orcaman/concurrent-map"
+	"github.com/qorpress/grab"
+	bf "github.com/russross/blackfriday/v2"
+	log "github.com/sirupsen/logrus"
+	"github.com/x0rzkov/go-vcsurl"
+	loremipsum "gopkg.in/loremipsum.v1"
+
 	qoradmin "github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/auth/auth_identity"
 	"github.com/qorpress/qorpress/internal/auth/providers/password"
 	"github.com/qorpress/qorpress/internal/banner_editor"
-	"github.com/qorpress/grab"
 	"github.com/qorpress/qorpress/internal/help"
 	i18n_database "github.com/qorpress/qorpress/internal/i18n/backends/database"
 	"github.com/qorpress/qorpress/internal/media"
@@ -52,15 +57,10 @@ import (
 	"github.com/qorpress/qorpress/internal/oss/filesystem"
 	"github.com/qorpress/qorpress/internal/publish2"
 	"github.com/qorpress/qorpress/internal/qor"
+	ghclient "github.com/qorpress/qorpress/internal/qorpress-test/pkg/client"
 	"github.com/qorpress/qorpress/internal/seo"
 	"github.com/qorpress/qorpress/internal/slug"
 	"github.com/qorpress/qorpress/internal/sorting"
-	bf "github.com/russross/blackfriday/v2"
-	log "github.com/sirupsen/logrus"
-	"github.com/x0rzkov/go-vcsurl"
-	loremipsum "gopkg.in/loremipsum.v1"
-
-	ghclient "github.com/qorpress/qorpress/internal/qorpress-test/pkg/client"
 	"github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/config/auth"
 	"github.com/qorpress/qorpress/pkg/config/db"
@@ -396,9 +396,9 @@ func main() {
 				}
 
 				link := &posts.Link{
-					URL:   key,
-					Name:  "Download "+ *repoInfo.Name,
-					Title: desc,
+					URL:    key,
+					Name:   "Download " + *repoInfo.Name,
+					Title:  desc,
 					PostID: post.ID,
 				}
 				l, err := createOrUpdateLink(DB, link)
@@ -408,7 +408,6 @@ func main() {
 
 				pp.Println("new link: ", l)
 				p.Links = append(p.Links, *l)
-
 
 				for _, tag := range tags {
 					t, err := createOrUpdateTag(DB, tag)

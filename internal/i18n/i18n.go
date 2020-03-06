@@ -11,13 +11,14 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/theplant/cldr"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/cache"
 	"github.com/qorpress/qorpress/internal/cache/memory"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/resource"
 	"github.com/qorpress/qorpress/internal/qor/utils"
-	"github.com/theplant/cldr"
 )
 
 // Default default locale for i18n

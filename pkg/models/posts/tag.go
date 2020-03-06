@@ -5,12 +5,13 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
+	log "github.com/sirupsen/logrus"
+
 	"github.com/qorpress/qorpress/internal/l10n"
 	qor_seo "github.com/qorpress/qorpress/internal/seo"
 	qor_slug "github.com/qorpress/qorpress/internal/slug"
 	"github.com/qorpress/qorpress/internal/sorting"
 	"github.com/qorpress/qorpress/internal/validations"
-	log "github.com/sirupsen/logrus"
 )
 
 //go:generate gp-extender -structs Tag -output tag-funcs.go

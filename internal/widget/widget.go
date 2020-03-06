@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/jinzhu/gorm"
+
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/assetfs"
 	"github.com/qorpress/qorpress/internal/qor/resource"
@@ -32,9 +33,9 @@ func New(config *Config) *Widgets {
 	widgets := &Widgets{Config: config, funcMaps: template.FuncMap{}, AssetFS: assetfs.AssetFS().NameSpace("widgets")}
 
 	if utils.AppRoot != "" {
-		widgets.RegisterViewPath(filepath.Join(utils.AppRoot, "app/views/widgets"))
+		widgets.RegisterViewPath(filepath.Join(utils.AppRoot, "themes/qorpress/views/widgets"))
 	}
-	widgets.RegisterViewPath("app/views/widgets")
+	widgets.RegisterViewPath("themes/qorpress/views/widgets")
 	return widgets
 }
 
