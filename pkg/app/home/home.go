@@ -1,8 +1,11 @@
 package home
 
 import (
+	"path/filepath"
+
 	"github.com/qorpress/render"
 
+	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
@@ -23,9 +26,10 @@ type Config struct {
 
 // ConfigureApplication configure application
 func (App) ConfigureApplication(application *application.Application) {
+	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", "qorpress", "views", "home"))
 	controller := &Controller{View: render.New(&render.Config{
 		AssetFileSystem: application.AssetFS.NameSpace("home"),
-	}, "pkg/app/home/views")}
+	}, themeDir)}
 
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	application.Router.Get("/", controller.Index)

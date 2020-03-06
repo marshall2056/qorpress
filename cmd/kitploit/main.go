@@ -354,16 +354,6 @@ func main() {
 
 				category := findCategoryByName("News")
 
-				link := &posts.Link{
-					URL:   key,
-					Name:  "Download Link",
-					Title: desc,
-				}
-				l, err := createOrUpdateLink(DB, link)
-				if err != nil {
-					log.Fatalln("createOrUpdateTag: ", err)
-				}
-
 				p := &posts.Post{
 					Name:        *repoInfo.Name,
 					Code:        "github-" + info.Username + "-" + info.Name,
@@ -382,7 +372,6 @@ func main() {
 					NameWithSlug: slug.Slug{"github-" + info.Username + "-" + info.Name},
 				}
 
-				p.Links = append(p.Links, *l)
 				p.CategoryID = category.ID
 
 				p.LanguageCode = "en-US"
@@ -405,6 +394,21 @@ func main() {
 				if err != nil {
 					log.Fatalln("createOrUpdatePost: ", err)
 				}
+
+				link := &posts.Link{
+					URL:   key,
+					Name:  "Download "+ *repoInfo.Name,
+					Title: desc,
+					PostID: post.ID,
+				}
+				l, err := createOrUpdateLink(DB, link)
+				if err != nil {
+					log.Fatalln("createOrUpdateLink: ", err)
+				}
+
+				pp.Println("new link: ", l)
+				p.Links = append(p.Links, *l)
+
 
 				for _, tag := range tags {
 					t, err := createOrUpdateTag(DB, tag)
@@ -1222,7 +1226,7 @@ func createUsers() {
 			}
 
 			if err := DraftDB.Save(&user).Error; err != nil {
-				log.Fatalf("Save user (%v) failure, got err %v", user, err)
+				log.Warnf("Save user (%v) failure, got err %v", user, err)
 			}
 
 			provider := auth.Auth.GetProvider("password").(*password.Provider)

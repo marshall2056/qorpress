@@ -2,6 +2,7 @@ package pages
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/qorpress/admin"
 	"github.com/qorpress/page_builder"
@@ -13,6 +14,7 @@ import (
 
 	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/pkg/models/cms"
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
@@ -34,9 +36,10 @@ type Config struct {
 
 // ConfigureApplication configure application
 func (app App) ConfigureApplication(application *application.Application) {
+	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", "qorpress", "views", "pages"))
 	controller := &Controller{View: render.New(&render.Config{
 		AssetFileSystem: application.AssetFS.NameSpace("blog"),
-	}, "pkg/app/pages/views")}
+	}, themeDir)}
 
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	app.ConfigureAdmin(application.Admin)

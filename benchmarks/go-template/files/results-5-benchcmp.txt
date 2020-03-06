@@ -1,3 +1,0 @@
-benchmark                            old ns/op     new ns/op     delta
-BenchmarkComplexGoDirectBuffer-8     621           590           -4.99%
-BenchmarkComplexGoStaticString-8     24.0          18.5          -22.92%

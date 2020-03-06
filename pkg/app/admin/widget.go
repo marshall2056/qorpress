@@ -128,7 +128,7 @@ func SetupWidget(Admin *admin.Admin) {
 	imageRes := Admin.NewResource(&imageSetting{})
 	imageRes.Meta(&admin.Meta{Name: "Image"})
 
-	banner_editor.RegisterViewPath("github.com/qorpress/qorpress/pkg/app/views/banner_editor")
+	banner_editor.RegisterViewPath("github.com/qorpress/qorpress/themes/qorpress/banner_editor")
 	banner_editor.RegisterElement(&banner_editor.Element{
 		Icon:     "<i class=material-icons>short_text</i>",
 		Name:     "Add Header",
@@ -138,17 +138,6 @@ func SetupWidget(Admin *admin.Admin) {
 			return r.(banner_editor.QorBannerEditorSettingInterface).GetSerializableArgument(r.(banner_editor.QorBannerEditorSettingInterface))
 		},
 	})
-	/*
-		banner_editor.RegisterElement(&banner_editor.Element{
-			Icon:     "<i class=material-icons>format_list_bulleted</i>",
-			Name:     "Add model buy block",
-			Template: "model_buy_link",
-			Resource: modelBuyLink,
-			Context: func(c *admin.Context, r interface{}) interface{} {
-				return r.(banner_editor.QorBannerEditorSettingInterface).GetSerializableArgument(r.(banner_editor.QorBannerEditorSettingInterface))
-			},
-		})
-	*/
 	banner_editor.RegisterElement(&banner_editor.Element{
 		Icon:     "<i class=material-icons>format_align_justify</i>",
 		Name:     "Add Text",

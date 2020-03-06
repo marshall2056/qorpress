@@ -10,11 +10,12 @@ import (
 
 //go:generate gp-extender -structs Link -output link-funcs.go
 type Link struct {
-	gorm.Model
+	ID           uint            `gorm:"primary_key" json:"id"`
 	URL      string `gorm:"index:name"`
 	Name     string
 	Title    string `gorm:"type:mediumtext"`
 	ImageUrl string
+	PostID uint
 }
 
 func (l Link) Validate(db *gorm.DB) {

@@ -1,0 +1,34 @@
+<div class="container profile">
+  <div class="grid">
+    <div class="grid__col is-12">
+      <h2>Profile</h2>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="grid__col is-12">
+      {{range .Flashes}}
+        <div class="alert alert-success">{{.}}</div>
+      {{end}}
+      {{with .CurrentUser}}
+        <form action="/account/profile" method="POST">
+          <div class="form-group">
+            <label for="name">UserName</label>
+            <input type="text" name="name" id="name"  value="{{.Name}}">
+            <label for="email">E-Mail</label>
+            <input type="email" name="email" value="{{.Email}}">
+          </div>
+
+          {{$currUser := .  }}
+
+          <div class="form-group">
+            <label for="accept-private"><input type="checkbox" id="accept-private" name="accept-private" {{if .AcceptPrivate}}checked{{end}} value=true> AcceptPrivate</label>
+            <label for="accept-license"><input type="checkbox" id="accept-license" name="accept-license" {{if .AcceptLicense}}checked{{end}} value=true> AcceptLicense</label>
+            <label for="accept-news"><input type="checkbox" id="accept-news" name="accept-news" {{if .AcceptNews}}checked{{end}} value=true> AcceptNews</label>
+          </div>
+
+          <button type="submit" class="button button__primary">Save</button>
+        </form>
+      {{end}}
+    </div>
+  </div>
+</div>

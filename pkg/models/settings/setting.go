@@ -6,6 +6,7 @@ import (
 	"github.com/qorpress/location"
 )
 
+// to do
 type FeeSetting struct {
 	ShippingFee     uint
 	GiftWrappingFee uint

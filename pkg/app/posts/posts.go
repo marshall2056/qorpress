@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"path/filepath"
 
 	// "github.com/jinzhu/gorm"
 	"github.com/qorpress/admin"
@@ -12,6 +13,7 @@ import (
 	"github.com/qorpress/qor"
 	"github.com/qorpress/render"
 
+	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/models/posts"
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
@@ -35,9 +37,10 @@ type Config struct {
 
 // ConfigureApplication configure application
 func (app App) ConfigureApplication(application *application.Application) {
+	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", "qorpress", "views", "posts"))
 	controller := &Controller{View: render.New(&render.Config{
 		AssetFileSystem: application.AssetFS.NameSpace("posts"),
-	}, "pkg/app/posts/views")}
+	}, themeDir)}
 
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	app.ConfigureAdmin(application.Admin)

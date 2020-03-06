@@ -41,7 +41,7 @@ func GetChartData(table, start, end string) (res []Chart) {
 }
 
 type Charts struct {
-	Orders []Chart
+	Posts []Chart
 	Users  []Chart
 }
 
@@ -50,7 +50,7 @@ func ReportsDataHandler(context *admin.Context) {
 	startDate := context.Request.URL.Query().Get("startDate")
 	endDate := context.Request.URL.Query().Get("endDate")
 
-	charts.Orders = GetChartData("orders", startDate, endDate)
+	charts.Posts = GetChartData("posts", startDate, endDate)
 	charts.Users = GetChartData("users", startDate, endDate)
 
 	b, _ := json.Marshal(charts)

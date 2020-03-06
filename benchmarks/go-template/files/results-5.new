@@ -1,7 +1,0 @@
-goos: linux
-goarch: amd64
-pkg: github.com/qorpress/qorpress/benchmarks/go-template
-BenchmarkComplexGoDirectBuffer-8   	 5925524	       590 ns/op	       0 B/op	       0 allocs/op
-BenchmarkComplexGoStaticString-8   	198012804	        18.5 ns/op	       0 B/op	       0 allocs/op
-PASS
-ok  	github.com/qorpress/qorpress/benchmarks/go-template	13.293s

@@ -1,6 +1,8 @@
 package account
 
 import (
+	"path/filepath"
+
 	"github.com/go-chi/chi"
 	"github.com/qorpress/admin"
 	"github.com/qorpress/qor"
@@ -10,6 +12,7 @@ import (
 	"github.com/qorpress/validations"
 	"golang.org/x/crypto/bcrypt"
 
+	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/auth"
 	"github.com/qorpress/qorpress/pkg/models/users"
@@ -32,9 +35,10 @@ type Config struct {
 
 // ConfigureApplication configure application
 func (app App) ConfigureApplication(application *application.Application) {
+	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", "qorpress", "views", "account"))
 	controller := &Controller{View: render.New(&render.Config{
 		AssetFileSystem: application.AssetFS.NameSpace("account"),
-	}, "pkg/app/account/views")}
+	}, Root + "themes/app/account/views")}
 
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	app.ConfigureAdmin(application.Admin)

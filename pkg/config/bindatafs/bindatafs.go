@@ -21,11 +21,10 @@ type AssetFSInterface interface {
 }
 
 var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSystem{}, Path: "pkg/config/bindatafs"}
-
 // var AssetFS AssetFSInterface = &bindataFS{AssetFileSystem: &assetfs.AssetFileSystem{}, Path: "themes/qorpress"}
 
 func init() {
-	assetfs.SetAssetFS(AssetFS)
+	// assetfs.SetAssetFS(AssetFS)
 }
 
 type viewPath struct {
