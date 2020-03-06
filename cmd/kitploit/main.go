@@ -17,6 +17,9 @@ import (
 	"time"
 	"errors"
 
+	"github.com/Depado/bfchroma"
+	"github.com/alecthomas/chroma/formatters/html"
+	bf "github.com/russross/blackfriday/v2"
 	"github.com/qorpress/grab"
 	"github.com/corpix/uarand"
 	badger "github.com/dgraph-io/badger"
@@ -82,6 +85,7 @@ var (
 	cachePath           = "./shared/data/httpcache"
 	storagePath         = "./shared/data/badger"
 	debug               = false
+	isChroma 			= false
 	logLevelStr         = "info"
 	addMedia            = false
 	minComments 		= 1
@@ -103,7 +107,21 @@ var (
 		&admin.QorWidgetSetting{},
 		&help.QorHelpEntry{},
 	}
+
+	// Defines the extensions that are used
+ 	exts = bf.NoIntraEmphasis | bf.Tables | bf.FencedCode | bf.Autolink |
+	bf.Strikethrough | bf.SpaceHeadings | bf.BackslashLineBreak |
+	bf.DefinitionLists | bf.Footnotes
+
+	// Defines the HTML rendering flags that are used
+ 	flags = bf.UseXHTML | bf.Smartypants | bf.SmartypantsFractions |
+	bf.SmartypantsDashes | bf.SmartypantsLatexDashes | bf.TOC
 )
+
+func init() {
+	// log.SetReportCaller(true)
+}
+
 
 func main() {
 
@@ -111,6 +129,21 @@ func main() {
 	m := cmap.New()
 
 	TruncateTables(Tables...)
+
+	// add indexes
+	if err := DB.Table("post_tags").AddIndex("idx_post_id", "post_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
+	if err := DB.Table("post_tags").AddIndex("idx_tag_id", "tag_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
+
+	if err := DB.Table("post_links").AddIndex("idx_post_id", "post_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
+	if err := DB.Table("post_links").AddIndex("idx_link_id", "link_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
 
 	err := removeContents("./public/system/")
 	if err != nil {
@@ -206,6 +239,8 @@ func main() {
 	log.Println("All github URLs:")
 	log.Println("Collected cmap: ", m.Count(), "URLs")
 
+	// be carefull, higher values implies potential DEADLOCKs fro the datadase
+	// at least for now, until I solve this issue
 	t := throttler.New(1, m.Count())
 
 	m.IterCb(func(key string, v interface{}) {
@@ -236,6 +271,18 @@ func main() {
 					return err
 				}
 
+				parser := parser.NewWithExtensions(parser.CommonExtensions)
+				if readme == "" {
+					return nil
+				}
+
+				var html []byte
+				if isChroma {
+					html = render([]byte(readme))
+				} else {
+					html = markdown.ToHTML([]byte(readme), parser, nil)
+				}
+
 				// youtube
 				// `^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$`
 
@@ -244,12 +291,10 @@ func main() {
 					log.Warnln(err)
 					return err
 				}
-				vidLinks := videoPatternRegexp.FindAllString(readme, -1)
+				vidLinks := videoPatternRegexp.FindAllString(string(html), -1)
 				videoLinks = append(videoLinks, vidLinks...)
 
 				// pp.Println(readme)
-				([/|.|\w|\s|-])*\.(?:jpg|jpeg|JPEG|JPG|gif|GIF|png)
-
 
 				imgPatternRegexp, err := regexp.Compile(`(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|GIF|png|PNG|jpeg|JPG|JPEG)`)
 				// imgPatternRegexp, err := regexp.Compile(`(http(s?):)([/|.|\w|\s|-])*\.(?:gif|GIF)`)
@@ -257,13 +302,13 @@ func main() {
 					log.Warnln(err)
 					return err
 				}
-				imgLinks = imgPatternRegexp.FindAllString(readme, -1)
+				imgLinks = imgPatternRegexp.FindAllString(string(html), -1)
 				imgRelRegexp, err := regexp.Compile(`([/|.|\w|\s|-])*\.(?:jpg|gif|png|PNG|GIF|jpeg|JPG|JPEG)`)
 				if err != nil {
 					log.Warnln(err)
 					return err
 				}
-				imgLinksRel := imgRelRegexp.FindAllString(readme, -1)
+				imgLinksRel := imgRelRegexp.FindAllString(string(html), -1)
 				for i, imgRel := range imgLinksRel {
 					if strings.HasPrefix(imgRel, "//") {
 						imgLinksRel[i] = "https:" + imgRel
@@ -284,13 +329,13 @@ func main() {
 				imgLinks = append(imgLinks, imgLinksRel...)
 				imgLinks = removeDuplicates(imgLinks)
 				// pp.Println(imgLinksRel)
-				// pp.Println(imgLinks)
+				pp.Println(imgLinks)
 
 				var title, desc string
 				if repoInfo.Description != nil {
 					desc = strings.TrimSpace(*repoInfo.Description)
-					if len(desc) > 255 {
-						title = desc[0:255]
+					if len(desc) > 512 {
+						title = desc[0:512]
 					} else {
 						title = desc
 					}
@@ -304,21 +349,6 @@ func main() {
 				kitTopics := strings.Split(topics, ",")
 				extTopics = append(extTopics, kitTopics...)
 				extTopics = removeDuplicates(extTopics)
-
-				// pp.Println("extTopics: ", extTopics)
-
-				// unsafe := blackfriday.Run([]byte(readme))
-				// html := bluemonday.UGCPolicy().SanitizeBytes(unsafe)
-
-				// extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.Tables | parser.FencedCode | parser.Mmark
-				parser := parser.NewWithExtensions(parser.CommonExtensions)
-
-				if readme == "" {
-					return nil
-				}
-
-				// md := []byte("## markdown document")
-				html := markdown.ToHTML([]byte(readme), parser, nil)
 
 				start := time.Now().AddDate(0, 0, 0)
 				end := time.Now().AddDate(12, 0, 0)
@@ -335,6 +365,16 @@ func main() {
 							URL:   key,
 							Name: "Download Link",
 							Title: desc,
+						},
+					},
+					PostProperties: []posts.PostProperty{
+						posts.PostProperty{
+							Name:"UpdatedAt", 
+							Value: repoInfo.UpdatedAt.String(),
+						},
+						posts.PostProperty{
+							Name:"CreatedAt", 
+							Value: repoInfo.CreatedAt.String(),
 						},
 					},
 					NameWithSlug: slug.Slug{"github-" + info.Username + "-" + info.Name},
@@ -360,15 +400,13 @@ func main() {
 				var post *posts.Post
 				post, err = createOrUpdatePost(DB, p)
 				if err != nil {
-					log.Warnln(err)
+					log.Fatalln("createOrUpdatePost: ", err)
 				}
-
-				// postId := post.ID
 
 				for _, tag := range tags {
 					t, err := createOrUpdateTag(DB, tag)
 					if err != nil {
-						log.Fatalln(err)
+						log.Fatalln("createOrUpdateTag: ", err)
 					}
 					post.Tags = append(post.Tags, *t)
 				}
@@ -403,7 +441,7 @@ func main() {
 				for _, img := range imgLinks {
 					file, size, err := openFileByURL(img)
 					if err != nil {
-						fmt.Printf("open file failure, got err %v", err)
+						fmt.Printf("open file failure, got err %v\n", err)
 						continue
 					}
 
@@ -425,7 +463,8 @@ func main() {
 					image.File.Scan(file)
 
 					if err := DraftDB.Create(&image).Error; err != nil {
-						log.Fatalf("create variation_image (%v) failure, got err %v", image, err)
+						log.Warnf("create variation_image (%v) failure, got err %v\n", image, err)
+						continue
 					}
 
 					post.Images.Files = append(post.Images.Files, media_library.File{
@@ -437,15 +476,10 @@ func main() {
 						Sizes: map[string]*media.Size{
 							"main":    {Width: 560, Height: 700},
 							"icon":    {Width: 50, Height: 50},
-							// "preview": {Width: 300, Height: 300},
-							// "listing": {Width: 640, Height: 640},
+							"preview": {Width: 300, Height: 300},
+							"listing": {Width: 640, Height: 640},
 						},
 					})
-
-					if err := DraftDB.Save(&post).Error; err != nil {
-						log.Warnln(err)
-					}
-
 					if len(post.MainImage.Files) == 0 {
 						post.MainImage.Files = []media_library.File{{
 							ID:  json.Number(fmt.Sprint(image.ID)),
@@ -455,18 +489,19 @@ func main() {
 							Sizes: map[string]*media.Size{
 								"main":    {Width: 560, Height: 700},
 								"icon":    {Width: 50, Height: 50},
-								// "preview": {Width: 300, Height: 300},
-								// "listing": {Width: 640, Height: 640},
+								"preview": {Width: 300, Height: 300},
+								"listing": {Width: 640, Height: 640},
 							},
 						})
-						if err := DraftDB.Save(&post).Error; err != nil {
-							log.Warnln(err)
-						}
 					}
+					//if err := DraftDB.Save(&post).Error; err != nil {
+					// 	log.Fatalln("Save.post #1: ", err)
+					//}
 
 					file.Close()
 				}
 
+				/*
 				if len(imgLinks) == 0 {
 					image := posts.PostImage{Title: "default image", SelectedType: "image"}
 					if file, _, err := openFileByURL("https://dummyimage.com/700/09f/fff.png"); err != nil {
@@ -488,8 +523,6 @@ func main() {
 							// "listing": {Width: 640, Height: 640},
 						},
 					})
-					DraftDB.Save(&post)
-
 					if len(post.MainImage.Files) == 0 {
 						post.MainImage.Files = []media_library.File{{
 							ID:  json.Number(fmt.Sprint(image.ID)),
@@ -503,8 +536,12 @@ func main() {
 								// "listing": {Width: 640, Height: 640},
 							},
 						})
-						DraftDB.Save(&post)
 					}
+				}
+				*/
+
+				if err := DraftDB.Save(&post).Error; err != nil {
+					log.Fatalln("Save.post #2: ", err)
 				}
 
 				return nil
@@ -540,6 +577,30 @@ func InitDB() *gorm.DB {
 	DB = db
 
 	return DB
+}
+
+// render will take a []byte input and will render it using a new renderer each
+// time because reusing the same can mess with TOC and header IDs
+func render(input []byte) []byte {
+	return bf.Run(
+		input,
+		bf.WithRenderer(
+			bfchroma.NewRenderer(
+				bfchroma.WithoutAutodetect(),
+				bfchroma.ChromaOptions(
+					html.WithLineNumbers(false),
+					html.WithClasses(true),
+				),
+				bfchroma.Extend(
+					bf.NewHTMLRenderer(bf.HTMLRendererParameters{
+						Flags: flags,
+					}),
+				),
+				bfchroma.Style("monokai"),
+			),
+		),
+		bf.WithExtensions(exts),
+	)
 }
 
 func removeContents(dir string) error {
@@ -709,7 +770,7 @@ func removeDuplicates(elements []string) []string {
 	result := []string{}
 
 	for v := range elements {
-		elements[v] = strings.ToLower(elements[v])
+		// elements[v] = strings.ToLower(elements[v])
 		if encountered[elements[v]] == true {
 			// Do not add duplicate.
 		} else {

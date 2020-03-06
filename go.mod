@@ -4,8 +4,10 @@ go 1.14
 
 require (
 	cloud.google.com/go v0.53.1-0.20200303112543-7d5bf9e9f7c4 // indirect
+	github.com/Depado/bfchroma v1.2.0 // indirect
 	github.com/Shaked/gomobiledetect v0.0.0-20171211181707-25f014f66568 // indirect
 	github.com/acoshift/paginate v1.1.2
+	github.com/alecthomas/chroma v0.7.1 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
 	github.com/aws/aws-sdk-go v1.25.14-0.20200302193708-d638243b7b04 // indirect
 	github.com/azumads/faker v0.0.0-20150921074035-6cae71ddb107
@@ -19,6 +21,7 @@ require (
 	github.com/foomo/simplecert v1.6.8 // indirect
 	github.com/gin-gonic/gin v1.5.0 // indirect
 	github.com/go-chi/chi v4.0.4-0.20200226132540-acdf534d0ba4+incompatible
+	github.com/go-chi/docgen v1.0.5 // indirect
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-sql-driver/mysql v1.5.1-0.20200225152438-dd9d356b496c // indirect
 	github.com/gocolly/colly/v2 v2.0.1

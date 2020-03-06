@@ -24,10 +24,7 @@ var (
 	Auth = clean.New(&auth.Config{
 		DB:     db.DB,
 		Mailer: config.Mailer,
-		Render: render.New(
-			&render.Config{
-				AssetFileSystem: bindatafs.AssetFS.NameSpace("auth"),
-			}),
+		Render: render.New(&render.Config{AssetFileSystem: bindatafs.AssetFS.NameSpace("auth")}),
 		UserModel:  users.User{},
 		Redirector: auth.Redirector{RedirectBack: config.RedirectBack},
 	})
@@ -40,11 +37,11 @@ var (
 
 func init() {
 
+	Auth.RegisterProvider(password.New(&password.Config{}))
 	Auth.RegisterProvider(github.New(&config.Config.Oauth.Github))
 	Auth.RegisterProvider(google.New(&config.Config.Oauth.Google))
 	Auth.RegisterProvider(facebook.New(&config.Config.Oauth.Facebook))
 	Auth.RegisterProvider(twitter.New(&config.Config.Oauth.Twitter))
-	Auth.RegisterProvider(password.New(&password.Config{}))
 
 	Authority.Register("logged_in_half_hour", authority.Rule{TimeoutSinceLastLogin: time.Minute * 30})
 }

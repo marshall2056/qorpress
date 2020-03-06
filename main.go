@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	// "github.com/go-chi/docgen"
 	"github.com/qorpress/admin"
 	"github.com/qorpress/publish2"
 	"github.com/qorpress/qor"
@@ -100,6 +101,8 @@ func main() {
 		Handler: bindatafs.AssetFS.FileServer(http.Dir(filepath.Join("themes", "qorpress", "public")), "javascripts", "stylesheets", "images", "dist", "fonts", "vendors", "favicon.ico"),
 	}))
 
+	// fmt.Println(docgen.MarkdownRoutesDoc(Application.Router, docgen.MarkdownOpts{ForceRelativeLinks: false}))
+
 	if *compileTemplate {
 		bindatafs.AssetFS.Compile()
 	} else {
@@ -109,9 +112,6 @@ func main() {
 			if err := simplecert.ListenAndServeTLS(":443", Application.NewServeMux(), "x0rzkov@protonmail.com", nil, "x0rzkov.com", "www.x0rzkov.com"); err != nil {
 				panic(err)
 			}
-			//if err := http.ListenAndServeTLS(fmt.Sprintf(":%d", config.Config.Port), "letsencrypt/cert.pem", "letsencrypt/key.pem", Application.NewServeMux()); err != nil {
-			//	panic(err)
-			//}
 		} else {
 			fmt.Printf("Listening on: %v\n", config.Config.Port)
 			if err := http.ListenAndServe(fmt.Sprintf(":%d", config.Config.Port), Application.NewServeMux()); err != nil {
