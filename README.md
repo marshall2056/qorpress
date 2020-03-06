@@ -16,11 +16,12 @@ $ go get -ugithub.com/qorpress/qorpress
 
 # Setup database
 $ mysql -uroot -p
-mysql> CREATE DATABASE qor_example;
+mysql> CREATE DATABASE qorpress_example;
 
 # Run Application
 $ cd $GOPATH/src/github.com/qorpress/qorpress
-$ go run --mod=mod main.go
+$ go run main.go --compile-templates
+$ go run main.go
 ```
 
 ### With Docker

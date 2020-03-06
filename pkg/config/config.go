@@ -25,6 +25,7 @@ var Config = struct {
 
 	App struct {
 		Port  uint `default:"7000" env:"QORPRESS_PORT"`
+		SiteName string `default:"QorPress Demo" env:"QORPRESS_SITENAME"`
 		HTTPS struct {
 			Enabled bool `default:"false" env:"QORPRESS_HTTPS"`
 			Local bool `default:"false" env:"QORPRESS_HTTPS_LOCAL"`
@@ -35,6 +36,14 @@ var Config = struct {
 			BaiduAPI string
 			GoogleAPI string
 		}
+		Theme string `json:"theme" yaml:"theme"`
+		Plugin struct {
+			Filter bool `json:"filter" yaml:"filter"`
+			Dir string `json:"dir" yaml:"dir"`
+		}
+		Cors struct {
+			AccessControlAllowOrigin string `default:"*" json:"access-control-allow-origin" yaml:"access-control-allow-origin"`
+		} `json:"cors" yaml:"cors"`
 	}
 
 	DB    struct {

@@ -36,7 +36,7 @@ type Config struct {
 
 // ConfigureApplication configure application
 func (app App) ConfigureApplication(application *application.Application) {
-	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", "qorpress", "views", "account"))
+	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", config.Config.App.Theme, "views", "account"))
 	controller := &Controller{View: render.New(&render.Config{
 		AssetFileSystem: application.AssetFS.NameSpace("account"),
 	}, themeDir)}

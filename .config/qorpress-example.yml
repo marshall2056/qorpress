@@ -1,20 +1,31 @@
 ---
 app:
-  https: false
-  themes: qorpress
-
-db:
-  adapter: mysql
-  name: qorpress_example
-  user: root
-  password: xxxxxxxxxx
+  sitename: QorPress Example 
+  theme: qorpress
+  plugins:
+    dir: ./plugins
+    filter: "*"
+  cors:
+    access-control-allow-origin: "*"
+  https:
+    enabled: true
+    email: x0rzkov@protonmail.com
+    domains: x0rzkov.com,www.x0rzkov.com
+  port: 443
+  debug: true
 
 smtp:
   host: smtp.gmail.com
   port: 587
   user: xxxxxxxxxx@gmail.com
-  password: xxxxxxxxxx
-  site: http://demo.getqor.com
+  password: xxxxxxxxxxxx
+  site: https://x0rzkov.com
+
+db:
+  adapter: mysql
+  name: qorpress_example
+  user: root
+  password: supercow
 
 oauth:
   github:

@@ -9,6 +9,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 
+	// "github.com/qorpress/qorpress/config"
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/qor"
 	"github.com/qorpress/qorpress/internal/qor/resource"
@@ -68,7 +69,9 @@ type Worker struct {
 // ConfigureQorResourceBeforeInitialize a method used to config Worker for qor admin
 func (worker *Worker) ConfigureQorResourceBeforeInitialize(res resource.Resourcer) {
 	if res, ok := res.(*admin.Resource); ok {
-		res.GetAdmin().RegisterViewPath("github.com/qorpress/qorpress/internal/worker/views")
+
+		//	themeDir := fmt.Sprintf(filepath.Join(config.Root, "themes", config.Config.App.Theme, "views", "account"))
+		res.GetAdmin().RegisterViewPath("github.com/qorpress/qorpress/themes/qorpress/views/worker")
 		res.UseTheme("worker")
 
 		worker.Admin = res.GetAdmin()
