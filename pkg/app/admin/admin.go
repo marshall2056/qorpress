@@ -7,7 +7,6 @@ import (
 	"github.com/qorpress/qorpress/internal/media/asset_manager"
 	"github.com/qorpress/qorpress/internal/media/media_library"
 
-	// "github.com/qorpress/qorpress/pkg/models/seo"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/i18n"
 	"github.com/qorpress/qorpress/pkg/models/settings"
@@ -70,6 +69,11 @@ func (app App) ConfigureApplication(application *application.Application) {
 	SetupSEO(Admin)
 	SetupWidget(Admin)
 	SetupDashboard(Admin)
+
+	// to do: Iterate through plugins to register new resouces to the admin panel
+	// for _, pluginRes := plug.
+	//   Admin.AddResource(plugin.Res, &admin.Config{Menu: []string{plugin.Name},
+	// }
 
 	application.Router.Mount(app.Config.Prefix, Admin.NewServeMux(app.Config.Prefix))
 }

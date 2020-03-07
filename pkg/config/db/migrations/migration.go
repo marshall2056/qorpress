@@ -18,6 +18,7 @@ import (
 )
 
 func init() {
+
 	AutoMigrate(&asset_manager.AssetManager{})
 
 	AutoMigrate(&posts.Post{}, &posts.PostVariation{}, &posts.PostImage{})
@@ -43,6 +44,10 @@ func init() {
 	AutoMigrate(&auth_identity.AuthIdentity{})
 
 	AutoMigrate(&banner_editor.QorBannerEditorSetting{})
+
+	// to do: iterate through plugins in order to register new models to migrate
+	// for _, pluginModel := range plug.
+
 }
 
 // AutoMigrate run auto migration

@@ -1,17 +1,12 @@
 package api
 
 import (
-	// "path/filepath"
-
-	// "github.com/qorpress/qorpress/internal/assetfs"
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/qor"
-	// "github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/pkg/models/posts"
 	"github.com/qorpress/qorpress/pkg/models/users"
-	// "github.com/qorpress/qorpress/pkg/config/bindatafs"
 )
 
 // New new home app
@@ -39,13 +34,16 @@ func (app App) ConfigureApplication(application *application.Application) {
 		DB: db.DB,
 	})
 
+	// how to generate swagger doc from that ?
 	API.AddResource(&posts.Post{})
 	API.AddResource(&posts.Tag{})
 	API.AddResource(&posts.Comment{})
-
 	API.AddResource(&users.User{})
-
 	API.AddResource(&posts.Category{})
+
+	// to do: iterate through plugins to register new api endpoints
+	// for _, pluginRes := plug.Plugins
+    // API.AddResource(pluginRes)
 
 	application.Router.Mount(app.Config.Prefix, API.NewServeMux(app.Config.Prefix))
 }
