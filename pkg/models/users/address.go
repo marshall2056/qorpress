@@ -1,5 +1,6 @@
 package users
 
+/*
 import (
 	"fmt"
 
@@ -19,3 +20,4 @@ type Address struct {
 func (address Address) Stringify() string {
 	return fmt.Sprintf("%v, %v, %v", address.Address2, address.Address1, address.City)
 }
+*/

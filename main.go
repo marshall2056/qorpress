@@ -7,11 +7,13 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/foomo/simplecert"
 	"github.com/spf13/pflag"
+	// cache "github.com/patrickmn/go-cache"
 
 	"github.com/qorpress/qorpress/internal/admin"
 	"github.com/qorpress/qorpress/internal/publish2"
@@ -33,6 +35,11 @@ import (
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
+/*
+	Refs:
+	- https://github.com/ironarachne/regiongen/blob/master/cmd/regiongend/main.go
+*/
+
 var (
 	compileTemplate        bool
 	help bool
@@ -47,10 +54,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	// cmdLine := flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
-	// compileTemplate := cmdLine.Bool("compile-templates", false, "Compile Templates")
-	// cmdLine.Parse(os.Args[1:])
-
 	var (
 		Router = chi.NewRouter()
 		Admin  = admin.New(&admin.AdminConfig{
@@ -63,6 +66,7 @@ func main() {
 			Admin:  Admin,
 			DB:     db.DB,
 		})
+		// Cache = cache.New(5*time.Minute, 10*time.Minute)
 	)
 
 	// Register custom paths to manually saved views
@@ -89,6 +93,10 @@ func main() {
 	Router.Use(middleware.RealIP)
 	Router.Use(middleware.Logger)
 	Router.Use(middleware.Recoverer)
+	Router.Use(middleware.RequestID)
+	Router.Use(middleware.Logger)
+	Router.Use(middleware.URLFormat)
+	Router.Use(middleware.Timeout(180 * time.Second))
 
 	Router.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {

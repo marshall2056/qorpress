@@ -32,7 +32,7 @@
 // - https://github.com/michalskiluc/Andariel/blob/master/cmd/github/process/repo.go
 // - https://github.com/michalskiluc/Andariel/blob/master/pkg/github/repo.go
 
-package client
+package main
 
 import (
 	"context"

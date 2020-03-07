@@ -29,7 +29,6 @@ import (
 	"github.com/google/go-github/v29/github"
 	slugger "github.com/gosimple/slug"
 	"github.com/h2non/filetype"
-	"github.com/iancoleman/strcase"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/jinzhu/now"
@@ -39,7 +38,6 @@ import (
 	cmap "github.com/orcaman/concurrent-map"
 	"github.com/qorpress/grab"
 	bf "github.com/russross/blackfriday/v2"
-	log "github.com/sirupsen/logrus"
 	"github.com/x0rzkov/go-vcsurl"
 	loremipsum "gopkg.in/loremipsum.v1"
 

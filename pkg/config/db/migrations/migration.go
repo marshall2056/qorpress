@@ -24,7 +24,7 @@ func init() {
 
 	AutoMigrate(&posts.Category{}, &posts.Tag{}, &posts.Collection{}, &posts.Comment{}, &posts.Link{})
 
-	AutoMigrate(&users.User{}, &users.Address{})
+	AutoMigrate(&users.User{})
 
 	AutoMigrate(&settings.Setting{}, &settings.MediaLibrary{})
 

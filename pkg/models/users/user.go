@@ -17,10 +17,10 @@ type User struct {
 	Gender                 string
 	Role                   string
 	Birthday               *time.Time
-	Balance                float32
-	DefaultBillingAddress  uint `form:"default-billing-address"`
-	DefaultShippingAddress uint `form:"default-shipping-address"`
-	Addresses              []Address
+	// Balance                float32
+	// DefaultBillingAddress  uint `form:"default-billing-address"`
+	// DefaultShippingAddress uint `form:"default-shipping-address"`
+	// Addresses              []Address
 	Avatar                 AvatarImageStorage
 
 	// Confirm

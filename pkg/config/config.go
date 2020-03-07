@@ -3,10 +3,13 @@ package config
 import (
 	"os"
 	"strconv"
+	"log"
+	"fmt"
 
 	"github.com/go-gomail/gomail"
 	"github.com/jinzhu/configor"
 	"github.com/unrolled/render"
+	"github.com/cep21/xdgbasedir"
 
 	"github.com/qorpress/qorpress/internal/auth/providers/facebook"
 	"github.com/qorpress/qorpress/internal/auth/providers/github"
@@ -33,9 +36,9 @@ var Config = struct {
 			Domains string `env:"QORPRESS_HTTPS_DOMAINS"`
 		}
 		Location struct {
-			BaiduAPI string
-			GoogleAPI string
-		}
+			BaiduAPI string `env:"QORPRESS_BAIDU_API"`
+			GoogleAPI string `env:"QORPRESS_GOOGLE_MAP_API"`
+		} 
 		Theme string `json:"theme" yaml:"theme"`
 		Plugin struct {
 			Filter bool `json:"filter" yaml:"filter"`
@@ -96,11 +99,17 @@ var (
 )
 
 func init() {
+
+	baseDir, err := xdgbasedir.ConfigHomeDirectory()
+	if err != nil {
+		log.Fatal("Can't find XDG BaseDirectory")
+	}
+	// to do, add it for docker config path
+	fmt.Println("baseDir:", baseDir)
+
 	if err := configor.Load(&Config, ".config/qorpress.yml", ".config/database.yml", ".config/smtp.yml", ".config/application.yml"); err != nil {
 		panic(err)
 	}
-
-
 
 	if Config.Cloud.AWS.S3.AccessKeyID != "" {
 		oss.Storage = s3.New(&s3.Config{
