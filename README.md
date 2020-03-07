@@ -27,10 +27,24 @@ $ cd qorpress
 $ mysql -uroot -p
 mysql> CREATE DATABASE qorpress_example;
 
-# Run Application
+# Start manticore
+$ searchd --config ./.docker/manticore/manticore.conf
+
+# Configure env variables (set the database parameters)
 $ cd $GOPATH/src/github.com/qorpress/qorpress
+$ mv .env-example .env
+
+# Configure QorPress settings (set the db, ssl, smtp parameters)
+$ cd $GOPATH/src/github.com/qorpress/qorpress
+$ mv .config/qorpress-example.yml .config/qorpress.yml
+
+# Run Application 
 $ go run main.go --compile-templates
 $ go run main.go
+
+# Open Browser
+$ open http://localhost:7000
+$ open https//domain.com # if ssl enabled in qorpress.yml
 ```
 
 ### Docker
@@ -105,4 +119,4 @@ Online Example APIs:
 
 Released under the MIT License.
 
-[@QORSDK](https://twitter.com/gopress)
+[@GORPRESS](https://twitter.com/gorpress)

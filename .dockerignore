@@ -1,4 +1,6 @@
 .git
+.git/
+.git/*
 .git/**
 .github/
 .github/**
@@ -22,3 +24,7 @@ shared
 shared/
 shared/*
 shared/**
+public
+public/
+public/*
+public/**
