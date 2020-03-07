@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+	"plugin"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -26,6 +27,7 @@ import (
 	"github.com/qorpress/qorpress/pkg/app/pages"
 	"github.com/qorpress/qorpress/pkg/app/posts"
 	"github.com/qorpress/qorpress/pkg/app/static"
+	plug "github.com/qorpress/qorpress/pkg/plugins"
 	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/auth"
@@ -54,6 +56,42 @@ func main() {
 		os.Exit(1)
 	}
 
+	// load plugins
+	qorPlugins := plug.New()
+    // The plugins (the *.so files) must be in a 'plugins' sub-directory
+    all_plugins, err := filepath.Glob("./release/*.so")
+    if err != nil {
+        panic(err)
+    }
+ 
+    for _, filename := range (all_plugins) {
+        p, err := plugin.Open(filename)
+        if err != nil {
+            panic(err)
+        }
+
+		cmdSymbol, err := p.Lookup(plug.CmdSymbolName)
+		if err != nil {
+			fmt.Printf("plugin %s does not export symbol \"%s\"\n",
+				filename, plug.CmdSymbolName)
+			continue
+		}
+		commands, ok := cmdSymbol.(plug.Plugins)
+		if !ok {
+			fmt.Printf("Symbol %s (from %s) does not implement Commands interface\n",
+				plug.CmdSymbolName, filename)
+			continue
+		}
+		if err := commands.Init(qorPlugins.Ctx); err != nil {
+			fmt.Printf("%s initialization failed: %v\n", filename, err)
+			continue
+		}
+		for name, cmd := range commands.Registry() {
+			qorPlugins.Commands[name] = cmd
+		}
+    }
+
+
 	var (
 		Router = chi.NewRouter()
 		Admin  = admin.New(&admin.AdminConfig{
@@ -61,6 +99,18 @@ func main() {
 			Auth:     auth.AdminAuth{},
 			DB:       db.DB.Set(publish2.VisibleMode, publish2.ModeOff).Set(publish2.ScheduleMode, publish2.ModeOff),
 		})
+	)
+
+	for _, cmd := range qorPlugins.Commands {
+		for _, table := range cmd.Migrate() {
+    		db.DB.AutoMigrate(table)
+    	}
+		for _, resource := range cmd.Resources() {
+    		Admin.AddResource(resource, &admin.Config{Menu: []string{cmd.Section()}})
+    	}
+    }
+
+	var (
 		Application = application.New(&application.Config{
 			Router: Router,
 			Admin:  Admin,
@@ -68,6 +118,13 @@ func main() {
 		})
 		// Cache = cache.New(5*time.Minute, 10*time.Minute)
 	)
+
+	/*
+	for _, cmd := range qorPlugins.Commands {
+		for _, table := range cmd.Routes() {
+    	}
+	}
+	*/
 
 	// Register custom paths to manually saved views
 	bindatafs.AssetFS.RegisterPath(filepath.Join(config.Root, "themes/qorpress/views/admin"))
@@ -118,6 +175,8 @@ func main() {
 	Application.Use(posts.New(&posts.Config{}))
 	Application.Use(account.New(&account.Config{}))
 	Application.Use(pages.New(&pages.Config{}))
+
+	// add routes from plugins
 
 	Application.Use(static.New(&static.Config{
 		Prefixs: []string{"/system"},

@@ -50,7 +50,6 @@ script:
   - docker build --squash -t "$IMAGE" .
   - sudo docker-slim build "$IMAGE"
   - sudo docker run -ti "$IMAGE" -h
-  - docker network create nw-twint
   - docker-compose up -d
   - docker images
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

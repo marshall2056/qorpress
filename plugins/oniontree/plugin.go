@@ -1,74 +1,80 @@
 package main
 
 import (
-	"github.com/qorpress/qorpress/pkg/models/"
+	"context"
+	"fmt"
+
+	plug "github.com/qorpress/qorpress/pkg/plugins"
 
 	"github.com/qorpress/qorpress-contrib/oniontree/models"
-
 )
 
-// TwitterOutputPlugin is the Twitter output plugin
-type OnionTreePlugin struct{}
+var Tables = []interface{}{
+	&models.PublicKey{}, 
+	&models.Service{}, 
+	&models.URL{},
+	&models.Tag{},
+}
 
-// Spec returns plugin spec
-//func (o *OnionTreePlugin) Spec() model.Spec {
-//	return spec
-//}
+var Resources = []interface{}{
+	&models.Service{}, 
+	&models.Tag{},
+}
 
-var Tables = []interface{}{&models.PublicKey{}, &models.Service{}, &models.URL{}, &models.Tag{}}
+type onionTreePlugin string
 
-func Migrate() []interface{} {
+func (o onionTreePlugin) Name() string      { return string(o) }
+func (o onionTreePlugin) Section() string      { return `OnionTree` }
+func (o onionTreePlugin) Usage() string     { return `hello` }
+func (o onionTreePlugin) ShortDesc() string { return `prints greeting "hello there"` }
+func (o onionTreePlugin) LongDesc() string  { return o.ShortDesc() }
+func (o onionTreePlugin) Migrate() []interface{} {
 	return Tables
 }
 
-//func (p *TwitterOutputPlugin) Build(output *model.OutputDef) (model.OutputProvider, error) {
-//}
-
-// TwitterOutputProvider output provider to send articles to Twitter
-type OnionTreeProvider struct {
-	id             int
-	alias          string
-	//spec           model.Spec
-	//condition      *expr.ConditionalExpression
-	//formatter      format.Formatter
-	enabled        bool
-	nbError        uint64
-	nbSuccess      uint64
-	// consumerKey    string
-	// consumerSecret string
-	//api            *anaconda.TwitterApi
+func (o onionTreePlugin) Resources() []interface{} {
+	return Resources
 }
 
-//func (ot *OnionTreeProvider) Send(article *model.Article) error {
-//}
+/*
+func (o onionTreePlugin) Routes() map[string]http.HandlerFunc {
+	h := make(map[string]http.Handler, 0)
+	h["/test"] = 
+	return h
+}
+*/
 
-//func (ot *OnionTreeProvider) GetDef() model.OutputDef {
-//}
+type onionTreeCommands struct{}
 
-func Routes() {
+func (t *onionTreeCommands) Init(ctx context.Context) error {
+	// to set your splash, modify the text in the println statement below, multiline is supported
+	fmt.Println(`
+:'#######:::'#######::'########::'########::'########::'########::'######:::'######::
+'##.... ##:'##.... ##: ##.... ##: ##.... ##: ##.... ##: ##.....::'##... ##:'##... ##:
+ ##:::: ##: ##:::: ##: ##:::: ##: ##:::: ##: ##:::: ##: ##::::::: ##:::..:: ##:::..::
+ ##:::: ##: ##:::: ##: ########:: ########:: ########:: ######:::. ######::. ######::
+ ##:'## ##: ##:::: ##: ##.. ##::: ##.....::: ##.. ##::: ##...:::::..... ##::..... ##:
+ ##:.. ##:: ##:::: ##: ##::. ##:: ##:::::::: ##::. ##:: ##:::::::'##::: ##:'##::: ##:
+: ##### ##:. #######:: ##:::. ##: ##:::::::: ##:::. ##: ########:. ######::. ######::
+:.....:..:::.......:::..:::::..::..:::::::::..:::::..::........:::......::::......:::
+--------------------------------------------------------------------------------------------
+:'#######::'##::: ##:'####::'#######::'##::: ##::::'########:'########::'########:'########:
+'##.... ##: ###:: ##:. ##::'##.... ##: ###:: ##::::... ##..:: ##.... ##: ##.....:: ##.....::
+ ##:::: ##: ####: ##:: ##:: ##:::: ##: ####: ##::::::: ##:::: ##:::: ##: ##::::::: ##:::::::
+ ##:::: ##: ## ## ##:: ##:: ##:::: ##: ## ## ##::::::: ##:::: ########:: ######::: ######:::
+ ##:::: ##: ##. ####:: ##:: ##:::: ##: ##. ####::::::: ##:::: ##.. ##::: ##...:::: ##...::::
+ ##:::: ##: ##:. ###:: ##:: ##:::: ##: ##:. ###::::::: ##:::: ##::. ##:: ##::::::: ##:::::::
+. #######:: ##::. ##:'####:. #######:: ##::. ##::::::: ##:::: ##:::. ##: ########: ########:
+:.......:::..::::..::....:::.......:::..::::..::::::::..:::::..:::::..::........::........::
+`)
 
+	return nil
 }
 
-func Render() {
+func (t *onionTreeCommands) Registry() map[string]plug.Plugin {
+	return map[string]plug.Plugin{
+		"oniontree": onionTreePlugin("oniontree"), //OP
+	}
 }
 
-func Views() {
-}
-
-func Api() []interface{} {
-	return Tables
-}
-
-// GetPluginSpec returns plugin spec
-//func GetPluginSpec() model.PluginSpec {
-//	return model.PluginSpec{
-//		Spec: spec,
-//		Type: model.OUTPUT_PLUGIN,
-//	}
-//}
-
-// GetOutputPlugin returns output plugin
-//func GetOutputPlugin() (op model.OutputPlugin, err error) {
-//	return &OnionTreePlugin{}, nil
-//}
-
+var Plugins onionTreeCommands
