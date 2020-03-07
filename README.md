@@ -25,7 +25,7 @@ $ cd qorpress
 
 # Setup database
 $ mysql -uroot -p
-mysql> CREATE DATABASE qorpress_example;
+mysql> CREATE DATABASE qorpress;
 
 # Start manticore
 $ searchd --config ./.docker/manticore/manticore.conf
