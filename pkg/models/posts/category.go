@@ -6,9 +6,9 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	"github.com/qorpress/qorpress/internal/l10n"
-	"github.com/qorpress/qorpress/internal/sorting"
-	"github.com/qorpress/qorpress/internal/validations"
+	"github.com/qorpress/qorpress/core/l10n"
+	"github.com/qorpress/qorpress/core/sorting"
+	"github.com/qorpress/qorpress/core/validations"
 )
 
 type Category struct {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/qorpress/qorpress/internal/render"
+	"github.com/qorpress/qorpress/core/render"
 	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"

@@ -3,7 +3,7 @@ package account
 import (
 	"net/http"
 
-	"github.com/qorpress/qorpress/internal/render"
+	"github.com/qorpress/qorpress/core/render"
 
 	// "github.com/qorpress/qorpress/pkg/models/users"
 	"github.com/qorpress/qorpress/pkg/utils"

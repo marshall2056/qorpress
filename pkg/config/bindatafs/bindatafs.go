@@ -13,7 +13,7 @@ import (
 
 	"github.com/jteeuwen/go-bindata"
 
-	"github.com/qorpress/qorpress/internal/assetfs"
+	"github.com/qorpress/qorpress/core/assetfs"
 )
 
 type AssetFSInterface interface {

@@ -6,7 +6,7 @@ import (
 
 	"github.com/jinzhu/now"
 
-	"github.com/qorpress/qorpress/internal/admin"
+	"github.com/qorpress/qorpress/core/admin"
 	"github.com/qorpress/qorpress/pkg/config/db"
 )
 

@@ -3,7 +3,7 @@ package cms
 import (
 	"github.com/jinzhu/gorm"
 
-	"github.com/qorpress/qorpress/internal/publish2"
+	"github.com/qorpress/qorpress/core/publish2"
 	"github.com/qorpress/qorpress/pkg/models/users"
 )
 

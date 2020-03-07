@@ -5,8 +5,8 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	"github.com/qorpress/qorpress/internal/media"
-	"github.com/qorpress/qorpress/internal/media/oss"
+	"github.com/qorpress/qorpress/core/media"
+	"github.com/qorpress/qorpress/core/media/oss"
 )
 
 type User struct {

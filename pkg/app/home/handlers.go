@@ -3,9 +3,9 @@ package home
 import (
 	"net/http"
 
-	"github.com/qorpress/qorpress/internal/qor"
-	"github.com/qorpress/qorpress/internal/qor/utils"
-	"github.com/qorpress/qorpress/internal/render"
+	"github.com/qorpress/qorpress/core/qor"
+	"github.com/qorpress/qorpress/core/qor/utils"
+	"github.com/qorpress/qorpress/core/render"
 )
 
 // Controller home controller

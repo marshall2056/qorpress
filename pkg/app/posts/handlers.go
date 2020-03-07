@@ -11,7 +11,7 @@ import (
 	"github.com/biezhi/gorm-paginator/pagination"
 	"github.com/k0kubun/pp"
 
-	"github.com/qorpress/qorpress/internal/render"
+	"github.com/qorpress/qorpress/core/render"
 	"github.com/qorpress/qorpress/pkg/models/posts"
 	"github.com/qorpress/qorpress/pkg/utils"
 )

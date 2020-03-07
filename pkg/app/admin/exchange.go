@@ -1,9 +1,9 @@
 package admin
 
 import (
-	"github.com/qorpress/qorpress/internal/exchange"
-	"github.com/qorpress/qorpress/internal/qor"
-	"github.com/qorpress/qorpress/internal/qor/resource"
+	"github.com/qorpress/qorpress/core/exchange"
+	"github.com/qorpress/qorpress/core/qor"
+	"github.com/qorpress/qorpress/core/qor/resource"
 	"github.com/qorpress/qorpress/pkg/models/posts"
 )
 

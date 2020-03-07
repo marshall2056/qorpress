@@ -16,10 +16,10 @@ import (
 	"github.com/spf13/pflag"
 	// cache "github.com/patrickmn/go-cache"
 
-	"github.com/qorpress/qorpress/internal/admin"
-	"github.com/qorpress/qorpress/internal/publish2"
-	"github.com/qorpress/qorpress/internal/qor"
-	"github.com/qorpress/qorpress/internal/qor/utils"
+	"github.com/qorpress/qorpress/core/admin"
+	"github.com/qorpress/qorpress/core/publish2"
+	"github.com/qorpress/qorpress/core/qor"
+	"github.com/qorpress/qorpress/core/qor/utils"
 	"github.com/qorpress/qorpress/pkg/app/account"
 	adminapp "github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/app/api"
@@ -121,7 +121,8 @@ func main() {
 
 	/*
 	for _, cmd := range qorPlugins.Commands {
-		for _, table := range cmd.Routes() {
+		for _, route := range cmd.Routes() {
+			Application.Use(route.New())
     	}
 	}
 	*/

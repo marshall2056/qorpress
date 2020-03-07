@@ -1,8 +1,8 @@
 package cms
 
 import (
-	"github.com/qorpress/qorpress/internal/page_builder"
-	"github.com/qorpress/qorpress/internal/publish2"
+	"github.com/qorpress/qorpress/core/page_builder"
+	"github.com/qorpress/qorpress/core/publish2"
 )
 
 type Page struct {

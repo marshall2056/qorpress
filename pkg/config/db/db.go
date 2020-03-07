@@ -10,11 +10,11 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 
-	"github.com/qorpress/qorpress/internal/l10n"
-	"github.com/qorpress/qorpress/internal/media"
-	"github.com/qorpress/qorpress/internal/publish2"
-	"github.com/qorpress/qorpress/internal/sorting"
-	"github.com/qorpress/qorpress/internal/validations"
+	"github.com/qorpress/qorpress/core/l10n"
+	"github.com/qorpress/qorpress/core/media"
+	"github.com/qorpress/qorpress/core/publish2"
+	"github.com/qorpress/qorpress/core/sorting"
+	"github.com/qorpress/qorpress/core/validations"
 	"github.com/qorpress/qorpress/pkg/config"
 )
 

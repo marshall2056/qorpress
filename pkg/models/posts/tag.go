@@ -7,11 +7,11 @@ import (
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/qorpress/qorpress/internal/l10n"
-	qor_seo "github.com/qorpress/qorpress/internal/seo"
-	qor_slug "github.com/qorpress/qorpress/internal/slug"
-	"github.com/qorpress/qorpress/internal/sorting"
-	"github.com/qorpress/qorpress/internal/validations"
+	"github.com/qorpress/qorpress/core/l10n"
+	qor_seo "github.com/qorpress/qorpress/core/seo"
+	qor_slug "github.com/qorpress/qorpress/core/slug"
+	"github.com/qorpress/qorpress/core/sorting"
+	"github.com/qorpress/qorpress/core/validations"
 )
 
 //go:generate gp-extender -structs Tag -output tag-funcs.go

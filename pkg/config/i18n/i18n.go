@@ -3,9 +3,9 @@ package i18n
 import (
 	"path/filepath"
 
-	"github.com/qorpress/qorpress/internal/i18n"
-	"github.com/qorpress/qorpress/internal/i18n/backends/database"
-	"github.com/qorpress/qorpress/internal/i18n/backends/yaml"
+	"github.com/qorpress/qorpress/core/i18n"
+	"github.com/qorpress/qorpress/core/i18n/backends/database"
+	"github.com/qorpress/qorpress/core/i18n/backends/yaml"
 	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/db"
 )

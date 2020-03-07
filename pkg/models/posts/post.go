@@ -8,13 +8,13 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	"github.com/qorpress/qorpress/internal/l10n"
-	"github.com/qorpress/qorpress/internal/media/media_library"
-	"github.com/qorpress/qorpress/internal/publish2"
-	qor_seo "github.com/qorpress/qorpress/internal/seo"
-	"github.com/qorpress/qorpress/internal/slug"
-	"github.com/qorpress/qorpress/internal/sorting"
-	"github.com/qorpress/qorpress/internal/validations"
+	"github.com/qorpress/qorpress/core/l10n"
+	"github.com/qorpress/qorpress/core/media/media_library"
+	"github.com/qorpress/qorpress/core/publish2"
+	qor_seo "github.com/qorpress/qorpress/core/seo"
+	"github.com/qorpress/qorpress/core/slug"
+	"github.com/qorpress/qorpress/core/sorting"
+	"github.com/qorpress/qorpress/core/validations"
 	"github.com/qorpress/qorpress/pkg/models/seo"
 )
 

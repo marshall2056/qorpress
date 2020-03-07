@@ -5,7 +5,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 
-	"github.com/qorpress/qorpress/internal/validations"
+	"github.com/qorpress/qorpress/core/validations"
 )
 
 //go:generate gp-extender -structs Tag -output tag-funcs.go

@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/qorpress/qorpress/internal/admin"
-	"github.com/qorpress/qorpress/internal/qor"
+	"github.com/qorpress/qorpress/core/admin"
+	"github.com/qorpress/qorpress/core/qor"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/pkg/models/posts"

@@ -6,7 +6,7 @@ import (
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
 
-	"github.com/qorpress/qorpress/internal/validations"
+	"github.com/qorpress/qorpress/core/validations"
 )
 
 //go:generate gp-extender -structs Link -output link-funcs.go

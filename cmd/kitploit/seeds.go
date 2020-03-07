@@ -9,7 +9,7 @@ import (
 	"github.com/azumads/faker"
 	"github.com/jinzhu/configor"
 
-	"github.com/qorpress/qorpress/internal/publish2"
+	"github.com/qorpress/qorpress/core/publish2"
 	"github.com/qorpress/qorpress/pkg/config/db"
 )
 

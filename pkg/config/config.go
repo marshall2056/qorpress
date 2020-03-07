@@ -11,17 +11,17 @@ import (
 	"github.com/unrolled/render"
 	"github.com/cep21/xdgbasedir"
 
-	"github.com/qorpress/qorpress/internal/auth/providers/facebook"
-	"github.com/qorpress/qorpress/internal/auth/providers/github"
-	"github.com/qorpress/qorpress/internal/auth/providers/google"
-	"github.com/qorpress/qorpress/internal/auth/providers/twitter"
-	"github.com/qorpress/qorpress/internal/mailer"
-	"github.com/qorpress/qorpress/internal/mailer/gomailer"
-	"github.com/qorpress/qorpress/internal/mailer/logger"
-	"github.com/qorpress/qorpress/internal/media/oss"
-	"github.com/qorpress/qorpress/internal/oss/s3"
-	"github.com/qorpress/qorpress/internal/redirect_back"
-	"github.com/qorpress/qorpress/internal/session/manager"
+	"github.com/qorpress/qorpress/core/auth/providers/facebook"
+	"github.com/qorpress/qorpress/core/auth/providers/github"
+	"github.com/qorpress/qorpress/core/auth/providers/google"
+	"github.com/qorpress/qorpress/core/auth/providers/twitter"
+	"github.com/qorpress/qorpress/core/mailer"
+	"github.com/qorpress/qorpress/core/mailer/gomailer"
+	"github.com/qorpress/qorpress/core/mailer/logger"
+	"github.com/qorpress/qorpress/core/media/oss"
+	"github.com/qorpress/qorpress/core/oss/s3"
+	"github.com/qorpress/qorpress/core/redirect_back"
+	"github.com/qorpress/qorpress/core/session/manager"
 )
 
 var Config = struct {

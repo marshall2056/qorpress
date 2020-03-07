@@ -1,8 +1,8 @@
 package admin
 
 import (
-	"github.com/qorpress/qorpress/internal/admin"
-	qor_seo "github.com/qorpress/qorpress/internal/seo"
+	"github.com/qorpress/qorpress/core/admin"
+	qor_seo "github.com/qorpress/qorpress/core/seo"
 	"github.com/qorpress/qorpress/pkg/models/posts"
 	"github.com/qorpress/qorpress/pkg/models/seo"
 )
