@@ -47,7 +47,7 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 		http.Redirect(w, req, "/", http.StatusFound)
 	}
 
-	tx.First(&post)
+	tx.Preload("Links").First(&post)
 	pp.Println("post: ", post)
 
 	// get tags for post

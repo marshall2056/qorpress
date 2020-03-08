@@ -29,8 +29,7 @@
             <h6>{{ t "post.links" }} #2</h6>
             <ul>
             {{range $link := .Links}}
-              <hr>
-              <li><a href="{{$link.Href}}" title="{{$link.Title}}">{{$link.Name}}</a></li>
+              <li><a href="{{$link.URL}}" title="{{$link.Title}}">{{$link.Name}}</a></li>
             {{end}}
             </ul>
           </div>
