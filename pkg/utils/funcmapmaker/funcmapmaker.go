@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"net/http"
 
+	// "github.com/k0kubun/pp"
+
 	"github.com/qorpress/qorpress/core/action_bar"
 	"github.com/qorpress/qorpress/core/i18n/inline_edit"
 	"github.com/qorpress/qorpress/core/qor"
@@ -12,8 +14,6 @@ import (
 	"github.com/qorpress/qorpress/core/session"
 	"github.com/qorpress/qorpress/core/session/manager"
 	"github.com/qorpress/qorpress/core/widget"
-
-	// "github.com/k0kubun/pp"
 	"github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/config/i18n"
 	"github.com/qorpress/qorpress/pkg/models/posts"
@@ -107,6 +107,10 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 		funcMap["current_user"] = func() *users.User {
 			return utils.GetCurrentUser(req)
 		}
+
+		//funcMap["current_post"] = func() *users.User {
+		//	return utils.GetCurrentPost(req)
+		//}
 
 		return funcMap
 	}

@@ -41,6 +41,13 @@
           </div>
 
           <div class="is-3 posts__tweets">
+            {{ if current_user }}
+              <a  target="_blank"  
+                  data-iframe-url="/admin/action_bar/inline_edit" 
+                  data-url="/admin/posts/{{.ID}}" 
+                  href="#" class="qor-actionbar-button">{{ t "post.edit" }}
+              </a>
+            {{ end }}
             <h6>Latest tweets</h6>
           </div>
 

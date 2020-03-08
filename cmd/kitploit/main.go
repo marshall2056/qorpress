@@ -126,23 +126,6 @@ func main() {
 
 	TruncateTables(Tables...)
 
-	// add indexes
-	/*
-	if err := DB.Table("post_tags").AddIndex("idx_post_id", "post_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
-	if err := DB.Table("post_tags").AddIndex("idx_tag_id", "tag_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
-
-	if err := DB.Table("post_links").AddIndex("idx_post_id", "post_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
-	if err := DB.Table("post_links").AddIndex("idx_link_id", "link_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
-	*/
-
 	err := removeContents("./public/system/")
 	if err != nil {
 		log.Warn("Error deleting old images")
@@ -165,6 +148,23 @@ func main() {
 	defer store.Close()
 
 	createRecords()
+
+	// add indexes
+	/*
+	if err := DB.Table("post_tags").AddIndex("idx_post_id", "post_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
+	if err := DB.Table("post_tags").AddIndex("idx_tag_id", "tag_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
+
+	if err := DB.Table("post_links").AddIndex("idx_post_id", "post_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
+	if err := DB.Table("post_links").AddIndex("idx_link_id", "link_id").Error; err != nil {
+		log.Fatalln("Error adding index: ", err)
+	}
+	*/
 
 	// github client init
 	clientManager = NewManager(cachePath, []string{os.Getenv("GITHUB_TOKEN")})
@@ -455,6 +455,7 @@ func main() {
 					}
 
 					image := posts.PostImage{Title: *repoInfo.Name, SelectedType: "image"}
+					log.Println("----> Scanning file: ", file.Name)
 					image.File.Scan(file)
 
 					if err := DraftDB.Create(&image).Error; err != nil {
