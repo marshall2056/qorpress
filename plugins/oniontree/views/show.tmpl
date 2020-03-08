@@ -1,0 +1,63 @@
+<link type="text/css" rel="stylesheet" src="/vendors/flexslider.css" />
+<link type="text/css" rel="stylesheet" src="/dist/home_services.css" />
+
+<div class="container services__details">
+  <div class="service-content">
+    {{with .CurrentVariation }}
+        <div class="grid">
+
+            <div class="swiper-container services__gallery--top">
+              <ul class="slides">
+                {{range $image := .Images.Files}}
+                  <li style="background-image:url({{$image.Url}})"></li>
+                {{end}}
+              </ul>
+            </div>
+            <div class="swiper-container services__gallery--thumbs">
+              <ul class="slides">
+                {{range $image := .Images.Files}}
+                  <li style="background-image:url({{$image.Url}})"></li>
+                {{end}}
+              </ul>
+            </div>
+
+        </div>
+        <div class="grid services__info is-12">
+
+          <div class="grid__col is-9">
+            <h6>{{ t "service.links" }} #2</h6>
+            <ul>
+            {{range $link := .Links}}
+              <hr>
+              <li><a href="{{$link.Href}}" title="{{$link.Title}}">{{$link.Name}}</a></li>
+            {{end}}
+            </ul>
+          </div>
+
+          <div class="grid__col is-9">
+            <h6>{{ t "service.description" }}</h6>
+            <p>{{raw .Description}}</p>
+          </div>
+
+          <div class="grid__col is-9">
+            <h6>{{ t "service.specs" }}</h6>
+            {{range $prop := .PostProperties}}
+              <li>{{$prop.Name}}: {{$prop.Value}}</li>
+            {{end}}
+          </div>
+
+          <div class="grid__col is-9">
+            <h6>TAGS:</h6>
+            {{ range $tag := get_service_tags .ID }}
+              <a href="{{ $tag.DefaultPath }}">{{$tag.Name}}</a>,&nbsp;
+            {{ end }}
+          </div>
+
+        </div>
+      
+    {{end}}
+
+  </div>
+
+</div>
+<script src="/vendors/jquery.flexslider-min.js"></script>
