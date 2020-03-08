@@ -89,8 +89,8 @@ var (
 	maxComments         = 5
 	Tables              = []interface{}{
 		&auth_identity.AuthIdentity{},
-		&users.User{}, &users.Address{},
-		&posts.Category{}, &posts.Collection{}, &posts.Tag{},
+		&users.User{},
+		&posts.Category{}, &posts.Collection{}, &posts.Tag{}, 
 		&posts.Post{}, &posts.PostImage{}, &posts.Link{}, &posts.Comment{},
 		&settings.Setting{},
 		&adminseo.MySEOSetting{},
@@ -127,6 +127,7 @@ func main() {
 	TruncateTables(Tables...)
 
 	// add indexes
+	/*
 	if err := DB.Table("post_tags").AddIndex("idx_post_id", "post_id").Error; err != nil {
 		log.Fatalln("Error adding index: ", err)
 	}
@@ -140,6 +141,7 @@ func main() {
 	if err := DB.Table("post_links").AddIndex("idx_link_id", "link_id").Error; err != nil {
 		log.Fatalln("Error adding index: ", err)
 	}
+	*/
 
 	err := removeContents("./public/system/")
 	if err != nil {
@@ -559,7 +561,7 @@ func main() {
 }
 
 func InitDB() *gorm.DB {
-	mysqlString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=True&loc=Local&charset=utf8mb4,utf8", "root", os.Getenv("DB_PASSWORD"), "127.0.0.1", "3306", "qorpress_example")
+	mysqlString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=True&loc=Local&charset=utf8mb4,utf8", "root", os.Getenv("DB_PASSWORD"), "127.0.0.1", "3306", "qorpress")
 
 	//psqlInfo := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", host, port, user, dbname, password)
 	db, err := gorm.Open("mysql", mysqlString)

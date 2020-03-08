@@ -49,6 +49,15 @@ func (o onionTreePlugin) Routes() []http.HandlerFunc {
 // func (o onionTreePlugin) FuncMapMaker() {} {
 // }
 
+// func (o onionTreePlugin) Import() {} {
+// }
+
+// func (o onionTreePlugin) Export() {} {
+// }
+
+// func (o onionTreePlugin) Backup() {} {
+// }
+
 type onionTreeCommands struct{}
 
 func (t *onionTreeCommands) Init(ctx context.Context) error {

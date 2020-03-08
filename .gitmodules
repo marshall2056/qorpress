@@ -1,3 +1,6 @@
 [submodule "plugins/oniontree/data/oniontree"]
 	path = plugins/oniontree/data/oniontree
 	url = https://github.com/onionltd/oniontree
+[submodule "makefiles"]
+	path = makefiles
+	url = https://github.com/ncarlier/makefiles

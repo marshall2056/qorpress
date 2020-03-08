@@ -20,7 +20,7 @@ The requirements are the following:
 ```shell
 # Get QorPress
 $ mkdir -p $GOPATH/src/github.com/qorpress
-$ git clone --depth=1 https://github.com/qorpress/qorpress.git
+$ git clone --depth=1 --recursive https://github.com/qorpress/qorpress.git
 $ cd qorpress
 
 # Setup database
