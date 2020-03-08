@@ -1,8 +1,10 @@
 *.DS_Store
-#vendor
-#vendor/
-#vendor/*
-#vendor/**
+
+vendor
+vendor/
+vendor/*
+vendor/**
+
 .config/qorpress.yml
 qorpress-example
 
@@ -15,6 +17,16 @@ simplecert
 simplecert/
 simplecert/*
 simplecert/**
+
+release
+release/
+release/*
+release/**
+
+node_modules
+node_modules/
+node_modules/*
+node_modules/**
 
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 .env
