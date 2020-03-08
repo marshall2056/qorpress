@@ -273,8 +273,8 @@ func main() {
 
 				// youtube
 				// `^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$`
-
-				videoPatternRegexp, err := regexp.Compile(`^(http:\/\/|https:\/\/)(vimeo\.com|youtu\.be|www\.youtube\.com)\/([\w\/]+)([\?].*)?$`)
+				// (http:|https:)?\/\/(www\.)?(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?
+				videoPatternRegexp, err := regexp.Compile(`(http:|https:)?\/\/(www\.)?(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?`)
 				if err != nil {
 					log.Warnln(err)
 					return err

@@ -9,7 +9,7 @@ import (
 
 	"github.com/acoshift/paginate"
 	"github.com/biezhi/gorm-paginator/pagination"
-	"github.com/k0kubun/pp"
+	// "github.com/k0kubun/pp"
 
 	"github.com/qorpress/qorpress/core/render"
 	"github.com/qorpress/qorpress/pkg/models/posts"
@@ -48,7 +48,7 @@ func (ctrl Controller) Show(w http.ResponseWriter, req *http.Request) {
 	}
 
 	tx.Preload("Links").First(&post)
-	pp.Println("post: ", post)
+	// pp.Println("post: ", post)
 
 	// get tags for post
 	// to do: sounds wrong query, need to investigate
@@ -95,7 +95,7 @@ func (ctrl Controller) Tag(w http.ResponseWriter, req *http.Request) {
 
 	offset := page * limit
 	query := fmt.Sprintf(`SELECT P.* FROM (POSTS P, POST_TAGS PT) WHERE PT.POST_ID=P.ID AND PT.tag_id=%d LIMIT %d OFFSET %d`, tag.ID, limit, offset)
-	pp.Println(query)
+	// pp.Println(query)
 
 	tx.Raw(query).Scan(&Posts)
 
@@ -147,7 +147,7 @@ func (ctrl Controller) Category(w http.ResponseWriter, req *http.Request) {
 
 	pn := paginate.New(int64(page), int64(p.Limit), int64(p.TotalRecord))
 
-	pp.Println(pn)
+	// pp.Println(pn)
 
 	ctrl.View.Execute("category", map[string]interface{}{
 		"Pagination":   pn,

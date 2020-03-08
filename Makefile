@@ -32,24 +32,50 @@ VERSION:=`git describe --tags --always`
 GIT_COMMIT:=`git rev-list -1 HEAD --abbrev-commit`
 BUILT:=`date`
 
-# To do
-# git rev
+## docker-build			:	build qorpress inside a docker container.
 docker-build:
 	@docker build -t qorpress/qorpress .
+.PHONY: docker-build
 
+## docker-run			:	run qorpress from docker container.
 docker-run:
-	@docker run -ti -p 443:443 -p 80:80 -p 7000:7000 qorpress/qor-example
+	@docker run -ti -p 443:443 -p 80:80 -p 7000:7000 qorpress/qorpress
+.PHONY: docker-run
 
-## Bulid plugin (defined by PLUGIN variable)
+## manticore-darwin		:	install manticore on mac osx.
+manticore-darwin:
+	@brew install manticoresearch
+.PHONY: manticore-darwin
+
+## manticore-start		:	start local manticore searchd with qorpress config.
+manticore-start:
+	@searchd --config ./.docker/manticore/manticore.conf
+.PHONY: manticore-start
+
+## manticore-stop			:	stop local manticore searchd.
+manticore-stop:
+	@searchd --stop
+.PHONY: manticore-stop
+
+## plugin				:	Build plugin (defined by PLUGIN variable).
 plugin:
 	-mkdir -p release
 	echo ">>> Building: $(PLUGIN_SO) $(VERSION) for $(GOOS)-$(GOARCH) ..."
 	cd plugins/$(PLUGIN) && GOOS=$(GOOS) GOARCH=$(GOARCH) go build -buildmode=plugin -o ../../release/$(PLUGIN_SO)
 .PHONY: plugin
 
-## Build all plugins
+## plugins			:	Build all qorpress plugins
 plugins:
 	GOARCH=amd64 PLUGIN=oniontree make plugin
 	# GOARCH=amd64 PLUGIN=flickr make plugin
 	# GOARCH=amd64 PLUGIN=twitter make plugin
 .PHONY: plugins  
+
+## help				:	Print commands help.
+help : Makefile
+	@sed -n 's/^##//p' $<
+.PHONY: help
+
+# https://stackoverflow.com/a/6273809/1826109
+%:
+	@:
