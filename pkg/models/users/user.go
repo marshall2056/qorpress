@@ -11,17 +11,17 @@ import (
 
 type User struct {
 	gorm.Model
-	Email                  string `form:"email"`
-	Password               string
-	Name                   string `form:"name"`
-	Gender                 string
-	Role                   string
-	Birthday               *time.Time
+	Email    string `form:"email"`
+	Password string
+	Name     string `form:"name"`
+	Gender   string
+	Role     string
+	Birthday *time.Time
 	// Balance                float32
 	// DefaultBillingAddress  uint `form:"default-billing-address"`
 	// DefaultShippingAddress uint `form:"default-shipping-address"`
 	// Addresses              []Address
-	Avatar                 AvatarImageStorage
+	Avatar AvatarImageStorage
 
 	// Confirm
 	ConfirmToken string

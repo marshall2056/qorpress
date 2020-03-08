@@ -7,24 +7,17 @@
         <li>
           <a href="{{ $category.DefaultPath }}">{{ $category.Name }}</a>
         </li>
-        {{
-          end
-        }}
+        {{ end }}
       </ul>
-
     </div>
+
     <div class="grid__col is-10 post_lists">
       <h1>ALL PRODUCTS</h1>
       <ul class="grid">
-        {{
-          range.Posts
-        }}
+        {{ range.Posts }}
         <li class="grid__col is-4">
           <a href="{{.DefaultPath}}">
-            <div
-              class="post_image"
-              style="background-image: url({{.MainImageURL}});"
-            >
+            <div class="post_image" style="background-image: url({{.MainImageURL}});">
               <div class="image_overlay"></div>
               <div class="stats">
                 <div class="stats-container">
@@ -37,10 +30,9 @@
             </div>
           </a>
         </li>
-        {{
-          end
-        }}
+        {{ end }}
       </ul>
     </div>
+
   </div>
 </main>

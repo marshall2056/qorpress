@@ -1,6 +1,8 @@
 package plugins
 
-import "context"
+import (
+	"context"
+)
 
 // Module a plugin that can be initialized
 type Module interface {

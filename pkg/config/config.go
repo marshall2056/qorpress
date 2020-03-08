@@ -1,15 +1,15 @@
 package config
 
 import (
+	"fmt"
+	"log"
 	"os"
 	"strconv"
-	"log"
-	"fmt"
 
+	"github.com/cep21/xdgbasedir"
 	"github.com/go-gomail/gomail"
 	"github.com/jinzhu/configor"
 	"github.com/unrolled/render"
-	"github.com/cep21/xdgbasedir"
 
 	"github.com/qorpress/qorpress/core/auth/providers/facebook"
 	"github.com/qorpress/qorpress/core/auth/providers/github"
@@ -25,31 +25,30 @@ import (
 )
 
 var Config = struct {
-
 	App struct {
-		Port  uint `default:"7000" env:"QORPRESS_PORT"`
+		Port     uint   `default:"7000" env:"QORPRESS_PORT"`
 		SiteName string `default:"QorPress Demo" env:"QORPRESS_SITENAME"`
-		HTTPS struct {
-			Enabled bool `default:"false" env:"QORPRESS_HTTPS"`
-			Local bool `default:"false" env:"QORPRESS_HTTPS_LOCAL"`
-			Email string `env:"QORPRESS_HTTPS_EMAIL"`
+		HTTPS    struct {
+			Enabled bool   `default:"false" env:"QORPRESS_HTTPS"`
+			Local   bool   `default:"false" env:"QORPRESS_HTTPS_LOCAL"`
+			Email   string `env:"QORPRESS_HTTPS_EMAIL"`
 			Domains string `env:"QORPRESS_HTTPS_DOMAINS"`
 		}
 		Location struct {
-			BaiduAPI string `env:"QORPRESS_BAIDU_API"`
+			BaiduAPI  string `env:"QORPRESS_BAIDU_API"`
 			GoogleAPI string `env:"QORPRESS_GOOGLE_MAP_API"`
-		} 
-		Theme string `json:"theme" yaml:"theme"`
+		}
+		Theme  string `json:"theme" yaml:"theme"`
 		Plugin struct {
-			Filter bool `json:"filter" yaml:"filter"`
-			Dir string `json:"dir" yaml:"dir"`
+			Filter bool   `json:"filter" yaml:"filter"`
+			Dir    string `json:"dir" yaml:"dir"`
 		}
 		Cors struct {
 			AccessControlAllowOrigin string `default:"*" json:"access-control-allow-origin" yaml:"access-control-allow-origin"`
 		} `json:"cors" yaml:"cors"`
 	}
 
-	DB    struct {
+	DB struct {
 		Name     string `env:"QORPRESS_DB_NAME" default:"qor_example"`
 		Adapter  string `env:"QORPRESS_DB_ADAPTER" default:"mysql"`
 		Host     string `env:"QORPRESS_DB_HOST" default:"localhost"`
@@ -76,8 +75,7 @@ var Config = struct {
 		Twitter  twitter.Config
 	}
 
-	SMTP  SMTPConfig
-
+	SMTP SMTPConfig
 }{}
 
 type SMTPConfig struct {
@@ -86,7 +84,6 @@ type SMTPConfig struct {
 	User     string
 	Password string
 }
-
 
 var (
 	Root         = os.Getenv("GOPATH") + "/src/github.com/qorpress/qorpress"

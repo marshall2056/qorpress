@@ -1,12 +1,11 @@
 package admin
 
 import (
-	"github.com/qorpress/qorpress/core/help"
 	"github.com/qorpress/qorpress/core/action_bar"
 	"github.com/qorpress/qorpress/core/admin"
+	"github.com/qorpress/qorpress/core/help"
 	"github.com/qorpress/qorpress/core/media/asset_manager"
 	"github.com/qorpress/qorpress/core/media/media_library"
-
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/i18n"
 	"github.com/qorpress/qorpress/pkg/models/settings"

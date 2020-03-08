@@ -6,16 +6,16 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"plugin"
 	"strings"
 	"time"
-	"plugin"
 
+	"github.com/foomo/simplecert"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/foomo/simplecert"
 	"github.com/spf13/pflag"
-	// cache "github.com/patrickmn/go-cache"
 
+	// cache "github.com/patrickmn/go-cache"
 	"github.com/qorpress/qorpress/core/admin"
 	"github.com/qorpress/qorpress/core/publish2"
 	"github.com/qorpress/qorpress/core/qor"
@@ -27,13 +27,13 @@ import (
 	"github.com/qorpress/qorpress/pkg/app/pages"
 	"github.com/qorpress/qorpress/pkg/app/posts"
 	"github.com/qorpress/qorpress/pkg/app/static"
-	plug "github.com/qorpress/qorpress/pkg/plugins"
 	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
 	"github.com/qorpress/qorpress/pkg/config/auth"
 	"github.com/qorpress/qorpress/pkg/config/bindatafs"
 	"github.com/qorpress/qorpress/pkg/config/db"
 	_ "github.com/qorpress/qorpress/pkg/config/db/migrations"
+	plug "github.com/qorpress/qorpress/pkg/plugins"
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
 
@@ -43,11 +43,22 @@ import (
 */
 
 var (
-	compileTemplate        bool
-	help bool
+	compileTemplate bool
+	help            bool
 )
 
 func main() {
+
+	fmt.Println(`
+:'#######:::'#######::'########::'########::'########::'########::'######:::'######::
+'##.... ##:'##.... ##: ##.... ##: ##.... ##: ##.... ##: ##.....::'##... ##:'##... ##:
+ ##:::: ##: ##:::: ##: ##:::: ##: ##:::: ##: ##:::: ##: ##::::::: ##:::..:: ##:::..::
+ ##:::: ##: ##:::: ##: ########:: ########:: ########:: ######:::. ######::. ######::
+ ##:'## ##: ##:::: ##: ##.. ##::: ##.....::: ##.. ##::: ##...:::::..... ##::..... ##:
+ ##:.. ##:: ##:::: ##: ##::. ##:: ##:::::::: ##::. ##:: ##:::::::'##::: ##:'##::: ##:
+: ##### ##:. #######:: ##:::. ##: ##:::::::: ##:::. ##: ########:. ######::. ######::
+:.....:..:::.......:::..:::::..::..:::::::::..:::::..::........:::......::::......:::
+`)
 
 	pflag.BoolVarP(&compileTemplate, "compile-templates", "c", false, "Compile Templates.")
 	pflag.Parse()
@@ -58,17 +69,17 @@ func main() {
 
 	// load plugins
 	qorPlugins := plug.New()
-    // The plugins (the *.so files) must be in a 'plugins' sub-directory
-    all_plugins, err := filepath.Glob("./release/*.so")
-    if err != nil {
-        panic(err)
-    }
- 
-    for _, filename := range (all_plugins) {
-        p, err := plugin.Open(filename)
-        if err != nil {
-            panic(err)
-        }
+	// The plugins (the *.so files) must be in a 'plugins' sub-directory
+	all_plugins, err := filepath.Glob("./release/*.so")
+	if err != nil {
+		panic(err)
+	}
+
+	for _, filename := range all_plugins {
+		p, err := plugin.Open(filename)
+		if err != nil {
+			panic(err)
+		}
 
 		cmdSymbol, err := p.Lookup(plug.CmdSymbolName)
 		if err != nil {
@@ -89,8 +100,7 @@ func main() {
 		for name, cmd := range commands.Registry() {
 			qorPlugins.Commands[name] = cmd
 		}
-    }
-
+	}
 
 	var (
 		Router = chi.NewRouter()
@@ -103,12 +113,12 @@ func main() {
 
 	for _, cmd := range qorPlugins.Commands {
 		for _, table := range cmd.Migrate() {
-    		db.DB.AutoMigrate(table)
-    	}
+			db.DB.AutoMigrate(table)
+		}
 		for _, resource := range cmd.Resources() {
-    		Admin.AddResource(resource, &admin.Config{Menu: []string{cmd.Section()}})
-    	}
-    }
+			Admin.AddResource(resource, &admin.Config{Menu: []string{cmd.Section()}})
+		}
+	}
 
 	var (
 		Application = application.New(&application.Config{
@@ -120,11 +130,11 @@ func main() {
 	)
 
 	/*
-	for _, cmd := range qorPlugins.Commands {
-		for _, route := range cmd.Routes() {
-			Application.Use(route.New())
-    	}
-	}
+			for _, cmd := range qorPlugins.Commands {
+				for _, route := range cmd.Routes() {
+					Application.Use(route.New())
+		    	}
+			}
 	*/
 
 	// Register custom paths to manually saved views
@@ -196,10 +206,10 @@ func main() {
 		if config.Config.App.HTTPS.Enabled {
 			domains := strings.Split(config.Config.App.HTTPS.Domains, ",")
 			if err := simplecert.ListenAndServeTLS(
-				fmt.Sprintf(":%d", config.Config.App.Port), 
-				Application.NewServeMux(), 
-				config.Config.App.HTTPS.Email, 
-				nil, 
+				fmt.Sprintf(":%d", config.Config.App.Port),
+				Application.NewServeMux(),
+				config.Config.App.HTTPS.Email,
+				nil,
 				domains...); err != nil {
 				panic(err)
 			}

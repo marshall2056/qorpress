@@ -23,11 +23,11 @@ import (
 	"github.com/nozzle/throttler"
 	loremipsum "gopkg.in/loremipsum.v1"
 
-	"github.com/qorpress/qorpress/core/help"
 	qoradmin "github.com/qorpress/qorpress/core/admin"
 	"github.com/qorpress/qorpress/core/auth/auth_identity"
 	"github.com/qorpress/qorpress/core/auth/providers/password"
 	"github.com/qorpress/qorpress/core/banner_editor"
+	"github.com/qorpress/qorpress/core/help"
 	i18n_database "github.com/qorpress/qorpress/core/i18n/backends/database"
 	"github.com/qorpress/qorpress/core/media"
 	"github.com/qorpress/qorpress/core/media/asset_manager"

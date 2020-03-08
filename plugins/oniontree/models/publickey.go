@@ -4,8 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-//go:generate gp-extender -structs PublicKey -output publickey-funcs.go
-type PublicKey struct {
+type OnionPublicKey struct {
 	gorm.Model
 	UID         string `gorm:"primary_key" json:"id,omitempty" yaml:"id,omitempty"`
 	UserID      string `json:"user_id,omitempty" yaml:"user_id,omitempty"`

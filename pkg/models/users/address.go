@@ -3,7 +3,6 @@ package users
 /*
 import (
 	"fmt"
-
 	"github.com/jinzhu/gorm"
 )
 

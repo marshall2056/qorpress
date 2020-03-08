@@ -29,7 +29,7 @@ type Config struct {
 	PreviewAssets []string
 }
 
-// 
+//
 
 // New new widgets container
 func New(config *Config) *Widgets {

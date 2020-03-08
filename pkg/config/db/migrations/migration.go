@@ -1,11 +1,10 @@
 package migrations
 
 import (
-	"github.com/qorpress/qorpress/core/help"
-
 	"github.com/qorpress/qorpress/core/activity"
 	"github.com/qorpress/qorpress/core/auth/auth_identity"
 	"github.com/qorpress/qorpress/core/banner_editor"
+	"github.com/qorpress/qorpress/core/help"
 	"github.com/qorpress/qorpress/core/media/asset_manager"
 	"github.com/qorpress/qorpress/core/transition"
 	"github.com/qorpress/qorpress/pkg/app/admin"

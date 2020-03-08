@@ -43,7 +43,7 @@ func (app App) ConfigureApplication(application *application.Application) {
 
 	// to do: iterate through plugins to register new api endpoints
 	// for _, pluginRes := plug.Plugins
-    // API.AddResource(pluginRes)
+	// API.AddResource(pluginRes)
 
 	application.Router.Mount(app.Config.Prefix, API.NewServeMux(app.Config.Prefix))
 }

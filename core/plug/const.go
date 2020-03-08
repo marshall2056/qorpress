@@ -1,4 +1,4 @@
-package plug 
+package plug
 
 const (
 	PluginsDir    = "./plugins"
