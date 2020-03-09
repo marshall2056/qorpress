@@ -6,13 +6,12 @@ import (
 	"net/http"
 
 	// move to core
-	plug "github.com/qorpress/qorpress/pkg/plugins"
-	"github.com/qorpress/qorpress/pkg/config/application"
-	"github.com/qorpress/qorpress/core/render"
-
 	"github.com/qorpress/qorpress-contrib/oniontree/controllers"
 	"github.com/qorpress/qorpress-contrib/oniontree/models"
 	"github.com/qorpress/qorpress-contrib/oniontree/utils/funcmapmaker"
+	"github.com/qorpress/qorpress/core/render"
+	"github.com/qorpress/qorpress/pkg/config/application"
+	plug "github.com/qorpress/qorpress/pkg/plugins"
 )
 
 var Tables = []interface{}{
@@ -60,7 +59,6 @@ func (o onionTreePlugin) FuncMapMaker(view *render.Render) *render.Render {
 
 // func (o onionTreePlugin) Settings() {
 // }
-
 
 // func (o onionTreePlugin) Import() {} {
 // }

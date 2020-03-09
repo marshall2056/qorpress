@@ -2,21 +2,53 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/k0kubun/pp"
+	"github.com/qorpress/go-wordpress"
+	"github.com/jinzhu/gorm"
 	"github.com/spf13/pflag"
 
-	"github.com/qorpress/go-wordpress"
+	"github.com/qorpress/qorpress/core/help"
+	adminseo "github.com/qorpress/qorpress/pkg/models/seo"
+	i18n_database "github.com/qorpress/qorpress/core/i18n/backends/database"
+	"github.com/qorpress/qorpress/core/auth/auth_identity"
+	"github.com/qorpress/qorpress/core/banner_editor"
+	"github.com/qorpress/qorpress/core/media/asset_manager"
+	"github.com/qorpress/qorpress/core/notification"
+	"github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/models/cms"
+	"github.com/qorpress/qorpress/pkg/models/posts"
+	"github.com/qorpress/qorpress/pkg/models/settings"
+	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 var (
 	username string
 	password string
 	endpoint string
-	help     bool
+	truncate bool
+	displayHelp     bool
+	DB       *gorm.DB
+	Tables   = []interface{}{
+		&auth_identity.AuthIdentity{},
+		&users.User{},
+		&posts.Category{}, &posts.Collection{}, &posts.Tag{},
+		&posts.Post{}, &posts.PostImage{}, &posts.Link{}, &posts.Comment{},
+		&settings.Setting{},
+		&adminseo.MySEOSetting{},
+		&cms.Article{},
+		&settings.MediaLibrary{},
+		&banner_editor.QorBannerEditorSetting{},
+		&asset_manager.AssetManager{},
+		&i18n_database.Translation{},
+		&notification.QorNotification{},
+		&admin.QorWidgetSetting{},
+		&help.QorHelpEntry{},
+	}
 )
 
 func main() {
@@ -30,20 +62,29 @@ func main() {
 	pflag.StringVarP(&username, "username", "", os.Getenv("WORDPRESS_USERNAME"), "wordpress' username.")
 	pflag.StringVarP(&password, "password", "", os.Getenv("WORDPRESS_PASSWORD"), "wordpress' password.")
 	pflag.StringVarP(&endpoint, "endpoint", "", os.Getenv("WORDPRESS_API_ENDPOINT"), "wordpress api endpoint (eg. https://domain.com/wp-json).")
-	pflag.BoolVarP(&help, "help", "h", false, "help info")
+	pflag.BoolVarP(&truncate, "truncate", "t", false, "truncate tables")
+	pflag.BoolVarP(&displayHelp, "help", "h", false, "help info")
 	pflag.Parse()
-	if help {
+	if displayHelp {
 		pflag.PrintDefaults()
 		os.Exit(1)
 	}
 
+	// init database, cleanup
+	DB = InitDB()
+	if truncate {
+		TruncateTables(Tables...)
+	}
+
+	// create wp-api client
 	tp := wordpress.BasicAuthTransport{
 		Username: username,
 		Password: password,
 	}
-
-	// create wp-api client
-	client, _ := wordpress.NewClient(endpoint, tp.Client())
+	client, err := wordpress.NewClient(endpoint, tp.Client())
+	if err != nil {
+		log.Fatal("Error while creating wp-api client.")
+	}
 
 	ctx := context.Background()
 
@@ -63,6 +104,27 @@ func main() {
 
 }
 
+func InitDB() *gorm.DB {
+	mysqlString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=True&loc=Local&charset=utf8mb4,utf8", "root", os.Getenv("DB_PASSWORD"), "127.0.0.1", "3306", "qorpress")
+	//psqlInfo := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", host, port, user, dbname, password)
+	db, err := gorm.Open("mysql", mysqlString)
+	if err != nil {
+		panic(err)
+	}
+	db.LogMode(false)
+	DB = db
+	return DB
+}
+
+func TruncateTables(tables ...interface{}) {
+	for _, table := range tables {
+		if err := DB.DropTableIfExists(table).Error; err != nil {
+			panic(err)
+		}
+		DB.AutoMigrate(table)
+	}
+}
+
 func importUsers(ctx context.Context, client *wordpress.Client) error {
 	// Import users
 	userOpts := &wordpress.UserListOptions{
@@ -78,7 +140,7 @@ func importUsers(ctx context.Context, client *wordpress.Client) error {
 		}
 		allUsers = append(allUsers, users...)
 		if resp.NextPage == 0 {
-		  	break
+			break
 		}
 		userOpts.Page = resp.NextPage
 	}
@@ -101,7 +163,7 @@ func importMedias(ctx context.Context, client *wordpress.Client) error {
 		}
 		allMedias = append(allMedias, medias...)
 		if resp.NextPage == 0 {
-		  	break
+			break
 		}
 		mediaOpts.Page = resp.NextPage
 	}
@@ -125,10 +187,10 @@ func importTags(ctx context.Context, client *wordpress.Client) error {
 		}
 		allTags = append(allTags, tags...)
 		if resp.NextPage == 0 {
-		  	break
+			break
 		}
 		tagOpts.Page = resp.NextPage
-	}	
+	}
 	// pp.Println(allTags)
 	return nil
 }
@@ -148,7 +210,7 @@ func importPages(ctx context.Context, client *wordpress.Client) error {
 		}
 		allPages = append(allPages, pages...)
 		if resp.NextPage == 0 {
-		  	break
+			break
 		}
 		pageOpts.Page = resp.NextPage
 	}
@@ -171,7 +233,7 @@ func importPosts(ctx context.Context, client *wordpress.Client) error {
 		}
 		allPosts = append(allPosts, posts...)
 		if resp.NextPage == 0 {
-		  	break
+			break
 		}
 		postOpts.Page = resp.NextPage
 	}
@@ -195,11 +257,10 @@ func importCategories(ctx context.Context, client *wordpress.Client) error {
 		}
 		allCategories = append(allCategories, categories...)
 		if resp.NextPage == 0 {
-		  	break
+			break
 		}
 		catOpts.Page = resp.NextPage
 	}
 	// pp.Println(allCategories)
 	return nil
 }
-

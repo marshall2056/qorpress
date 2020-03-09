@@ -17,7 +17,6 @@ import (
 	"strings"
 	"time"
 
-	wrap_err "github.com/pkg/errors"
 	"github.com/Depado/bfchroma"
 	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/corpix/uarand"
@@ -37,6 +36,7 @@ import (
 	"github.com/k0kubun/pp"
 	"github.com/nozzle/throttler"
 	cmap "github.com/orcaman/concurrent-map"
+	wrap_err "github.com/pkg/errors"
 	"github.com/qorpress/grab"
 	bf "github.com/russross/blackfriday/v2"
 	"github.com/x0rzkov/go-vcsurl"
@@ -91,7 +91,7 @@ var (
 	Tables              = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{},
-		&posts.Category{}, &posts.Collection{}, &posts.Tag{}, 
+		&posts.Category{}, &posts.Collection{}, &posts.Tag{},
 		&posts.Post{}, &posts.PostImage{}, &posts.Link{}, &posts.Comment{},
 		&settings.Setting{},
 		&adminseo.MySEOSetting{},
@@ -152,19 +152,19 @@ func main() {
 
 	// add indexes
 	/*
-	if err := DB.Table("post_tags").AddIndex("idx_post_id", "post_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
-	if err := DB.Table("post_tags").AddIndex("idx_tag_id", "tag_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
+		if err := DB.Table("post_tags").AddIndex("idx_post_id", "post_id").Error; err != nil {
+			log.Fatalln("Error adding index: ", err)
+		}
+		if err := DB.Table("post_tags").AddIndex("idx_tag_id", "tag_id").Error; err != nil {
+			log.Fatalln("Error adding index: ", err)
+		}
 
-	if err := DB.Table("post_links").AddIndex("idx_post_id", "post_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
-	if err := DB.Table("post_links").AddIndex("idx_link_id", "link_id").Error; err != nil {
-		log.Fatalln("Error adding index: ", err)
-	}
+		if err := DB.Table("post_links").AddIndex("idx_post_id", "post_id").Error; err != nil {
+			log.Fatalln("Error adding index: ", err)
+		}
+		if err := DB.Table("post_links").AddIndex("idx_link_id", "link_id").Error; err != nil {
+			log.Fatalln("Error adding index: ", err)
+		}
 	*/
 
 	// github client init

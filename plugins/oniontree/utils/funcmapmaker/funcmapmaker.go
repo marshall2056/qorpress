@@ -5,10 +5,9 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/qorpress/qorpress-contrib/oniontree/models"
 	"github.com/qorpress/qorpress/core/render"
 	"github.com/qorpress/qorpress/pkg/utils"
-
-	"github.com/qorpress/qorpress-contrib/oniontree/models"
 )
 
 func AddFuncMapMaker(view *render.Render) *render.Render {
