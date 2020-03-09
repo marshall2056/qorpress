@@ -115,9 +115,9 @@ func main() {
 		for _, table := range cmd.Migrate() {
 			db.DB.AutoMigrate(table)
 		}
-		for _, resource := range cmd.Resources() {
-			Admin.AddResource(resource, &admin.Config{Menu: []string{cmd.Section()}})
-		}
+		//for _, resource := range cmd.Resources() {
+		//	Admin.AddResource(resource, &admin.Config{Menu: []string{cmd.Section()}})
+		//}
 	}
 
 	var (
@@ -128,14 +128,6 @@ func main() {
 		})
 		// Cache = cache.New(5*time.Minute, 10*time.Minute)
 	)
-
-	/*
-			for _, cmd := range qorPlugins.Commands {
-				for _, route := range cmd.Routes() {
-					Application.Use(route.New())
-		    	}
-			}
-	*/
 
 	// Register custom paths to manually saved views
 	bindatafs.AssetFS.RegisterPath(filepath.Join(config.Root, "themes/qorpress/views/admin"))
@@ -188,6 +180,9 @@ func main() {
 	Application.Use(pages.New(&pages.Config{}))
 
 	// add routes from plugins
+	for _, cmd := range qorPlugins.Commands {
+		Application.Use(cmd.Application())
+	}
 
 	Application.Use(static.New(&static.Config{
 		Prefixs: []string{"/system"},

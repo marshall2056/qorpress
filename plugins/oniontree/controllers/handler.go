@@ -10,10 +10,11 @@ import (
 	"github.com/acoshift/paginate"
 	"github.com/biezhi/gorm-paginator/pagination"
 	"github.com/k0kubun/pp"
-
-	"github.com/qorpress/qorpress-contrib/oniontree/models"
+	
 	"github.com/qorpress/qorpress/core/render"
 	"github.com/qorpress/qorpress/pkg/utils"
+
+	"github.com/qorpress/qorpress-contrib/oniontree/models"
 )
 
 // Controller posts controller
@@ -97,7 +98,7 @@ func (ctrl Controller) Tag(w http.ResponseWriter, req *http.Request) {
 // Category category show page
 func (ctrl Controller) Category(w http.ResponseWriter, req *http.Request) {
 	var (
-		category models.Category
+		category models.OnionCategory
 		Services []models.OnionService
 		tx       = utils.GetDB(req)
 	)

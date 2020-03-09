@@ -7,8 +7,9 @@ import (
 
 	// move to core
 	plug "github.com/qorpress/qorpress/pkg/plugins"
+	"github.com/qorpress/qorpress/pkg/config/application"
 
-	// "github.com/qorpress/qorpress-contrib/oniontree/controllers"
+	"github.com/qorpress/qorpress-contrib/oniontree/controllers"
 	"github.com/qorpress/qorpress-contrib/oniontree/models"
 )
 
@@ -17,6 +18,8 @@ var Tables = []interface{}{
 	&models.OnionService{},
 	&models.OnionLink{},
 	&models.OnionTag{},
+	&models.OnionCategory{},
+	&models.OnionSetting{},
 }
 
 var Resources = []interface{}{
@@ -31,6 +34,7 @@ func (o onionTreePlugin) Section() string   { return `OnionTree` }
 func (o onionTreePlugin) Usage() string     { return `hello` }
 func (o onionTreePlugin) ShortDesc() string { return `prints greeting "hello there"` }
 func (o onionTreePlugin) LongDesc() string  { return o.ShortDesc() }
+
 func (o onionTreePlugin) Migrate() []interface{} {
 	return Tables
 }
@@ -42,6 +46,10 @@ func (o onionTreePlugin) Resources() []interface{} {
 func (o onionTreePlugin) Routes() []http.HandlerFunc {
 	h := make([]http.HandlerFunc, 0)
 	return h
+}
+
+func (o onionTreePlugin) Application() application.MicroAppInterface {
+	return controllers.New(&controllers.Config{})
 }
 
 // func (o onionTreePlugin) Settings() {

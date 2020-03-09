@@ -21,8 +21,8 @@ type OnionService struct {
 	NameWithSlug      slug.Slug `l10n:"sync"`
 	MainImage         media_library.MediaBox
 	Featured          bool
-	OnionCategoryID   uint              `l10n:"sync" gorm:"index:category_id"`
-	OnionCategory     OnionCategory     `l10n:"sync"`
+	CategoryID   uint              `l10n:"sync" gorm:"index:category_id"`
+	Category     OnionCategory     `l10n:"sync"`
 	Code              string            `l10n:"sync" gorm:"index:code"`
 	Slug              string            `json:"slug,omitempty" yaml:"slug,omitempty"`
 	Description       string            `json:"description,omitempty" yaml:"description,omitempty"`

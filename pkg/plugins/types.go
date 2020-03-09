@@ -2,6 +2,8 @@ package plugins
 
 import (
 	"context"
+
+	"github.com/qorpress/qorpress/pkg/config/application"
 )
 
 // Module a plugin that can be initialized
@@ -17,6 +19,7 @@ type Plugin interface {
 	LongDesc() string
 	Migrate() []interface{}
 	Resources() []interface{}
+	Application() application.MicroAppInterface
 }
 
 // Plugins a plugin that contains one or more command
