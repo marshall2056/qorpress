@@ -1,5 +1,28 @@
 # QorPress 
 
+<p align="center">
+    <a href="https://travis-ci.com/qorpress/qorpress"><img src="https://img.shields.io/travis/com/qorpress/qorpress.svg" /></a>
+    <a href="https://cloud.drone.io/qorpress/qorpress"><img src="https://cloud.drone.io/api/badges/qorpress/qorpress/status.svg?ref=refs/heads/master" /></a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/qorpress/qorpress" alt="github all releases"><img src="https://img.shields.io/github/downloads/qorpress/qorpress/total.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github latest release"><img src="https://img.shields.io/github/downloads/qorpress/qorpress/latest/total.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github tag"><img src="https://img.shields.io/github/tag/qorpress/qorpress.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github release"><img src="https://img.shields.io/github/release/qorpress/qorpress.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github pre release"><img src="https://img.shields.io/github/release/qorpress/qorpress/all.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github fork"><img src="https://img.shields.io/github/forks/qorpress/qorpress.svg?style=social&label=Fork" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github stars"><img src="https://img.shields.io/github/stars/qorpress/qorpress.svg?style=social&label=Star" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github watchers"><img src="https://img.shields.io/github/watchers/qorpress/qorpress.svg?style=social&label=Watch" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github open issues"><img src="https://img.shields.io/github/issues/qorpress/qorpress.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github closed issues"><img src="https://img.shields.io/github/issues-closed/qorpress/qorpress.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github open pr"><img src="https://img.shields.io/github/issues-pr/qorpress/qorpress.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github closed pr"><img src="https://img.shields.io/github/issues-pr-closed/qorpress/qorpress.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github contributors"><img src="https://img.shields.io/github/contributors/qorpress/qorpress.svg" /></a>
+    <a href="https://github.com/qorpress/qorpress" alt="github license"><img src="https://img.shields.io/github/license/qorpress/qorpress.svg" /></a>
+    <a href="https://travis-ci.com/qorpress/qorpress" alt="travis badge"><img src="https://img.shields.io/travis/qorpress/qorpress.svg" /></a>
+</p>
+
 QorPress is a blog engine based on the excellent Qor framework. It aims to be fast and dynamic.
 
 ## History
@@ -52,6 +75,22 @@ $ open https//domain.com # if ssl enabled in qorpress.yml
 The requirements are the following:
 * Docker v17+
 * Docker-Compose v1.25+
+
+If you don't have Docker/Docker-Compose check **Setup Docker** section
+<details>
+<summary><b>Setup Docker</b></summary>
+<p>
+
+## Docker
+macOS: <a href="https://docs.docker.com/docker-for-mac/install/"> https://docs.docker.com/docker-for-mac/install/ </a>
+
+linux: <a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/"> https://docs.docker.com/install/linux/docker-ce/ubuntu/ </a>
+
+## Docker Compose
+
+linux: <a href="https://docs.docker.com/compose/install/"> https://docs.docker.com/compose/install/ </a>
+</p>
+</details>
 
 ```shell
 # Get QorPress
