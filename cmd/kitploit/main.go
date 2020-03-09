@@ -17,6 +17,7 @@ import (
 	"strings"
 	"time"
 
+	wrap_err "github.com/pkg/errors"
 	"github.com/Depado/bfchroma"
 	"github.com/alecthomas/chroma/formatters/html"
 	"github.com/corpix/uarand"
@@ -668,14 +669,14 @@ Loop:
 	if err := resp.Err(); err != nil {
 		log.Printf("----> Download failed: %v\n", err)
 		// os.Exit(1)
-		return nil, 0, err
+		return nil, 0, wrap_err.Wrap(err, "Download failed")
 	}
 
 	// fmt.Printf("----> Downloaded %v\n", rawURL)
 	log.Printf("----> Download saved to %v \n", resp.Filename)
 	fi, err := os.Stat(resp.Filename)
 	if err != nil {
-		return nil, 0, err
+		return nil, 0, wrap_err.Wrap(err, "os stat failed")
 	}
 	file, _ := os.Open(resp.Filename)
 

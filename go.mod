@@ -42,6 +42,7 @@ require (
 	github.com/nozzle/throttler v0.0.0-20180817012639-2ea982251481 // indirect
 	github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
+	github.com/qorpress/go-wordpress v0.0.0-20200302054333-81c736c8fa04 // indirect
 	github.com/qorpress/grab v2.0.0+incompatible // indirect
 	github.com/sethgrid/pester v0.0.0-20190127155807-68a33a018ad0 // indirect
 	github.com/sirupsen/logrus v1.4.2

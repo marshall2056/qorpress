@@ -54,6 +54,110 @@ func main() {
 	}
 	pp.Printf("Authenticated user %+v\n", authenticatedUser)
 
+	// Import users
 
+	// Import media
+
+	// Import categories
+	catOpts := &wordpress.CategoryListOptions{
+		HideEmpty: true,
+		ListOptions: wordpress.ListOptions{
+			PerPage: 10,
+		},
+	}
+	var allCategories []*wordpress.Category
+	for {
+		categories, resp, err := client.Categories.List(ctx, catOpts)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		allCategories = append(allCategories, categories...)
+		if resp.NextPage == 0 {
+		  	break
+		}
+		catOpts.Page = resp.NextPage
+	}
+	// pp.Println(allCategories)
+
+	// Import tags
+	tagOpts := &wordpress.TagListOptions{
+		HideEmpty: true,
+		ListOptions: wordpress.ListOptions{
+			PerPage: 10,
+		},
+	}
+	var allTags []*wordpress.Tag
+	for {
+		tags, resp, err := client.Tags.List(ctx, tagOpts)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		allTags = append(allTags, tags...)
+		if resp.NextPage == 0 {
+		  	break
+		}
+		tagOpts.Page = resp.NextPage
+	}	
+	// pp.Println(allTags)
+
+	// Import medias
+	mediaOpts := &wordpress.MediaListOptions{
+		ListOptions: wordpress.ListOptions{
+			PerPage: 10,
+		},
+	}
+	var allMedias []*wordpress.Media
+	for {
+		medias, resp, err := client.Media.List(ctx, mediaOpts)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		allMedias = append(allMedias, medias...)
+		if resp.NextPage == 0 {
+		  	break
+		}
+		mediaOpts.Page = resp.NextPage
+	}
+	pp.Println(allMedias)
+
+	// Import pages
+	pageOpts := &wordpress.PageListOptions{
+		ListOptions: wordpress.ListOptions{
+			PerPage: 10,
+		},
+	}
+	var allPages []*wordpress.Page
+	for {
+		pages, resp, err := client.Pages.List(ctx, pageOpts)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		allPages = append(allPages, pages...)
+		if resp.NextPage == 0 {
+		  	break
+		}
+		pageOpts.Page = resp.NextPage
+	}
+	// pp.Println(allPages)
+
+	// Import posts
+	postOpts := &wordpress.PostListOptions{
+		ListOptions: wordpress.ListOptions{
+			PerPage: 10,
+		},
+	}
+	var allPosts []*wordpress.Post
+	for {
+		posts, resp, err := client.Posts.List(ctx, postOpts)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		allPosts = append(allPosts, posts...)
+		if resp.NextPage == 0 {
+		  	break
+		}
+		postOpts.Page = resp.NextPage
+	}
+	// pp.Println(allPosts)
 
 }
