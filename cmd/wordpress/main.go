@@ -54,31 +54,62 @@ func main() {
 	}
 	pp.Printf("Authenticated user %+v\n", authenticatedUser)
 
+	importUsers(ctx, client)
+	importCategories(ctx, client)
+	importTags(ctx, client)
+	importMedias(ctx, client)
+	importPages(ctx, client)
+	importPosts(ctx, client)
+
+}
+
+func importUsers(ctx context.Context, client *wordpress.Client) error {
 	// Import users
-
-	// Import media
-
-	// Import categories
-	catOpts := &wordpress.CategoryListOptions{
-		HideEmpty: true,
+	userOpts := &wordpress.UserListOptions{
 		ListOptions: wordpress.ListOptions{
 			PerPage: 10,
 		},
 	}
-	var allCategories []*wordpress.Category
+	var allUsers []*wordpress.User
 	for {
-		categories, resp, err := client.Categories.List(ctx, catOpts)
+		users, resp, err := client.Users.List(ctx, userOpts)
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
-		allCategories = append(allCategories, categories...)
+		allUsers = append(allUsers, users...)
 		if resp.NextPage == 0 {
 		  	break
 		}
-		catOpts.Page = resp.NextPage
+		userOpts.Page = resp.NextPage
 	}
-	// pp.Println(allCategories)
+	pp.Println(allUsers)
+	return nil
+}
 
+func importMedias(ctx context.Context, client *wordpress.Client) error {
+	// Import medias
+	mediaOpts := &wordpress.MediaListOptions{
+		ListOptions: wordpress.ListOptions{
+			PerPage: 10,
+		},
+	}
+	var allMedias []*wordpress.Media
+	for {
+		medias, resp, err := client.Media.List(ctx, mediaOpts)
+		if err != nil {
+			return err
+		}
+		allMedias = append(allMedias, medias...)
+		if resp.NextPage == 0 {
+		  	break
+		}
+		mediaOpts.Page = resp.NextPage
+	}
+	// pp.Println(allMedias)
+	return nil
+}
+
+func importTags(ctx context.Context, client *wordpress.Client) error {
 	// Import tags
 	tagOpts := &wordpress.TagListOptions{
 		HideEmpty: true,
@@ -90,7 +121,7 @@ func main() {
 	for {
 		tags, resp, err := client.Tags.List(ctx, tagOpts)
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 		allTags = append(allTags, tags...)
 		if resp.NextPage == 0 {
@@ -99,27 +130,10 @@ func main() {
 		tagOpts.Page = resp.NextPage
 	}	
 	// pp.Println(allTags)
+	return nil
+}
 
-	// Import medias
-	mediaOpts := &wordpress.MediaListOptions{
-		ListOptions: wordpress.ListOptions{
-			PerPage: 10,
-		},
-	}
-	var allMedias []*wordpress.Media
-	for {
-		medias, resp, err := client.Media.List(ctx, mediaOpts)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		allMedias = append(allMedias, medias...)
-		if resp.NextPage == 0 {
-		  	break
-		}
-		mediaOpts.Page = resp.NextPage
-	}
-	pp.Println(allMedias)
-
+func importPages(ctx context.Context, client *wordpress.Client) error {
 	// Import pages
 	pageOpts := &wordpress.PageListOptions{
 		ListOptions: wordpress.ListOptions{
@@ -130,7 +144,7 @@ func main() {
 	for {
 		pages, resp, err := client.Pages.List(ctx, pageOpts)
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 		allPages = append(allPages, pages...)
 		if resp.NextPage == 0 {
@@ -139,7 +153,10 @@ func main() {
 		pageOpts.Page = resp.NextPage
 	}
 	// pp.Println(allPages)
+	return nil
+}
 
+func importPosts(ctx context.Context, client *wordpress.Client) error {
 	// Import posts
 	postOpts := &wordpress.PostListOptions{
 		ListOptions: wordpress.ListOptions{
@@ -150,7 +167,7 @@ func main() {
 	for {
 		posts, resp, err := client.Posts.List(ctx, postOpts)
 		if err != nil {
-			log.Fatalln(err)
+			return err
 		}
 		allPosts = append(allPosts, posts...)
 		if resp.NextPage == 0 {
@@ -159,5 +176,30 @@ func main() {
 		postOpts.Page = resp.NextPage
 	}
 	// pp.Println(allPosts)
-
+	return nil
 }
+
+func importCategories(ctx context.Context, client *wordpress.Client) error {
+	// Import categories
+	catOpts := &wordpress.CategoryListOptions{
+		HideEmpty: true,
+		ListOptions: wordpress.ListOptions{
+			PerPage: 10,
+		},
+	}
+	var allCategories []*wordpress.Category
+	for {
+		categories, resp, err := client.Categories.List(ctx, catOpts)
+		if err != nil {
+			return err
+		}
+		allCategories = append(allCategories, categories...)
+		if resp.NextPage == 0 {
+		  	break
+		}
+		catOpts.Page = resp.NextPage
+	}
+	// pp.Println(allCategories)
+	return nil
+}
+
