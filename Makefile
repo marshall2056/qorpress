@@ -66,9 +66,9 @@ plugin:
 
 ## plugins			:	Build all qorpress plugins
 plugins:
-	GOARCH=amd64 PLUGIN=oniontree make plugin
+	# GOARCH=amd64 PLUGIN=oniontree make plugin
+	GOARCH=amd64 PLUGIN=twitter make plugin
 	# GOARCH=amd64 PLUGIN=flickr make plugin
-	# GOARCH=amd64 PLUGIN=twitter make plugin
 .PHONY: plugins  
 
 ## help				:	Print commands help.
