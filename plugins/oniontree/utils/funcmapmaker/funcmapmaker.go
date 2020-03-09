@@ -5,10 +5,10 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/qorpress/qorpress-contrib/oniontree/models"
 	"github.com/qorpress/qorpress/core/render"
-	"github.com/qorpress/qorpress/pkg/models/posts"
 	"github.com/qorpress/qorpress/pkg/utils"
+
+	"github.com/qorpress/qorpress-contrib/oniontree/models"
 )
 
 func AddFuncMapMaker(view *render.Render) *render.Render {
@@ -19,19 +19,19 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			funcMap = oldFuncMapMaker(render, req, w)
 		}
 
-		funcMap["get_oniontree_categories"] = func() (categories []models.Category) {
+		funcMap["get_oniontree_categories"] = func() (categories []models.OnionCategory) {
 			utils.GetDB(req).Find(&categories)
 			return
 		}
 
-		funcMap["get_opniontree_tags"] = func(postId uint) (tags []posts.Tag) {
+		funcMap["get_oniontree_tags"] = func(postId uint) (tags []models.OnionService) {
 			query := fmt.Sprintf(`SELECT T.* FROM (POST_TAGS ST, TAGS T) WHERE ST.POST_ID=%d AND ST.tag_id=t.id`, postId)
 			utils.GetDB(req).Raw(query).Scan(&tags)
 			fmt.Println(query)
 			return
 		}
 
-		funcMap["get_opniontree_category_tags"] = func(catId uint) (tags []posts.Tag) {
+		funcMap["get_oniontree_category_tags"] = func(catId uint) (tags []models.OnionTag) {
 			query := fmt.Sprintf(`
 				SELECT T.*
 				FROM (POSTS S, TAGS T)

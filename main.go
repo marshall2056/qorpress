@@ -134,6 +134,10 @@ func main() {
 
 	funcmapmaker.AddFuncMapMaker(auth.Auth.Config.Render)
 
+	for _, cmd := range qorPlugins.Commands {
+		funcmapmaker.AddFuncMapMaker(cmd.FuncMapMaker(auth.Auth.Config.Render))
+	}
+
 	Router.Use(func(handler http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			// for demo, don't use this for your production site

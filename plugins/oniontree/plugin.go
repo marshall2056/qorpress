@@ -8,9 +8,11 @@ import (
 	// move to core
 	plug "github.com/qorpress/qorpress/pkg/plugins"
 	"github.com/qorpress/qorpress/pkg/config/application"
+	"github.com/qorpress/qorpress/core/render"
 
 	"github.com/qorpress/qorpress-contrib/oniontree/controllers"
 	"github.com/qorpress/qorpress-contrib/oniontree/models"
+	"github.com/qorpress/qorpress-contrib/oniontree/utils/funcmapmaker"
 )
 
 var Tables = []interface{}{
@@ -52,11 +54,13 @@ func (o onionTreePlugin) Application() application.MicroAppInterface {
 	return controllers.New(&controllers.Config{})
 }
 
+func (o onionTreePlugin) FuncMapMaker(view *render.Render) *render.Render {
+	return funcmapmaker.AddFuncMapMaker(view)
+}
+
 // func (o onionTreePlugin) Settings() {
 // }
 
-// func (o onionTreePlugin) FuncMapMaker() {} {
-// }
 
 // func (o onionTreePlugin) Import() {} {
 // }

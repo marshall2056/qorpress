@@ -12,7 +12,7 @@ type PaginationSetting struct {
 	PerPage uint
 }
 
-type Setting struct {
+type OnionSetting struct {
 	gorm.Model
 	PaginationSetting
 	l10n.Locale
