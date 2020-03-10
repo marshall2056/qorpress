@@ -5,20 +5,34 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"time"
+	// "regexp"
+	"strings"
+	"path/filepath"
+	"io"
+	"net/http"
+	"net/url"
+	// "math/rand"
 
+	// "github.com/jinzhu/now"
 	"github.com/joho/godotenv"
 	"github.com/k0kubun/pp"
 	"github.com/qorpress/go-wordpress"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/pflag"
+	// "github.com/nozzle/throttler"
 
+	"github.com/qorpress/qorpress/pkg/config/auth"
+	"github.com/qorpress/qorpress/core/qor"
+	"github.com/qorpress/qorpress/core/notification"
 	"github.com/qorpress/qorpress/core/help"
+	"github.com/qorpress/qorpress/core/auth/providers/password"
 	adminseo "github.com/qorpress/qorpress/pkg/models/seo"
 	i18n_database "github.com/qorpress/qorpress/core/i18n/backends/database"
 	"github.com/qorpress/qorpress/core/auth/auth_identity"
 	"github.com/qorpress/qorpress/core/banner_editor"
 	"github.com/qorpress/qorpress/core/media/asset_manager"
-	"github.com/qorpress/qorpress/core/notification"
+	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/models/cms"
 	"github.com/qorpress/qorpress/pkg/models/posts"
@@ -27,12 +41,14 @@ import (
 )
 
 var (
-	username string
-	password string
+	wpUsername string
+	wpPassword string
 	endpoint string
 	truncate bool
 	displayHelp     bool
 	DB       *gorm.DB
+	AdminUser           *users.User
+	Notification        = notification.New(&notification.Config{})
 	Tables   = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{},
@@ -59,8 +75,8 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	pflag.StringVarP(&username, "username", "", os.Getenv("WORDPRESS_USERNAME"), "wordpress' username.")
-	pflag.StringVarP(&password, "password", "", os.Getenv("WORDPRESS_PASSWORD"), "wordpress' password.")
+	pflag.StringVarP(&wpUsername, "username", "", os.Getenv("WORDPRESS_USERNAME"), "wordpress' username.")
+	pflag.StringVarP(&wpPassword, "password", "", os.Getenv("WORDPRESS_PASSWORD"), "wordpress' password.")
 	pflag.StringVarP(&endpoint, "endpoint", "", os.Getenv("WORDPRESS_API_ENDPOINT"), "wordpress api endpoint (eg. https://domain.com/wp-json).")
 	pflag.BoolVarP(&truncate, "truncate", "t", false, "truncate tables")
 	pflag.BoolVarP(&displayHelp, "help", "h", false, "help info")
@@ -71,15 +87,17 @@ func main() {
 	}
 
 	// init database, cleanup
-	DB = InitDB()
+	// DB = InitDB()
+	DB = db.DB
+
 	if truncate {
 		TruncateTables(Tables...)
 	}
 
 	// create wp-api client
 	tp := wordpress.BasicAuthTransport{
-		Username: username,
-		Password: password,
+		Username: wpUsername,
+		Password: wpPassword,
 	}
 	client, err := wordpress.NewClient(endpoint, tp.Client())
 	if err != nil {
@@ -93,8 +111,11 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	// pp.Printf("resp %+v\n", resp)
 	pp.Printf("Authenticated user %+v\n", authenticatedUser)
+	os.Exit(1)
 
+	createAdminUsers()
 	importUsers(ctx, client)
 	importCategories(ctx, client)
 	importTags(ctx, client)
@@ -102,18 +123,6 @@ func main() {
 	importPages(ctx, client)
 	importPosts(ctx, client)
 
-}
-
-func InitDB() *gorm.DB {
-	mysqlString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=True&loc=Local&charset=utf8mb4,utf8", "root", os.Getenv("DB_PASSWORD"), "127.0.0.1", "3306", "qorpress")
-	//psqlInfo := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", host, port, user, dbname, password)
-	db, err := gorm.Open("mysql", mysqlString)
-	if err != nil {
-		panic(err)
-	}
-	db.LogMode(false)
-	DB = db
-	return DB
 }
 
 func TruncateTables(tables ...interface{}) {
@@ -145,7 +154,77 @@ func importUsers(ctx context.Context, client *wordpress.Client) error {
 		userOpts.Page = resp.NextPage
 	}
 	pp.Println(allUsers)
+	os.Exit(1)
+
+	/*
+	for _, wpUser := range allUsers {
+		user := users.User{}
+		user.Name = ""
+		user.Email = ""
+
+		user.CreatedAt = now.EndOfDay().Add(time.Duration(day*rand.Intn(24)) * time.Hour)
+		if user.CreatedAt.After(time.Now()) {
+			user.CreatedAt = time.Now()
+		}
+
+		now := time.Now()
+		unique := fmt.Sprintf("%v", now.Unix())
+
+		if file, err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
+			fmt.Printf("open file failure, got err %v", err)
+		} else {
+			defer file.Close()
+			user.Avatar.Scan(file)
+		}
+
+		if err := DB.Save(&user).Error; err != nil {
+			log.Fatalf("Save user (%v) failure, got err %v", user, err)
+		}
+
+		provider := auth.Auth.GetProvider("password").(*password.Provider)
+		hashedPassword, _ := provider.Encryptor.Digest("testing")
+		authIdentity := &auth_identity.AuthIdentity{}
+		authIdentity.Provider = "password"
+		authIdentity.UID = user.Email
+		authIdentity.EncryptedPassword = hashedPassword
+		authIdentity.UserID = fmt.Sprint(user.ID)
+		authIdentity.ConfirmedAt = &user.CreatedAt
+
+		DB.Create(authIdentity)
+	}
+	*/
 	return nil
+}
+
+func createAdminUsers() {
+	AdminUser = &users.User{}
+	AdminUser.Email = "dev@getqor.com"
+	AdminUser.Confirmed = true
+	AdminUser.Name = "QOR Admin"
+	AdminUser.Role = "Admin"
+	DB.Create(AdminUser)
+
+	provider := auth.Auth.GetProvider("password").(*password.Provider)
+	hashedPassword, _ := provider.Encryptor.Digest("testing")
+	now := time.Now()
+
+	authIdentity := &auth_identity.AuthIdentity{}
+	authIdentity.Provider = "password"
+	authIdentity.UID = AdminUser.Email
+	authIdentity.EncryptedPassword = hashedPassword
+	authIdentity.UserID = fmt.Sprint(AdminUser.ID)
+	authIdentity.ConfirmedAt = &now
+
+	DB.Create(authIdentity)
+
+	// Send welcome notification
+	Notification.Send(&notification.Message{
+		From:        AdminUser,
+		To:          AdminUser,
+		Title:       "Welcome To QOR Admin",
+		Body:        "Welcome To QOR Admin",
+		MessageType: "info",
+	}, &qor.Context{DB: DB})
 }
 
 func importMedias(ctx context.Context, client *wordpress.Client) error {
@@ -263,4 +342,44 @@ func importCategories(ctx context.Context, client *wordpress.Client) error {
 	}
 	// pp.Println(allCategories)
 	return nil
+}
+
+func openFileByURL(rawURL string) (*os.File, error) {
+	if fileURL, err := url.Parse(rawURL); err != nil {
+		return nil, err
+	} else {
+		path := fileURL.Path
+		segments := strings.Split(path, "/")
+		fileName := segments[len(segments)-1]
+
+		filePath := filepath.Join(os.TempDir(), fileName)
+
+		if _, err := os.Stat(filePath); err == nil {
+			return os.Open(filePath)
+		}
+
+		file, err := os.Create(filePath)
+		if err != nil {
+			return file, err
+		}
+
+		check := http.Client{
+			CheckRedirect: func(r *http.Request, via []*http.Request) error {
+				r.URL.Opaque = r.URL.Path
+				return nil
+			},
+		}
+		resp, err := check.Get(rawURL) // add a filter to check redirect
+		if err != nil {
+			return file, err
+		}
+		defer resp.Body.Close()
+		fmt.Printf("----> Downloaded %v\n", rawURL)
+
+		_, err = io.Copy(file, resp.Body)
+		if err != nil {
+			return file, err
+		}
+		return file, nil
+	}
 }

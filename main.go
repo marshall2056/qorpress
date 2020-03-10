@@ -133,7 +133,7 @@ func main() {
 
 	funcmapmaker.AddFuncMapMaker(auth.Auth.Config.Render)
 
-	// to do: pass the functions created in plugins
+	// Register funcmaps from plugins
 	for _, cmd := range qorPlugins.Commands {
 		funcmapmaker.AddFuncMapMaker(cmd.FuncMapMaker(auth.Auth.Config.Render))
 	}

@@ -25,6 +25,8 @@
 
 QorPress is a blog engine based on the excellent Qor framework. It aims to be fast and dynamic.
 
+If you encounter any issues or have any suggestions, please open a pull request :)
+
 ## History
 The idea came from the fact that we could not find a blog engine alternative with a back-end/front-end coupled at the same time. 
 Hugo is designed for static website as we wanted something allowing to generate dynamic routes with a fast search engine.
@@ -153,6 +155,17 @@ Online Example APIs:
 #### categories manager
 ![alt text](docs/screenshots/backend-categories.png "backend categories")
 
+
+## To do
+* add sitemap generator
+* add rss feed generator
+* implement caching system on api
+* implement caching system on html output
+* implement facteted search engine based on blevesearch
+* implement facteted search engine based on manticoresearch
+
+## Bugs
+* none for now
 
 ## License
 

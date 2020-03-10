@@ -49,7 +49,11 @@
             {{ end }}
             <h6>Latest tweets</h6>
             {{ if get_tweets }}
-              {{ get_tweets }}
+              {{ printf "%#v" get_tweets }}
+              {{range $prop := get_tweets }}
+                <li>{{$prop.ScreenName}}
+                <li>{{$prop.User}}: {{$prop.FullText}}</li>
+              {{end}}
             {{ end }}
           </div>
 

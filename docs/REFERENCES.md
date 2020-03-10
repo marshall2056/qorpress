@@ -10,6 +10,15 @@
 
 ### CMS
 - https://github.com/ponzu-cms/ponzu
+- https://github.com/gohugoio/hugo
+- https://github.com/hooto/hpress
+- https://github.com/zmisgod/blogApi
+	- https://github.com/zmisgod/myBlog
+- 
+
+### Search engine
+- https://github.com/alash3al/libsrchx
+- 
 
 ### SEO
 - https://libs.garden/go/pagerank
@@ -56,6 +65,10 @@
 - https://github.com/hoisie/mustache
 - https://github.com/yosssi/ace
 - https://github.com/benbjohnson/ego
+
+### Wordpress
+- https://en.wordpress.org/plugins/json-api-user/
+- https://en.wordpress.org/plugins/json-api-auth/
 
 ### Misc
 
