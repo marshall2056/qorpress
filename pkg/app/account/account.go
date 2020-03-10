@@ -41,6 +41,10 @@ func (app App) ConfigureApplication(application *application.Application) {
 		AssetFileSystem: application.AssetFS.NameSpace("account"),
 	}, themeDir)}
 
+	for _, cmd := range config.QorPlugins.Commands {
+		funcmapmaker.AddFuncMapMaker(cmd.FuncMapMaker(controller.View))
+	}
+
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	app.ConfigureAdmin(application.Admin)
 

@@ -31,6 +31,10 @@ func (App) ConfigureApplication(application *application.Application) {
 		AssetFileSystem: application.AssetFS.NameSpace("home"),
 	}, themeDir)}
 
+	for _, cmd := range config.QorPlugins.Commands {
+		funcmapmaker.AddFuncMapMaker(cmd.FuncMapMaker(controller.View))
+	}
+
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	application.Router.Get("/", controller.Index)
 	application.Router.Get("/switch_locale", controller.SwitchLocale)

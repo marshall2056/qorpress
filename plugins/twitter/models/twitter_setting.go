@@ -7,7 +7,9 @@ import (
 type TwitterSetting struct {
 	gorm.Model
 	Enabled bool
-	Limit uint
+	ScreenName string
+	Count int
+	// TweetMode string // default: extended
 	TwitterAPISetting
 }
 

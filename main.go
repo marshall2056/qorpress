@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"plugin"
 	"strings"
+	"plugin"
 	"time"
 
 	"github.com/foomo/simplecert"
@@ -102,6 +102,8 @@ func main() {
 		}
 	}
 
+	config.QorPlugins = qorPlugins
+
 	var (
 		Router = chi.NewRouter()
 		Admin  = admin.New(&admin.AdminConfig{
@@ -111,13 +113,10 @@ func main() {
 		})
 	)
 
-	for _, cmd := range qorPlugins.Commands {
+	for _, cmd := range config.QorPlugins.Commands {
 		for _, table := range cmd.Migrate() {
 			db.DB.AutoMigrate(table)
 		}
-		//for _, resource := range cmd.Resources() {
-		//	Admin.AddResource(resource, &admin.Config{Menu: []string{cmd.Section()}})
-		//}
 	}
 
 	var (
@@ -134,6 +133,7 @@ func main() {
 
 	funcmapmaker.AddFuncMapMaker(auth.Auth.Config.Render)
 
+	// to do: pass the functions created in plugins
 	for _, cmd := range qorPlugins.Commands {
 		funcmapmaker.AddFuncMapMaker(cmd.FuncMapMaker(auth.Auth.Config.Render))
 	}

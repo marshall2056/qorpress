@@ -5,12 +5,15 @@ import (
 	"log"
 	"os"
 	"strconv"
+	// "path/filepath"
+	// "plugin"
 
 	"github.com/cep21/xdgbasedir"
 	"github.com/go-gomail/gomail"
 	"github.com/jinzhu/configor"
 	"github.com/unrolled/render"
 
+	plug "github.com/qorpress/qorpress/pkg/plugins"
 	"github.com/qorpress/qorpress/core/auth/providers/facebook"
 	"github.com/qorpress/qorpress/core/auth/providers/github"
 	"github.com/qorpress/qorpress/core/auth/providers/google"
@@ -93,6 +96,7 @@ var (
 		SessionManager:  manager.SessionManager,
 		IgnoredPrefixes: []string{"/auth"},
 	})
+	QorPlugins   *plug.QorPlugin
 )
 
 func init() {
@@ -107,6 +111,44 @@ func init() {
 	if err := configor.Load(&Config, ".config/qorpress.yml", ".config/database.yml", ".config/smtp.yml", ".config/application.yml"); err != nil {
 		panic(err)
 	}
+
+	/*
+	// init plugins
+		// load plugins
+	QorPlugins = plug.New()
+	// The plugins (the *.so files) must be in a 'plugins' sub-directory
+	all_plugins, err := filepath.Glob("./release/*.so")
+	if err != nil {
+		panic(err)
+	}
+
+	for _, filename := range all_plugins {
+		p, err := plugin.Open(filename)
+		if err != nil {
+			panic(err)
+		}
+
+		cmdSymbol, err := p.Lookup(plug.CmdSymbolName)
+		if err != nil {
+			fmt.Printf("plugin %s does not export symbol \"%s\"\n",
+				filename, plug.CmdSymbolName)
+			continue
+		}
+		commands, ok := cmdSymbol.(plug.Plugins)
+		if !ok {
+			fmt.Printf("Symbol %s (from %s) does not implement Commands interface\n",
+				plug.CmdSymbolName, filename)
+			continue
+		}
+		if err := commands.Init(QorPlugins.Ctx); err != nil {
+			fmt.Printf("%s initialization failed: %v\n", filename, err)
+			continue
+		}
+		for name, cmd := range commands.Registry() {
+			QorPlugins.Commands[name] = cmd
+		}
+	}
+	*/
 
 	if Config.Cloud.AWS.S3.AccessKeyID != "" {
 		oss.Storage = s3.New(&s3.Config{

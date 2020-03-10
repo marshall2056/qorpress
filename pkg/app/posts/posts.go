@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"path/filepath"
 
-	// "github.com/jinzhu/gorm"
 	"github.com/qorpress/qorpress/core/admin"
 	"github.com/qorpress/qorpress/core/media"
 	"github.com/qorpress/qorpress/core/media/media_library"
@@ -17,8 +16,6 @@ import (
 	"github.com/qorpress/qorpress/pkg/models/posts"
 	"github.com/qorpress/qorpress/pkg/utils/funcmapmaker"
 )
-
-// var Genders = []string{"Men", "Women", "Kids"}
 
 // New new home app
 func New(config *Config) *App {
@@ -40,6 +37,10 @@ func (app App) ConfigureApplication(application *application.Application) {
 	controller := &Controller{View: render.New(&render.Config{
 		AssetFileSystem: application.AssetFS.NameSpace("posts"),
 	}, themeDir)}
+
+	for _, cmd := range config.QorPlugins.Commands {
+		funcmapmaker.AddFuncMapMaker(cmd.FuncMapMaker(controller.View))
+	}
 
 	funcmapmaker.AddFuncMapMaker(controller.View)
 	app.ConfigureAdmin(application.Admin)

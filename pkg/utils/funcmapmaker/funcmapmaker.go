@@ -53,15 +53,18 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			funcMap[key] = fc
 		}
 
+		fmt.Println("adding funcMap[\"raw\"]")
 		funcMap["raw"] = func(str string) template.HTML {
 			return template.HTML(utils.HTMLSanitizer.Sanitize(str))
 		}
 
+		fmt.Println("adding funcMap[\"flashes\"]")
 		funcMap["flashes"] = func() []session.Message {
 			return manager.SessionManager.Flashes(w, req)
 		}
 
 		// Add `action_bar` method
+		fmt.Println("adding funcMap[\"render_action_bar\"]")
 		funcMap["render_action_bar"] = func() template.HTML {
 			return admin.ActionBar.Actions(action_bar.Action{
 				Name: "Edit SEO",
@@ -69,15 +72,18 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			}).Render(w, req)
 		}
 
+		fmt.Println("adding funcMap[\"render_seo_tag\"]")
 		funcMap["render_seo_tag"] = func() template.HTML {
 			return seo.SEOCollection.Render(&qor.Context{DB: utils.GetDB(req)}, "Default Page")
 		}
 
+		fmt.Println("adding funcMap[\"get_categories\"]")
 		funcMap["get_categories"] = func() (categories []posts.Category) {
 			utils.GetDB(req).Find(&categories)
 			return
 		}
 
+		fmt.Println("adding funcMap[\"get_post_tags\"]")
 		funcMap["get_post_tags"] = func(postId uint) (tags []posts.Tag) {
 			query := fmt.Sprintf(`SELECT T.* FROM (POST_TAGS ST, TAGS T) WHERE ST.POST_ID=%d AND ST.tag_id=t.id`, postId)
 			utils.GetDB(req).Raw(query).Scan(&tags)
@@ -86,6 +92,7 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			return
 		}
 
+		fmt.Println("adding funcMap[\"get_category_tags\"]")
 		funcMap["get_category_tags"] = func(catId uint) (tags []posts.Tag) {
 			query := fmt.Sprintf(`
 				SELECT T.*
@@ -99,10 +106,12 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			return
 		}
 
+		fmt.Println("adding funcMap[\"current_locale\"]")
 		funcMap["current_locale"] = func() string {
 			return utils.GetCurrentLocale(req)
 		}
 
+		fmt.Println("adding funcMap[\"current_user\"]")
 		funcMap["current_user"] = func() *users.User {
 			return utils.GetCurrentUser(req)
 		}

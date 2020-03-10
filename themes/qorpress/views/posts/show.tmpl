@@ -48,6 +48,9 @@
               </a>
             {{ end }}
             <h6>Latest tweets</h6>
+            {{ if get_tweets }}
+              {{ get_tweets }}
+            {{ end }}
           </div>
 
           <div class="grid__col is-9">
