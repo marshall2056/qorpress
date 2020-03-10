@@ -56,6 +56,12 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	category := Admin.AddResource(&models.OnionCategory{}, &admin.Config{Menu: []string{"OnionTree Management"}, Priority: -3})
 	category.Meta(&admin.Meta{Name: "Categories", Type: "select_many"})
 
+	pks := Admin.AddResource(&models.OnionPublicKey{}, &admin.Config{Menu: []string{"OnionTree Management"}})
+	pks.Meta(&admin.Meta{
+		Name: "Value",
+		Type: "text",
+	})
+
 	Admin.AddResource(&models.OnionLink{}, &admin.Config{Menu: []string{"OnionTree Management"}, Priority: -2})
 
 	Admin.AddResource(&models.OnionTag{}, &admin.Config{Menu: []string{"OnionTree Management"}, Priority: -2})
@@ -69,6 +75,11 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	})
 	srvPropertiesRes.EditAttrs(&admin.Section{
 		Rows: [][]string{{"Name", "Value"}},
+	})
+
+	srv.Meta(&admin.Meta{
+		Name: "Description",
+		Type: "rich_editor",
 	})
 
 	srv.Meta(&admin.Meta{Name: "Category", Config: &admin.SelectOneConfig{AllowBlank: true}})
@@ -94,6 +105,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	srv.SearchAttrs("Name", "Code", "Category.Name", "Tag.Name")
 	srv.IndexAttrs("Name")
+	
 	srv.EditAttrs(
 		&admin.Section{
 			Title: "Seo Meta",
@@ -112,9 +124,10 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 				{"Category"},
 			}},
 		"Tags",
-		"PostProperties",
+		"ServiceProperties",
 		"Description",
 		"Links",
+		"PublicKeys",
 	)
 	srv.ShowAttrs(srv.EditAttrs())
 	srv.NewAttrs(srv.EditAttrs())

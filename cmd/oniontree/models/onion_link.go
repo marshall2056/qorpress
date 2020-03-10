@@ -14,7 +14,7 @@ type OnionLink struct {
 	URL            string `json:"href" yaml:"href"`
 	Name           string `json:"name" yaml:"name"`
 	Healthy        bool   `json:"healthy" yaml:"healthy"`
-	//ServiceID uint   `json:"-" yaml:"-"`
+	// OnionServiceID uint   `json:"-" yaml:"-"`
 }
 
 func (ol OnionLink) Validate(db *gorm.DB) {

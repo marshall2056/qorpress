@@ -2,6 +2,8 @@ module github.com/qorpress/qorpress
 
 go 1.14
 
+replace github.com/qorpress/qorpress-contrib/oniontree => github.com/qorpress/qorpress/plugins/oniontree v0.0.0-20200310070759-d93c251c2e6e
+
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
 	github.com/Depado/bfchroma v1.2.0
@@ -29,6 +31,7 @@ require (
 	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/goccy/go-yaml v1.4.3 // indirect
 	github.com/gocolly/colly/v2 v2.0.1
 	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db
 	github.com/gomarkdown/markdown v0.0.0-20200127000047-1813ea067497
@@ -48,12 +51,14 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/jteeuwen/go-bindata v3.0.8-0.20180305030458-6025e8de665b+incompatible
 	github.com/k0kubun/pp v3.0.1+incompatible
+	github.com/karrick/godirwalk v1.15.3 // indirect
 	github.com/lib/pq v1.1.1
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/mrjones/oauth v0.0.0-20190623134757-126b35219450
 	github.com/nozzle/throttler v0.0.0-20180817012639-2ea982251481
+	github.com/onionltd/oniontree-tools v0.0.0-20200217165256-a771af70bf68 // indirect
 	github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pkg/errors v0.9.1
