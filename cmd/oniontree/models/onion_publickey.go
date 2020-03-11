@@ -11,5 +11,5 @@ type OnionPublicKey struct {
 	Fingerprint string `json:"fingerprint,omitempty" yaml:"fingerprint,omitempty"`
 	Description string `json:"description,omitempty" yaml:"description,omitempty"`
 	Value       string `gorm:"type:mediumtext" json:"value" yaml:"value"`
-	// ServiceID   uint   `json:"-" yaml:"-"`
+	OnionServiceID   uint   `json:"-" yaml:"-"`
 }

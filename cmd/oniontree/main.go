@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/pkg/errors"
 	// log "github.com/sirupsen/logrus"
 	"github.com/spf13/pflag"
 	"github.com/goccy/go-yaml"
@@ -95,6 +96,27 @@ func dirWalkServices(DB *gorm.DB, dirname string) {
 					os.Exit(1)
 				}
 
+				// add urls
+				for _, url := range t.URLs {
+					u := &models.OnionLink{URL: url}
+					if l, err := createOrUpdateLink(DB, u); err != nil {
+						fmt.Println(err)
+						os.Exit(1)
+					} else {
+						m.Links = append(m.Links, *l)
+					}
+				}
+
+				// add tags
+				// check if tag already exists
+				tag := &models.OnionTag{Name: parts[4]}
+				if t, err := createOrUpdateTag(DB, tag); err != nil {
+					fmt.Println(err)
+					os.Exit(1)
+				} else {
+					m.Tags = append(m.Tags, *t)				
+				}
+
 				// add public keys
 				for _, publicKey := range t.PublicKeys {
 					pubKey := &models.OnionPublicKey{
@@ -104,28 +126,15 @@ func dirWalkServices(DB *gorm.DB, dirname string) {
 						Description: publicKey.Description,
 						Value:       publicKey.Value,
 					}
-					if _, err := createOrUpdatePublicKey(DB, m, pubKey); err != nil {
+					if k, err := createOrUpdatePublicKey(DB, pubKey); err != nil {
 						fmt.Println(err)
 						os.Exit(1)
+					} else {
+						m.PublicKeys = append(m.PublicKeys, *k)
 					}
 				}
 
-				// add urls
-				for _, url := range t.URLs {
-					u := &models.OnionLink{
-						URL: url,
-					}
-					if _, err := createOrUpdateURL(DB, m, u); err != nil {
-						fmt.Println(err)
-						// os.Exit(1)
-					}
-
-				}
-
-				// add tags
-				// check if tag already exists
-				tag := &models.OnionTag{Name: parts[4]}
-				if _, err := createOrUpdateTag(DB, m, tag); err != nil {
+				if err := DB.Save(m).Error; err != nil {
 					fmt.Println(err)
 					os.Exit(1)
 				}
@@ -140,21 +149,37 @@ func dirWalkServices(DB *gorm.DB, dirname string) {
 	}
 }
 
-func createOrUpdateTag(DB *gorm.DB, svc *models.OnionService, tag *models.OnionTag) (bool, error) {
-	var existingSvc models.OnionService
-	if DB.Where("slug = ?", svc.Slug).First(&existingSvc).RecordNotFound() {
-		err := DB.Create(svc).Error
-		return err == nil, err
-	}
+func createOrUpdateTag(DB *gorm.DB, tag *models.OnionTag) (*models.OnionTag, error) {
 	var existingTag models.OnionTag
 	if DB.Where("name = ?", tag.Name).First(&existingTag).RecordNotFound() {
 		err := DB.Create(tag).Error
-		return err == nil, err
+		return tag, errors.Wrap(err, "create tag failed")
 	}
-	svc.ID = existingSvc.ID
-	svc.CreatedAt = existingSvc.CreatedAt
-	svc.Tags = append(svc.Tags, &existingTag)
-	return false, DB.Save(svc).Error
+	tag.ID = existingTag.ID
+	tag.CreatedAt = existingTag.CreatedAt
+	return tag, DB.Save(tag).Error
+}
+
+func createOrUpdatePublicKey(DB *gorm.DB, pubKey *models.OnionPublicKey) (*models.OnionPublicKey, error) {
+	var existingPublicKey models.OnionPublicKey
+	if DB.Where("uid = ?", pubKey.UID).First(&existingPublicKey).RecordNotFound() {
+		err := DB.Create(pubKey).Error
+		return pubKey, errors.Wrap(err, "create public key failed")
+	}
+	pubKey.ID = existingPublicKey.ID
+	// pubKey.CreatedAt = existingPublicKey.CreatedAt
+	return pubKey, DB.Save(pubKey).Error
+}
+
+func createOrUpdateLink(DB *gorm.DB, link *models.OnionLink) (*models.OnionLink, error) {
+	var existingLink models.OnionLink
+	if DB.Where("url = ?", link.URL).First(&existingLink).RecordNotFound() {
+		err := DB.Create(link).Error
+		return link, errors.Wrap(err, "create link failed")
+	}
+	link.ID = existingLink.ID
+	link.CreatedAt = existingLink.CreatedAt
+	return link, DB.Save(link).Error
 }
 
 func findPublicKeyByUID(DB *gorm.DB, uid string) *models.OnionPublicKey {
@@ -163,40 +188,6 @@ func findPublicKeyByUID(DB *gorm.DB, uid string) *models.OnionPublicKey {
 		log.Fatalf("can't find public_key with uid = %q, got err %v", uid, err)
 	}
 	return pubKey
-}
-
-func createOrUpdatePublicKey(DB *gorm.DB, svc *models.OnionService, pubKey *models.OnionPublicKey) (bool, error) {
-	var existingSvc models.OnionService
-	if DB.Where("slug = ?", svc.Slug).First(&existingSvc).RecordNotFound() {
-		err := DB.Create(svc).Error
-		return err == nil, err
-	}
-	var existingPublicKey models.OnionPublicKey
-	if DB.Where("uid = ?", pubKey.UID).First(&existingPublicKey).RecordNotFound() {
-		err := DB.Create(pubKey).Error
-		return err == nil, err
-	}
-	svc.ID = existingSvc.ID
-	svc.CreatedAt = existingSvc.CreatedAt
-	svc.PublicKeys = append(svc.PublicKeys, &existingPublicKey)
-	return false, DB.Save(svc).Error
-}
-
-func createOrUpdateURL(DB *gorm.DB, svc *models.OnionService, url *models.OnionLink) (bool, error) {
-	var existingSvc models.OnionService
-	if DB.Where("slug = ?", svc.Slug).First(&existingSvc).RecordNotFound() {
-		err := DB.Create(svc).Error
-		return err == nil, err
-	}
-	var existingURL models.OnionLink
-	if DB.Where("url = ?", url.Name).First(&existingURL).RecordNotFound() {
-		err := DB.Create(url).Error
-		return err == nil, err
-	}
-	svc.ID = existingSvc.ID
-	svc.CreatedAt = existingSvc.CreatedAt
-	svc.Links = append(svc.Links, &existingURL)
-	return false, DB.Save(svc).Error
 }
 
 func TruncateTables(DB *gorm.DB, tables ...interface{}) {

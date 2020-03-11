@@ -11,10 +11,10 @@ import (
 
 type OnionLink struct {
 	gorm.Model
-	URL            string `json:"href" yaml:"href"`
+	URL            string `json:"url" yaml:"url"`
 	Name           string `json:"name" yaml:"name"`
 	Healthy        bool   `json:"healthy" yaml:"healthy"`
-	//ServiceID uint   `json:"-" yaml:"-"`
+	OnionServiceID uint   `json:"-" yaml:"-"`
 }
 
 func (ol OnionLink) Validate(db *gorm.DB) {
