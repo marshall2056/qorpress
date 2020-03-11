@@ -6,50 +6,51 @@ import (
 	"log"
 	"os"
 	"time"
+
 	// "regexp"
-	"strings"
-	"path/filepath"
 	"io"
 	"net/http"
 	"net/url"
-	// "math/rand"
+	"path/filepath"
+	"strings"
 
+	// "math/rand"
 	// "github.com/jinzhu/now"
+	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"github.com/k0kubun/pp"
 	"github.com/qorpress/go-wordpress"
-	"github.com/jinzhu/gorm"
 	"github.com/spf13/pflag"
-	// "github.com/nozzle/throttler"
 
-	"github.com/qorpress/qorpress/pkg/config/auth"
-	"github.com/qorpress/qorpress/core/qor"
-	"github.com/qorpress/qorpress/core/notification"
-	"github.com/qorpress/qorpress/core/help"
-	"github.com/qorpress/qorpress/core/auth/providers/password"
-	adminseo "github.com/qorpress/qorpress/pkg/models/seo"
-	i18n_database "github.com/qorpress/qorpress/core/i18n/backends/database"
+	// "github.com/nozzle/throttler"
 	"github.com/qorpress/qorpress/core/auth/auth_identity"
+	"github.com/qorpress/qorpress/core/auth/providers/password"
 	"github.com/qorpress/qorpress/core/banner_editor"
+	"github.com/qorpress/qorpress/core/help"
+	i18n_database "github.com/qorpress/qorpress/core/i18n/backends/database"
 	"github.com/qorpress/qorpress/core/media/asset_manager"
-	"github.com/qorpress/qorpress/pkg/config/db"
+	"github.com/qorpress/qorpress/core/notification"
+	"github.com/qorpress/qorpress/core/qor"
 	"github.com/qorpress/qorpress/pkg/app/admin"
+	"github.com/qorpress/qorpress/pkg/config/auth"
+	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/pkg/models/cms"
 	"github.com/qorpress/qorpress/pkg/models/posts"
+	adminseo "github.com/qorpress/qorpress/pkg/models/seo"
 	"github.com/qorpress/qorpress/pkg/models/settings"
 	"github.com/qorpress/qorpress/pkg/models/users"
 )
 
 var (
-	wpUsername string
-	wpPassword string
-	endpoint string
-	truncate bool
-	displayHelp     bool
-	DB       *gorm.DB
-	AdminUser           *users.User
-	Notification        = notification.New(&notification.Config{})
-	Tables   = []interface{}{
+	wpUsername   string
+	wpPassword   string
+	endpoint     string
+	truncate     bool
+	displayHelp  bool
+	DB           *gorm.DB
+	AdminUser    *users.User
+	Notification = notification.New(&notification.Config{})
+	Tables       = []interface{}{
 		&auth_identity.AuthIdentity{},
 		&users.User{},
 		&posts.Category{}, &posts.Collection{}, &posts.Tag{},
@@ -157,41 +158,41 @@ func importUsers(ctx context.Context, client *wordpress.Client) error {
 	os.Exit(1)
 
 	/*
-	for _, wpUser := range allUsers {
-		user := users.User{}
-		user.Name = ""
-		user.Email = ""
+		for _, wpUser := range allUsers {
+			user := users.User{}
+			user.Name = ""
+			user.Email = ""
 
-		user.CreatedAt = now.EndOfDay().Add(time.Duration(day*rand.Intn(24)) * time.Hour)
-		if user.CreatedAt.After(time.Now()) {
-			user.CreatedAt = time.Now()
+			user.CreatedAt = now.EndOfDay().Add(time.Duration(day*rand.Intn(24)) * time.Hour)
+			if user.CreatedAt.After(time.Now()) {
+				user.CreatedAt = time.Now()
+			}
+
+			now := time.Now()
+			unique := fmt.Sprintf("%v", now.Unix())
+
+			if file, err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
+				fmt.Printf("open file failure, got err %v", err)
+			} else {
+				defer file.Close()
+				user.Avatar.Scan(file)
+			}
+
+			if err := DB.Save(&user).Error; err != nil {
+				log.Fatalf("Save user (%v) failure, got err %v", user, err)
+			}
+
+			provider := auth.Auth.GetProvider("password").(*password.Provider)
+			hashedPassword, _ := provider.Encryptor.Digest("testing")
+			authIdentity := &auth_identity.AuthIdentity{}
+			authIdentity.Provider = "password"
+			authIdentity.UID = user.Email
+			authIdentity.EncryptedPassword = hashedPassword
+			authIdentity.UserID = fmt.Sprint(user.ID)
+			authIdentity.ConfirmedAt = &user.CreatedAt
+
+			DB.Create(authIdentity)
 		}
-
-		now := time.Now()
-		unique := fmt.Sprintf("%v", now.Unix())
-
-		if file, err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
-			fmt.Printf("open file failure, got err %v", err)
-		} else {
-			defer file.Close()
-			user.Avatar.Scan(file)
-		}
-
-		if err := DB.Save(&user).Error; err != nil {
-			log.Fatalf("Save user (%v) failure, got err %v", user, err)
-		}
-
-		provider := auth.Auth.GetProvider("password").(*password.Provider)
-		hashedPassword, _ := provider.Encryptor.Digest("testing")
-		authIdentity := &auth_identity.AuthIdentity{}
-		authIdentity.Provider = "password"
-		authIdentity.UID = user.Email
-		authIdentity.EncryptedPassword = hashedPassword
-		authIdentity.UserID = fmt.Sprint(user.ID)
-		authIdentity.ConfirmedAt = &user.CreatedAt
-
-		DB.Create(authIdentity)
-	}
 	*/
 	return nil
 }

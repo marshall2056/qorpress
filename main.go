@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
 	"plugin"
+	"strings"
 	"time"
 
 	"github.com/foomo/simplecert"

@@ -28,9 +28,9 @@ type OnionService struct {
 	Description       string            `gorm:"type:mediumtext" json:"description,omitempty" yaml:"description,omitempty"`
 	Summary           string            `gorm:"type:mediumtext"`
 	ServiceProperties ServiceProperties `sql:"type:text"`
-	Links             []OnionLink      `l10n:"sync" json:"urls,omitempty" yaml:"urls,omitempty"`
-	PublicKeys        []OnionPublicKey `l10n:"sync" json:"public_keys,omitempty" yaml:"public_keys,omitempty"`
-	Tags              []OnionTag       `l10n:"sync" gorm:"many2many:service_tags;" json:"tags,omitempty" yaml:"tags,omitempty"`
+	Links             []OnionLink       `l10n:"sync" json:"urls,omitempty" yaml:"urls,omitempty"`
+	PublicKeys        []OnionPublicKey  `l10n:"sync" json:"public_keys,omitempty" yaml:"public_keys,omitempty"`
+	Tags              []OnionTag        `l10n:"sync" gorm:"many2many:service_tags;" json:"tags,omitempty" yaml:"tags,omitempty"`
 	Seo               qor_seo.Setting
 }
 

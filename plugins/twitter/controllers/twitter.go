@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/qorpress/qorpress/core/admin"
-
 	"github.com/qorpress/qorpress-contrib/twitter/models"
+	"github.com/qorpress/qorpress/core/admin"
 	"github.com/qorpress/qorpress/core/render"
 	"github.com/qorpress/qorpress/pkg/config"
 	"github.com/qorpress/qorpress/pkg/config/application"
@@ -48,5 +47,3 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 	// Add Setting
 	Admin.AddResource(&models.TwitterSetting{}, &admin.Config{Name: "Twitter API", Menu: []string{"Twitter Management"}, Singleton: true, Priority: 1})
 }
-
-

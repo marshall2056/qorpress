@@ -8,28 +8,29 @@ import (
 	"strings"
 
 	"github.com/pkg/errors"
+
 	// log "github.com/sirupsen/logrus"
-	"github.com/spf13/pflag"
 	"github.com/goccy/go-yaml"
 	"github.com/gosimple/slug"
 	"github.com/jinzhu/gorm"
 	"github.com/k0kubun/pp"
 	"github.com/karrick/godirwalk"
 	"github.com/onionltd/oniontree-tools/pkg/types/service"
+	"github.com/spf13/pflag"
 
-	"github.com/qorpress/qorpress/pkg/config/db"
 	"github.com/qorpress/qorpress/cmd/oniontree/models"
+	"github.com/qorpress/qorpress/pkg/config/db"
 )
 
 var (
-	truncate bool
-	displayHelp     bool
-	dirname string
-	debugMode  = true
-	debugMode2 = true
-	isTruncate = true
-	DB         *gorm.DB
-	tables     = []interface{}{
+	truncate    bool
+	displayHelp bool
+	dirname     string
+	debugMode   = true
+	debugMode2  = true
+	isTruncate  = true
+	DB          *gorm.DB
+	tables      = []interface{}{
 		&models.OnionTag{},
 		&models.OnionService{},
 		&models.OnionPublicKey{},
@@ -38,7 +39,7 @@ var (
 )
 
 /*
-go run cmd/oniontree/main.go --dirname ./cmd/oniontree/data 
+go run cmd/oniontree/main.go --dirname ./cmd/oniontree/data
 */
 
 func main() {
@@ -88,7 +89,7 @@ func dirWalkServices(DB *gorm.DB, dirname string) {
 					Name:        t.Name,
 					Description: t.Description,
 					Slug:        slug.Make(t.Name),
-					Code: 		 slug.Make(t.Name),
+					Code:        slug.Make(t.Name),
 				}
 
 				if err := DB.Create(m).Error; err != nil {
@@ -114,7 +115,7 @@ func dirWalkServices(DB *gorm.DB, dirname string) {
 					fmt.Println(err)
 					os.Exit(1)
 				} else {
-					m.Tags = append(m.Tags, *t)				
+					m.Tags = append(m.Tags, *t)
 				}
 
 				// add public keys

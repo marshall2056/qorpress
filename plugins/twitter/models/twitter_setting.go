@@ -6,16 +6,16 @@ import (
 
 type TwitterSetting struct {
 	gorm.Model
-	Enabled bool
+	Enabled    bool
 	ScreenName string
-	Count int
+	Count      int
 	// TweetMode string // default: extended
 	TwitterAPISetting
 }
 
 type TwitterAPISetting struct {
-	ConsumerKey   string
+	ConsumerKey    string
 	ConsumerSecret string
-	AccessToken string
-	AccessSecret string
+	AccessToken    string
+	AccessSecret   string
 }

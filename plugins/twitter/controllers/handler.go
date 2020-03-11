@@ -17,7 +17,7 @@ type Controller struct {
 func (ctrl Controller) Index(w http.ResponseWriter, req *http.Request) {
 	var (
 		Tweets []models.TwitterTweet
-		tx       = utils.GetDB(req)
+		tx     = utils.GetDB(req)
 	)
 	tx.Find(&Tweets)
 	ctrl.View.Execute("index", map[string]interface{}{}, req, w)

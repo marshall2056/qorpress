@@ -6,7 +6,6 @@ import (
 )
 
 type TwitterTweet struct {
-	
 }
 
 type TwitterUser struct {

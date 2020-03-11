@@ -6,10 +6,10 @@ import (
 
 type OnionPublicKey struct {
 	gorm.Model
-	UID         string `gorm:"primary_key" json:"id,omitempty" yaml:"id,omitempty"`
-	UserID      string `json:"user_id,omitempty" yaml:"user_id,omitempty"`
-	Fingerprint string `json:"fingerprint,omitempty" yaml:"fingerprint,omitempty"`
-	Description string `json:"description,omitempty" yaml:"description,omitempty"`
-	Value       string `gorm:"type:mediumtext" json:"value" yaml:"value"`
-	OnionServiceID   uint   `json:"-" yaml:"-"`
+	UID            string `gorm:"primary_key" json:"id,omitempty" yaml:"id,omitempty"`
+	UserID         string `json:"user_id,omitempty" yaml:"user_id,omitempty"`
+	Fingerprint    string `json:"fingerprint,omitempty" yaml:"fingerprint,omitempty"`
+	Description    string `json:"description,omitempty" yaml:"description,omitempty"`
+	Value          string `gorm:"type:mediumtext" json:"value" yaml:"value"`
+	OnionServiceID uint   `json:"-" yaml:"-"`
 }

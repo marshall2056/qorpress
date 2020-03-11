@@ -105,7 +105,7 @@ func (App) ConfigureAdmin(Admin *admin.Admin) {
 
 	srv.SearchAttrs("Name", "Code", "Category.Name", "Tag.Name")
 	srv.IndexAttrs("Name")
-	
+
 	srv.EditAttrs(
 		&admin.Section{
 			Title: "Seo Meta",
