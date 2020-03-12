@@ -2,6 +2,9 @@
 
 ## Golang
 
+### Go Plugins
+- https://medium.com/quick-code/write-a-web-service-with-go-plug-ins-c0472e0645e6
+
 ### Qor
 - https://github.com/qorpress/qor_bindatafs_example
 	- https://github.com/qorpress/qor_bindatafs_example/blob/master/main.go
@@ -14,11 +17,11 @@
 - https://github.com/hooto/hpress
 - https://github.com/zmisgod/blogApi
 	- https://github.com/zmisgod/myBlog
-- 
 
 ### Search engine
 - https://github.com/alash3al/libsrchx
-- 
+- https://github.com/sangeetk/blevefacets
+- https://github.com/manticoresoftware/go-sdk
 
 ### SEO
 - https://libs.garden/go/pagerank

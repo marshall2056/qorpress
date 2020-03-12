@@ -2,13 +2,14 @@ package main
 
 import (
 	"log"
-	"path/filepath"
 	"os"
+	"path/filepath"
 
-	// "github.com/gohugoio/hugo/resources/page"
+	"github.com/k0kubun/pp"
 	"github.com/gohugoio/hugo/deps"
 	"github.com/gohugoio/hugo/hugofs"
 	"github.com/gohugoio/hugo/hugolib"
+	// "github.com/gohugoio/hugo/resources/page"
 )
 
 // Returns all pages of the hugo site located at path.
@@ -39,7 +40,7 @@ func readSitePages(path string) hugolib.Pages {
 	sites, err := hugolib.NewHugoSites(deps.DepsCfg{Cfg: config, Fs: fs})
 	checkFatal(err)
 
-	err = sites.Build(hugolib.BuildCfg{SkipRender: true})
+	err = sites.Build(hugolib.BuildCfg{SkipRender: false})
 	checkFatal(err)
 
 	return sites.Pages()
@@ -75,6 +76,10 @@ func pageHasValidContent(p *hugolib.Page) bool {
 			break
 		}
 		fallthrough
+	//case "taxonomyTerm":
+	//	fallthrough
+	//case "taxonomy":
+	//	fallthrough
 	case "section":
 		fallthrough
 	case "home":

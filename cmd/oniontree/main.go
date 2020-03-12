@@ -27,7 +27,6 @@ var (
 	displayHelp bool
 	dirname     string
 	debugMode   = true
-	debugMode2  = true
 	isTruncate  = true
 	DB          *gorm.DB
 	tables      = []interface{}{

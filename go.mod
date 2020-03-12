@@ -7,9 +7,10 @@ replace github.com/qorpress/qorpress-contrib/oniontree => github.com/qorpress/qo
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
 	github.com/Depado/bfchroma v1.2.0
+	github.com/RoaringBitmap/roaring v0.4.21 // indirect
 	github.com/Shaked/gomobiledetect v0.0.0-20171211181707-25f014f66568
 	github.com/acoshift/paginate v1.1.2
-	github.com/alecthomas/chroma v0.6.2
+	github.com/alecthomas/chroma v0.6.7
 	github.com/alexedwards/scs v1.4.1
 	github.com/aliyun/aliyun-oss-go-sdk v0.0.0-20190307165228-86c17b95fcd5
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
@@ -17,12 +18,17 @@ require (
 	github.com/aws/aws-sdk-go v1.29.18
 	github.com/azumads/faker v0.0.0-20150921074035-6cae71ddb107
 	github.com/biezhi/gorm-paginator/pagination v0.0.0-20190124091837-7a5c8ed20334
+	github.com/blevesearch/bleve v0.8.1 // indirect
+	github.com/blevesearch/go-porterstemmer v1.0.2 // indirect
+	github.com/blevesearch/segment v0.0.0-20160915185041-762005e7a34f // indirect
 	github.com/bradfitz/gomemcache v0.0.0-20190913173617-a41fca850d0b
 	github.com/cep21/xdgbasedir v0.0.0-20170329171747-21470bfc93b9
 	github.com/corpix/uarand v0.1.1
+	github.com/couchbase/vellum v0.0.0-20190829182332-ef2e028c01fd // indirect
 	github.com/dgraph-io/badger v1.6.0
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/disintegration/imaging v1.6.2
+	github.com/etcd-io/bbolt v1.3.3 // indirect
 	github.com/fatih/color v1.9.0
 	github.com/foomo/simplecert v1.6.8
 	github.com/foomo/tlsconfig v0.0.0-20180418120404-b67861b076c9
@@ -73,6 +79,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/sniperkit/cacher v0.0.0-20171213170759-61f2a1265daa
 	github.com/spf13/pflag v1.0.5
+	github.com/steveyen/gtreap v0.0.0-20150807155958-0abe01ef9be2 // indirect
 	github.com/tealeg/xlsx v1.0.5
 	github.com/theplant/cldr v0.0.0-20190423050709-9f76f7ce4ee8
 	github.com/theplant/htmltestingutils v0.0.0-20190423050759-0e06de7b6967
