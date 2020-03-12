@@ -129,11 +129,11 @@ $ go test $(go list ./... | grep -v /vendor/ | grep  -v /db/)
 
 ## Admin Management Interface
 
-[QorPress Example admin configuration](https://github.com/qorpress/qorpress/blob/master/pkg/config/admin/admin.go)
+[QorPress Example admin configuration](https://github.com/qorpress/qorpress/blob/master/pkg/app/admin/admin.go)
 
 ## RESTful API
 
-[QorPress Example API configuration](https://github.com/qorpress/qorpress/blob/master/pkg/config/api/api.go)
+[QorPress Example API configuration](https://github.com/qorpress/qorpress/blob/master/pkg/app/api/api.go)
 
 Online Example APIs:
 
@@ -163,9 +163,6 @@ Online Example APIs:
 * implement caching system on html output
 * implement facteted search engine based on blevesearch
 * implement facteted search engine based on manticoresearch
-
-## Bugs
-* none for now
 
 ## License
 
