@@ -425,7 +425,7 @@ func main() {
 
 				if len(videoLinks) > 0 {
 					pp.Println("videoLinks:", videoLinks)
-					os.Exit(1)
+					// os.Exit(1)
 				}
 
 				Admin := qoradmin.New(&qoradmin.AdminConfig{

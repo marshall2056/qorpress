@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/k0kubun/pp"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -25,7 +26,11 @@ func init() {
 	var err error
 
 	dbConfig := config.Config.DB
+
+	pp.Println("dbConfig:", dbConfig)
+
 	if config.Config.DB.Adapter == "mysql" {
+		fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?parseTime=True&loc=Local", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name)
 		DB, err = gorm.Open("mysql", fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?parseTime=True&loc=Local", dbConfig.User, dbConfig.Password, dbConfig.Host, dbConfig.Port, dbConfig.Name))
 		// DB = DB.Set("gorm:table_options", "CHARSET=utf8")
 	} else if config.Config.DB.Adapter == "postgres" {

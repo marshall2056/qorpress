@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"log"
 
 	"github.com/jinzhu/gorm"
 	"github.com/k0kubun/pp"
@@ -9,6 +10,7 @@ import (
 
 	// "github.com/jinzhu/configor"
 	// "github.com/karrick/godirwalk"
+	// "github.com/gohugoio/hugo/hugolib"
 	// "github.com/k0kubun/pp"
 	// "github.com/pkg/errors"
 	// "github.com/qorpress/qorpress/cmd/hugo/models"
@@ -45,12 +47,25 @@ func main() {
 	if truncate {
 		TruncateTables(DB, tables...)
 	}
-
-	os.Exit(1)
+	scanFromSite(dirname)
 }
 
-func scanHugo(dirPath string) {
+// builds the search index by passing all pages of hugo site that have a title to the indexer
+func scanFromSite(theHugoPath string) {
+	pages := readSitePages(theHugoPath)
+	for _, page := range pages {
+		// TODO: home page has no title, are we properly reading the config file ?
+		if pageHasTitle(page) && pageHasValidContent(page) {
+			entry := newEntry(page)
+			pp.Println(entry)
+		}
+	}
+}
 
+func checkFatal(e error) {
+	if e != nil {
+		log.Fatalln(e)
+	}
 }
 
 func TruncateTables(DB *gorm.DB, tables ...interface{}) {

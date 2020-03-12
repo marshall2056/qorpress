@@ -9,7 +9,7 @@ require (
 	github.com/Depado/bfchroma v1.2.0
 	github.com/Shaked/gomobiledetect v0.0.0-20171211181707-25f014f66568
 	github.com/acoshift/paginate v1.1.2
-	github.com/alecthomas/chroma v0.7.1
+	github.com/alecthomas/chroma v0.6.2
 	github.com/alexedwards/scs v1.4.1
 	github.com/aliyun/aliyun-oss-go-sdk v0.0.0-20190307165228-86c17b95fcd5
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
@@ -31,9 +31,11 @@ require (
 	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-gomail/gomail v0.0.0-20160411212932-81ebce5c23df
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/gobuffalo/envy v1.9.0 // indirect
 	github.com/goccy/go-yaml v1.4.3 // indirect
 	github.com/gocolly/colly/v2 v2.0.1
-	github.com/golang/snappy v0.0.0-20180518054509-2e65f85255db
+	github.com/gohugoio/hugo v0.54.0 // indirect
+	github.com/golang/snappy v0.0.1
 	github.com/gomarkdown/markdown v0.0.0-20200127000047-1813ea067497
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/go-github/v29 v29.0.3
