@@ -104,6 +104,15 @@ $ cd qorpress
 $ docker-compose up --build
 ```
 
+### Generate plugins
+```shell
+$ cd $GOPATH/src/github.com/qorpress/qorpress
+$ make plugins
+
+# Run qorpress
+$ go run main.go
+```
+
 ### Generate sample data
 
 based on lorem ipsum texts and fake images
