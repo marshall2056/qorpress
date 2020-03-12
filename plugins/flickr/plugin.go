@@ -14,11 +14,11 @@ import (
 )
 
 var Tables = []interface{}{
-	&models.TwitterSetting{},
+	&models.FlickrSetting{},
 }
 
 var Resources = []interface{}{
-	&models.TwitterSetting{},
+	&models.FlickrSetting{},
 }
 
 type flickrPlugin string

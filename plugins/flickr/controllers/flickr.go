@@ -42,28 +42,8 @@ func (app App) ConfigureApplication(application *application.Application) {
 // ConfigureAdmin configure admin interface
 func (App) ConfigureAdmin(Admin *admin.Admin) {
 	// OnionService Management
-	Admin.AddMenu(&admin.Menu{Name: "Twitter Management", Priority: 1})
+	Admin.AddMenu(&admin.Menu{Name: "Flickr Management", Priority: 1})
 
-	// Add Setting
-	Admin.AddResource(&models.TwitterSetting{}, &admin.Config{Name: "Twitter API", Menu: []string{"Twitter Management"}, Singleton: true, Priority: 1})
+	// Add Setting page
+	Admin.AddResource(&models.FlickrSetting{}, &admin.Config{Name: "Flickr API", Menu: []string{"Flickr Management"}, Singleton: true, Priority: 1})
 }
-
-
-/*
-import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
-	"github.com/gopress/internal/qorpress/pkg/services"
-)
-
-func GetFlickr(c *gin.Context) {
-	payload, e := services.GetFlickrImages(9)
-	services.GetFlickrAlbums()
-	if e != nil {
-		c.JSON(http.StatusInternalServerError, nil)
-	} else {
-		c.JSON(http.StatusOK, payload)
-	}
-}
-*/

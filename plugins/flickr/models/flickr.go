@@ -1,14 +1,14 @@
 package models
 
-type Payload struct {
-	Photos Photos `json:"photos"`
+type FlickrPayload struct {
+	Photos FlickrPhotos `json:"photos"`
 }
 
-type Photos struct {
-	PhotoItems []PhotoItem `json:"photo"`
+type FlickrPhotos struct {
+	PhotoItems []FlickrPhotoItem `json:"photo"`
 }
 
-type PhotoItem struct {
+type FlickrPhotoItem struct {
 	Id           string `json:"id"`
 	UrlMedium    string `json:"url_m"`
 	UrlThumbnail string `json:"url_t"`
@@ -18,42 +18,42 @@ type PhotoItem struct {
 	UrlLarge     string `json:"url_l"`
 }
 
-type AlbumPayload struct {
+type FlickrAlbumPayload struct {
 	Stat      string    `json:"stat"`
-	PhotoSets PhotoSets `json:"photosets"`
+	PhotoSets FlickrPhotoSets `json:"photosets"`
 }
 
-type PhotoSets struct {
-	PhotoAlbums []PhotoAlbum `json:"photoset"`
+type FlickrPhotoSets struct {
+	PhotoAlbums []FlickrPhotoAlbum `json:"photoset"`
 }
 
-type PhotoAlbum struct {
+type FlickrPhotoAlbum struct {
 	Id                string            `json:"id"`
 	Primary           string            `json:"primary"`
 	Photos            int               `json:"photos"`
-	Title             Title             `json:"title"`
-	Description       Description       `json:"description"`
-	PrimaryPhotoExtra PrimaryPhotoExtra `json:"primary_photo_extras"`
+	Title             FlickrTitle             `json:"title"`
+	Description       FlickrDescription       `json:"description"`
+	PrimaryPhotoExtra FlickrPrimaryPhotoExtra `json:"primary_photo_extras"`
 }
 
-type PrimaryPhotoExtra struct {
+type FlickrPrimaryPhotoExtra struct {
 	Url       string `json:"url_n"`
 	UrlMedium string `json:"url_m"`
 }
 
-type Title struct {
+type FlickrTitle struct {
 	Content string `json:"_content"`
 }
 
-type Description struct {
+type FlickrDescription struct {
 	Content string `json:"_content"`
 }
 
-type PhotoSet struct {
-	PhotoItems []PhotoItem `json:"photo"`
+type FlickrPhotoSet struct {
+	PhotoItems []FlickrPhotoItem `json:"photo"`
 }
 
-type PhotosPayload struct {
-	PhotoSet PhotoSet `json:"photoset"`
+type FlickrPhotosPayload struct {
+	PhotoSet FlickrPhotoSet `json:"photoset"`
 	Stat     string   `json:"stat"`
 }
