@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"log"
+	"os"
 
 	"github.com/jinzhu/gorm"
 	"github.com/k0kubun/pp"

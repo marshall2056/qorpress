@@ -11,8 +11,9 @@ type Article struct {
 	gorm.Model
 	Author   users.User
 	AuthorID uint
-	Title    string
-	Content  string `gorm:"type:text"`
+	Title    string `gorm:"type:mediumtext"`
+	Content  string `gorm:"type:longtext"`
+	Slug 	 string 
 	publish2.Version
 	publish2.Schedule
 	publish2.Visible

@@ -4,8 +4,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/k0kubun/pp"
 	"github.com/gohugoio/hugo/hugolib"
+	"github.com/k0kubun/pp"
 )
 
 // PageEntry maps the hugo internal page structure to a JSON structure
@@ -15,17 +15,17 @@ type PageEntry struct {
 	Type         string    `json:"type"`
 	Section      string    `json:"section"`
 	Content      string    `json:"content"`
-	UniqueID string `uniqueid`
-	RelPermalink string `relpermalink`
+	UniqueID     string    `uniqueid`
+	RelPermalink string    `relpermalink`
 	WordCount    float64   `json:"word_count"`
 	ReadingTime  float64   `json:"reading_time"`
 	Keywords     []string  `json:"keywords"`
-	Tags     	 []string  `json:"tags"`
+	Tags         []string  `json:"tags"`
 	Categories   []string  `json:"categories"`
-	Videos []string `json:"images"`
-	Images []string `json:"images"`
-	IsPage bool  `json:"is_page"`
-	IsHome bool `json:"is_home"`
+	Videos       []string  `json:"images"`
+	Images       []string  `json:"images"`
+	IsPage       bool      `json:"is_page"`
+	IsHome       bool      `json:"is_home"`
 	Date         time.Time `json:"date"`
 	LastModified time.Time `json:"last_modified"`
 	Author       string    `json:"author"`
@@ -58,9 +58,9 @@ func newEntry(page *hugolib.Page) *PageEntry {
 		RelPermalink: page.RelPermalink(),
 		//Categories:   page.Categories(),
 		//Tags:         page.Tags(),
-		UniqueID: page.UniqueID(),
-		IsHome: page.IsHome(),
-		IsPage: page.IsPage(),
+		UniqueID:     page.UniqueID(),
+		IsHome:       page.IsHome(),
+		IsPage:       page.IsPage(),
 		Date:         page.Date,
 		LastModified: page.Lastmod,
 		Author:       author,

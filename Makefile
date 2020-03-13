@@ -57,6 +57,11 @@ manticore-stop:
 	@searchd --stop
 .PHONY: manticore-stop
 
+## manticore-index			:	stop local manticore searchd.
+manticore-index:
+	@indexer --config ./.docker/manticore/manticore.conf
+.PHONY: manticore-index
+
 ## plugin				:	Build plugin (defined by PLUGIN variable).
 plugin:
 	-mkdir -p release

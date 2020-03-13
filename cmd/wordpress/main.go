@@ -3,26 +3,22 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
-	"time"
-
-	// "regexp"
 	"io"
+	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
-	// "math/rand"
-	// "github.com/jinzhu/now"
+	slugger "github.com/gosimple/slug"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"github.com/k0kubun/pp"
 	"github.com/qorpress/go-wordpress"
 	"github.com/spf13/pflag"
 
-	// "github.com/nozzle/throttler"
 	"github.com/qorpress/qorpress/core/auth/auth_identity"
 	"github.com/qorpress/qorpress/core/auth/providers/password"
 	"github.com/qorpress/qorpress/core/banner_editor"
@@ -31,9 +27,11 @@ import (
 	"github.com/qorpress/qorpress/core/media/asset_manager"
 	"github.com/qorpress/qorpress/core/notification"
 	"github.com/qorpress/qorpress/core/qor"
+	"github.com/qorpress/qorpress/core/slug"
 	"github.com/qorpress/qorpress/pkg/app/admin"
 	"github.com/qorpress/qorpress/pkg/config/auth"
 	"github.com/qorpress/qorpress/pkg/config/db"
+	_ "github.com/qorpress/qorpress/pkg/config/db/migrations"
 	"github.com/qorpress/qorpress/pkg/models/cms"
 	"github.com/qorpress/qorpress/pkg/models/posts"
 	adminseo "github.com/qorpress/qorpress/pkg/models/seo"
@@ -66,7 +64,35 @@ var (
 		&admin.QorWidgetSetting{},
 		&help.QorHelpEntry{},
 	}
+	mapTags        = make(map[int]string, 0)
+	mapCategories  = make(map[int]string, 0)
+	mapMedia2Posts = make(map[int]PostMedia, 0)
+	mapPosts = make(map[int]PostData, 0)
+
 )
+
+type PostData struct {
+	Tags  PostTaxonomy
+	Media PostMedia
+}
+
+type PostTaxonomy struct {
+	Name string
+	ID string
+}
+
+type PostMedia struct {
+	SourceURL string
+	// Post int
+	Date time.Time
+	Modified time.Time
+	Author uint
+	MediaType string
+	Description struct {
+		Rendered string
+	}
+	ImageMeta map[string]interface{}
+}
 
 func main() {
 
@@ -88,7 +114,6 @@ func main() {
 	}
 
 	// init database, cleanup
-	// DB = InitDB()
 	DB = db.DB
 
 	if truncate {
@@ -108,22 +133,21 @@ func main() {
 	ctx := context.Background()
 
 	// get the currently authenticated users details
-	authenticatedUser, _, err := client.Users.Me(ctx, nil)
+	authenticatedUser, _, err := client.Users.Me(ctx, "context=edit")
 	if err != nil {
 		log.Fatalln(err)
 	}
 	// pp.Printf("resp %+v\n", resp)
 	pp.Printf("Authenticated user %+v\n", authenticatedUser)
-	os.Exit(1)
 
 	createAdminUsers()
 	importUsers(ctx, client)
 	importCategories(ctx, client)
 	importTags(ctx, client)
-	importMedias(ctx, client)
 	importPages(ctx, client)
 	importPosts(ctx, client)
-
+	importMedias(ctx, client)
+	os.Exit(1)
 }
 
 func TruncateTables(tables ...interface{}) {
@@ -142,6 +166,7 @@ func importUsers(ctx context.Context, client *wordpress.Client) error {
 			PerPage: 10,
 		},
 	}
+	userOpts.Context = "edit"
 	var allUsers []*wordpress.User
 	for {
 		users, resp, err := client.Users.List(ctx, userOpts)
@@ -154,46 +179,39 @@ func importUsers(ctx context.Context, client *wordpress.Client) error {
 		}
 		userOpts.Page = resp.NextPage
 	}
-	pp.Println(allUsers)
-	os.Exit(1)
+	// pp.Println(allUsers)
+	// os.Exit(1)
 
-	/*
-		for _, wpUser := range allUsers {
-			user := users.User{}
-			user.Name = ""
-			user.Email = ""
+	for _, wpUser := range allUsers {
+		user := users.User{}
+		user.Name = wpUser.Name
+		user.Email = wpUser.Email
 
-			user.CreatedAt = now.EndOfDay().Add(time.Duration(day*rand.Intn(24)) * time.Hour)
-			if user.CreatedAt.After(time.Now()) {
-				user.CreatedAt = time.Now()
-			}
+		user.CreatedAt = wpUser.RegisteredDate.Time
 
-			now := time.Now()
-			unique := fmt.Sprintf("%v", now.Unix())
-
-			if file, err := openFileByURL("https://i.pravatar.cc/150?u=" + unique); err != nil {
-				fmt.Printf("open file failure, got err %v", err)
-			} else {
-				defer file.Close()
-				user.Avatar.Scan(file)
-			}
-
-			if err := DB.Save(&user).Error; err != nil {
-				log.Fatalf("Save user (%v) failure, got err %v", user, err)
-			}
-
-			provider := auth.Auth.GetProvider("password").(*password.Provider)
-			hashedPassword, _ := provider.Encryptor.Digest("testing")
-			authIdentity := &auth_identity.AuthIdentity{}
-			authIdentity.Provider = "password"
-			authIdentity.UID = user.Email
-			authIdentity.EncryptedPassword = hashedPassword
-			authIdentity.UserID = fmt.Sprint(user.ID)
-			authIdentity.ConfirmedAt = &user.CreatedAt
-
-			DB.Create(authIdentity)
+		if file, err := openFileByURL(wpUser.AvatarURLs.Size96); err != nil {
+			fmt.Printf("open file failure, got err %v", err)
+		} else {
+			defer file.Close()
+			user.Avatar.Scan(file)
 		}
-	*/
+
+		if err := DB.Save(&user).Error; err != nil {
+			log.Fatalf("Save user (%v) failure, got err %v", user, err)
+		}
+
+		provider := auth.Auth.GetProvider("password").(*password.Provider)
+		hashedPassword, _ := provider.Encryptor.Digest("testing")
+		authIdentity := &auth_identity.AuthIdentity{}
+		authIdentity.Provider = "password"
+		authIdentity.UID = user.Email
+		authIdentity.EncryptedPassword = hashedPassword
+		authIdentity.UserID = fmt.Sprint(user.ID)
+		authIdentity.ConfirmedAt = &user.CreatedAt
+
+		DB.Create(authIdentity)
+	}
+
 	return nil
 }
 
@@ -235,19 +253,22 @@ func importMedias(ctx context.Context, client *wordpress.Client) error {
 			PerPage: 10,
 		},
 	}
-	var allMedias []*wordpress.Media
+	var wpMedias []*wordpress.Media
 	for {
 		medias, resp, err := client.Media.List(ctx, mediaOpts)
 		if err != nil {
 			return err
 		}
-		allMedias = append(allMedias, medias...)
+		wpMedias = append(wpMedias, medias...)
 		if resp.NextPage == 0 {
 			break
 		}
 		mediaOpts.Page = resp.NextPage
 	}
-	// pp.Println(allMedias)
+	pp.Println(wpMedias)
+	// for _, wpMedia := range wpMedias {
+	//	media := posts.Tag{}	
+	// }
 	return nil
 }
 
@@ -259,19 +280,27 @@ func importTags(ctx context.Context, client *wordpress.Client) error {
 			PerPage: 10,
 		},
 	}
-	var allTags []*wordpress.Tag
+	var wpTaxonomies []*wordpress.Tag
 	for {
 		tags, resp, err := client.Tags.List(ctx, tagOpts)
 		if err != nil {
 			return err
 		}
-		allTags = append(allTags, tags...)
+		wpTaxonomies = append(wpTaxonomies, tags...)
 		if resp.NextPage == 0 {
 			break
 		}
 		tagOpts.Page = resp.NextPage
 	}
-	// pp.Println(allTags)
+	for _, wpTaxonomy := range wpTaxonomies {
+		mapCategories[wpTaxonomy.ID] = wpTaxonomy.Name
+		taxonomy := posts.Tag{}
+		taxonomy.Name = wpTaxonomy.Name
+		taxonomy.NameWithSlug = slug.Slug{createUniqueSlug(wpTaxonomy.Name)}
+		if err := DB.Create(&taxonomy).Error; err != nil {
+			log.Fatalf("create taxonomy (%v) failure, got err %v", taxonomy, err)
+		}
+	}
 	return nil
 }
 
@@ -282,19 +311,41 @@ func importPages(ctx context.Context, client *wordpress.Client) error {
 			PerPage: 10,
 		},
 	}
-	var allPages []*wordpress.Page
+	pageOpts.Context = "edit"
+	var wpPages []*wordpress.Page
 	for {
 		pages, resp, err := client.Pages.List(ctx, pageOpts)
 		if err != nil {
 			return err
 		}
-		allPages = append(allPages, pages...)
+		wpPages = append(wpPages, pages...)
 		if resp.NextPage == 0 {
 			break
 		}
 		pageOpts.Page = resp.NextPage
 	}
-	// pp.Println(allPages)
+	// pp.Println(wpPages)
+	for _, wpPage := range wpPages {
+		page := cms.Article{}
+		page.Title = wpPage.Title.Rendered
+		page.Slug = wpPage.Slug
+		page.Content = wpPage.Content.Rendered
+		if wpPage.Status == "publish" {
+			page.PublishReady = true
+			// start := time.Now().AddDate(0, 0, i-7)
+			// end := time.Now().AddDate(0, 0, i-4)
+			// page.SetScheduledStartAt(&start)
+			// page.SetScheduledEndAt(&end)
+		}
+		if err := DB.Create(&page).Error; err != nil {
+			log.Fatalf("create page (%v) failure, got err %v", page, err)
+		}
+	}
+
+	// Slug
+	// Status=="publish"
+	// Content.Rendered
+
 	return nil
 }
 
@@ -305,19 +356,33 @@ func importPosts(ctx context.Context, client *wordpress.Client) error {
 			PerPage: 10,
 		},
 	}
-	var allPosts []*wordpress.Post
+	postOpts.Context = "edit"
+	var wpPosts []*wordpress.Post
 	for {
 		posts, resp, err := client.Posts.List(ctx, postOpts)
 		if err != nil {
 			return err
 		}
-		allPosts = append(allPosts, posts...)
+		wpPosts = append(wpPosts, posts...)
 		if resp.NextPage == 0 {
 			break
 		}
 		postOpts.Page = resp.NextPage
 	}
-	// pp.Println(allPosts)
+	pp.Println(wpPosts)
+	/*
+	for _, wpPost := range wpPosts {
+		post := posts.Post{}
+		post.Name = wpPost
+		// post.Name = 
+		// post.Name = 
+		// post.Name = 
+		// post.Name = 
+		if err := DB.Create(&post).Error; err != nil {
+			log.Fatalf("create post (%v) failure, got err %v", post, err)
+		}
+	}
+	*/
 	return nil
 }
 
@@ -329,19 +394,28 @@ func importCategories(ctx context.Context, client *wordpress.Client) error {
 			PerPage: 10,
 		},
 	}
-	var allCategories []*wordpress.Category
+	var wpCategories []*wordpress.Category
 	for {
 		categories, resp, err := client.Categories.List(ctx, catOpts)
 		if err != nil {
 			return err
 		}
-		allCategories = append(allCategories, categories...)
+		wpCategories = append(wpCategories, categories...)
 		if resp.NextPage == 0 {
 			break
 		}
 		catOpts.Page = resp.NextPage
 	}
-	// pp.Println(allCategories)
+	for _, wpCategory := range wpCategories {
+		mapCategories[wpCategory.ID] = wpCategory.Name
+		category := posts.Category{}
+		category.Name = wpCategory.Name
+		category.Code = strings.ToLower(wpCategory.Name)
+		if err := DB.Create(&category).Error; err != nil {
+			log.Fatalf("create category (%v) failure, got err %v", category, err)
+		}
+	}
+
 	return nil
 }
 
@@ -383,4 +457,15 @@ func openFileByURL(rawURL string) (*os.File, error) {
 		}
 		return file, nil
 	}
+}
+
+func createUniqueSlug(title string) string {
+	slugTitle := slugger.Make(title)
+	if len(slugTitle) > 128 {
+		slugTitle = slugTitle[:128]
+		if slugTitle[len(slugTitle)-1:] == "-" {
+			slugTitle = slugTitle[:len(slugTitle)-1]
+		}
+	}
+	return slugTitle
 }

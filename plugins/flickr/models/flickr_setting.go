@@ -6,8 +6,8 @@ import (
 
 type FlickrSetting struct {
 	gorm.Model
-	Enabled    	bool
-	ApiKey    	string
-	UserId   	string
-	PerPage     int
+	Enabled bool
+	ApiKey  string
+	UserId  string
+	PerPage int
 }

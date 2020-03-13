@@ -11,6 +11,9 @@
 - https://github.com/qorpress/admin
 	- https://github.com/qorpress/admin/blob/master/controller.go#L39
 
+### Wordpress
+- https://developer.wordpress.org/rest-api/reference
+
 ### CMS
 - https://github.com/ponzu-cms/ponzu
 - https://github.com/gohugoio/hugo

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/k0kubun/pp"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"github.com/k0kubun/pp"
 
 	"github.com/qorpress/qorpress/core/l10n"
 	"github.com/qorpress/qorpress/core/media"

@@ -19,7 +19,7 @@ type FlickrPhotoItem struct {
 }
 
 type FlickrAlbumPayload struct {
-	Stat      string    `json:"stat"`
+	Stat      string          `json:"stat"`
 	PhotoSets FlickrPhotoSets `json:"photosets"`
 }
 
@@ -28,9 +28,9 @@ type FlickrPhotoSets struct {
 }
 
 type FlickrPhotoAlbum struct {
-	Id                string            `json:"id"`
-	Primary           string            `json:"primary"`
-	Photos            int               `json:"photos"`
+	Id                string                  `json:"id"`
+	Primary           string                  `json:"primary"`
+	Photos            int                     `json:"photos"`
 	Title             FlickrTitle             `json:"title"`
 	Description       FlickrDescription       `json:"description"`
 	PrimaryPhotoExtra FlickrPrimaryPhotoExtra `json:"primary_photo_extras"`
@@ -55,5 +55,5 @@ type FlickrPhotoSet struct {
 
 type FlickrPhotosPayload struct {
 	PhotoSet FlickrPhotoSet `json:"photoset"`
-	Stat     string   `json:"stat"`
+	Stat     string         `json:"stat"`
 }

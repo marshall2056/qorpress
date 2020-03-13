@@ -17,7 +17,7 @@ type Controller struct {
 func (ctrl Controller) Index(w http.ResponseWriter, req *http.Request) {
 	var (
 		FlickrPhotoAlbums []models.FlickrPhotoAlbum
-		tx     = utils.GetDB(req)
+		tx                = utils.GetDB(req)
 	)
 	tx.Find(&FlickrPhotoAlbums)
 	ctrl.View.Execute("index", map[string]interface{}{}, req, w)

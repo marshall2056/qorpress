@@ -1,11 +1,11 @@
 package funcmapmaker
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
-	"net/http"
-	"encoding/json"
 	"io/ioutil"
+	"net/http"
 
 	"github.com/qorpress/qorpress-contrib/flickr/config"
 	"github.com/qorpress/qorpress-contrib/flickr/models"
@@ -43,7 +43,7 @@ func AddFuncMapMaker(view *render.Render) *render.Render {
 			return
 		}
 
-		funcMap["get_flickr_albums"] = func() ([]models.FlickrPhotoAlbum) {
+		funcMap["get_flickr_albums"] = func() []models.FlickrPhotoAlbum {
 			var fs models.FlickrSetting
 			utils.GetDB(req).Find(&fs)
 			if fs.ApiKey != "" && fs.UserId != "" {
