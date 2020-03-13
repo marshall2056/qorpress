@@ -10,6 +10,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/k0kubun/pp"
+	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/qorpress/qorpress/core/l10n"
 	"github.com/qorpress/qorpress/core/media"

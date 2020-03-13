@@ -49,7 +49,7 @@ manticore-darwin:
 
 ## manticore-start		:	start local manticore searchd with qorpress config.
 manticore-start:
-	@searchd --config ./.docker/manticore/manticore.conf
+	@searchd --config ./.docker/manticore/qorpress.conf
 .PHONY: manticore-start
 
 ## manticore-stop			:	stop local manticore searchd.
@@ -59,7 +59,7 @@ manticore-stop:
 
 ## manticore-index			:	stop local manticore searchd.
 manticore-index:
-	@indexer --config ./.docker/manticore/manticore.conf
+	@indexer --config ./.docker/manticore/qorpress.conf
 .PHONY: manticore-index
 
 ## plugin				:	Build plugin (defined by PLUGIN variable).
