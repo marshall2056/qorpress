@@ -1,1 +1,1 @@
-interface.go
+package index

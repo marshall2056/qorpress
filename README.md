@@ -37,10 +37,11 @@ You have basically 2 ways to test QorPress. The first one is to run/build it loc
 
 ### Local
 
-The requirements are the following:
-* Go v1.8+
-* MySQL v5.7
-* Manticore v3.3+
+| dependency                                                   | mode   | version                                                            |
+| :----------------------------------------------------------- | :----: | :----------------------------------------------------------------- |
+| [`Go`](https://golang.org/doc/install)                       | Local  | `v1.13` _([go modules](https://blog.golang.org/using-go-modules))_ |
+| [`Manticoresearch`](https://manticoresearch.com/downloads/)  | Local  | `3.3.0`                                                            |
+| [`MySQL`](https://www.mysql.com/fr/downloads/)               | Local  | `5.7`                                                              |
 
 ```shell
 # Get QorPress
@@ -75,8 +76,10 @@ $ open https//domain.com # if ssl enabled in qorpress.yml
 ### Docker
 
 The requirements are the following:
-* Docker v17+
-* Docker-Compose v1.25+
+| dependency                                                   | mode   | version                                                            |
+| :----------------------------------------------------------- | :----: | :----------------------------------------------------------------- |
+| [`Docker`](https://docs.docker.com/install/)                 | Docker | `v19.x`                                                            |
+| [`Docker-Compose`](https://docs.docker.com/compose/install/) | Docker | `v1.24.x`                                                          |
 
 If you don't have Docker/Docker-Compose check **Setup Docker** section
 <details>

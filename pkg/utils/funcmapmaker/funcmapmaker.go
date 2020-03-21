@@ -5,7 +5,10 @@ import (
 	"html/template"
 	"net/http"
 
+	"github.com/Masterminds/sprig"
+	"github.com/koreset/gtf"
 	// "github.com/k0kubun/pp"
+
 	"github.com/qorpress/qorpress/core/action_bar"
 	"github.com/qorpress/qorpress/core/i18n/inline_edit"
 	"github.com/qorpress/qorpress/core/qor"
@@ -30,7 +33,10 @@ func GetEditMode(w http.ResponseWriter, req *http.Request) bool {
 func AddFuncMapMaker(view *render.Render) *render.Render {
 	oldFuncMapMaker := view.FuncMapMaker
 	view.FuncMapMaker = func(render *render.Render, req *http.Request, w http.ResponseWriter) template.FuncMap {
-		funcMap := template.FuncMap{}
+		// funcMap := template.FuncMap{}
+		funcMap := sprig.FuncMap()
+		gtf.Inject(funcMap)
+
 		if oldFuncMapMaker != nil {
 			funcMap = oldFuncMapMaker(render, req, w)
 		}

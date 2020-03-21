@@ -7,9 +7,12 @@ replace github.com/qorpress/qorpress-contrib/oniontree => github.com/qorpress/qo
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
 	github.com/Depado/bfchroma v1.2.0
+	github.com/Masterminds/goutils v1.1.0 // indirect
+	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/RoaringBitmap/roaring v0.4.21 // indirect
 	github.com/Shaked/gomobiledetect v0.0.0-20171211181707-25f014f66568
 	github.com/acoshift/paginate v1.1.2
+	github.com/alash3al/bbadger v0.0.0-20191001173659-1d440b2b747b // indirect
 	github.com/alecthomas/chroma v0.6.7
 	github.com/alexedwards/scs v1.4.1
 	github.com/aliyun/aliyun-oss-go-sdk v0.0.0-20190307165228-86c17b95fcd5
@@ -50,7 +53,9 @@ require (
 	github.com/gosimple/slug v1.9.0
 	github.com/h2non/filetype v1.0.12
 	github.com/headzoo/surf v1.0.0
+	github.com/huandu/xstrings v1.3.0 // indirect
 	github.com/iancoleman/strcase v0.0.0-20191112232945-16388991a334 // indirect
+	github.com/imdario/mergo v0.3.8 // indirect
 	github.com/jinzhu/configor v1.1.1
 	github.com/jinzhu/copier v0.0.0-20190924061706-b57f9002281a
 	github.com/jinzhu/gorm v1.9.12
@@ -60,12 +65,16 @@ require (
 	github.com/jteeuwen/go-bindata v3.0.8-0.20180305030458-6025e8de665b+incompatible
 	github.com/k0kubun/pp v3.0.1+incompatible
 	github.com/karrick/godirwalk v1.15.3
+	github.com/koreset/gtf v0.0.0-20180430044607-d9478f26f2ff
 	github.com/lib/pq v1.1.1
+	github.com/manticoresoftware/go-sdk v0.0.0-20191205035816-0e8dbffac2c9
 	github.com/mattn/go-colorable v0.1.6 // indirect
 	github.com/mattn/go-sqlite3 v2.0.1+incompatible
 	github.com/microcosm-cc/bluemonday v1.0.2
+	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mrjones/oauth v0.0.0-20190623134757-126b35219450
 	github.com/nozzle/throttler v0.0.0-20180817012639-2ea982251481
+	github.com/olivere/elastic/v7 v7.0.12
 	github.com/onionltd/oniontree-tools v0.0.0-20200217165256-a771af70bf68
 	github.com/orcaman/concurrent-map v0.0.0-20190826125027-8c72a8bb44f6
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
