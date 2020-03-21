@@ -14,6 +14,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"strconv"
+	"sort"
 	"strings"
 	"time"
 
@@ -232,6 +233,13 @@ func main() {
 	// at least for now, until I solve this issue
 	t := throttler.New(1, m.Count())
 
+	type imageSrc struct {
+		URL string
+		Size int64
+		File string
+		Type string
+	}
+
 	m.IterCb(func(key string, v interface{}) {
 		var topics string
 		_, ok := v.(string)
@@ -244,6 +252,7 @@ func main() {
 			// so it can dispatch another worker
 			defer t.Done(nil)
 
+			imageSrcs := make([]*imageSrc, 0)
 			var imgLinks []string
 			var videoLinks []string
 			if info, err := vcsurl.Parse(key); err == nil {
@@ -313,12 +322,31 @@ func main() {
 						}
 					}
 					imgLinksRel[i] = strings.Replace(imgLinksRel[i], "/blob/", "/raw/", -1)
+
 				}
 
 				imgLinks = append(imgLinks, imgLinksRel...)
 				imgLinks = removeDuplicates(imgLinks)
 				// pp.Println(imgLinksRel)
-				pp.Println(imgLinks)
+				// pp.Println(imgLinks)
+
+				for i, imgLink := range imgLinks {
+					imageSrcs = append(imageSrcs, &imageSrc{URL: imgLink, Type: "image"})
+					if file, size, err := openFileByURL(imgLink); err != nil {
+						fmt.Printf("open file failure, got err %v", err)
+						file.Close()
+						continue
+					} else {
+						imageSrcs[i].Size = size
+						imageSrcs[i].File = file.Name()
+					}
+				}
+
+				sort.Slice(imageSrcs[:], func(i, j int) bool {
+				  return imageSrcs[i].Size > imageSrcs[j].Size
+				})
+
+				pp.Println("imageSrcs:", imageSrcs)
 
 				var title, desc string
 				if repoInfo.Description != nil {
@@ -434,8 +462,8 @@ func main() {
 					DB:       db.DB.Set(publish2.VisibleMode, publish2.ModeOff).Set(publish2.ScheduleMode, publish2.ModeOff),
 				})
 
-				for _, img := range imgLinks {
-					file, size, err := openFileByURL(img)
+				for _, img := range imageSrcs {
+					file, size, err := openFileByURL(img.URL)
 					if err != nil {
 						fmt.Printf("open file failure, got err %v\n", err)
 						continue
@@ -585,8 +613,8 @@ func render(input []byte) []byte {
 			bfchroma.NewRenderer(
 				bfchroma.WithoutAutodetect(),
 				bfchroma.ChromaOptions(
-					html.WithLineNumbers(false),
-					html.WithClasses(true),
+					html.WithLineNumbers(),
+					html.WithClasses(),
 				),
 				bfchroma.Extend(
 					bf.NewHTMLRenderer(bf.HTMLRendererParameters{

@@ -56,7 +56,7 @@ var log *logrus.Logger
 
 func init() {
 	log = &logrus.Logger{
-		Out: os.Stderr,
+		Out: os.Stdout,
 		Formatter: &logrus.TextFormatter{
 			DisableTimestamp: true,
 		},

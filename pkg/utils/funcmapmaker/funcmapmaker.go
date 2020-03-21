@@ -7,6 +7,7 @@ import (
 
 	"github.com/Masterminds/sprig"
 	"github.com/koreset/gtf"
+	// "github.com/drone/funcmap"
 	// "github.com/k0kubun/pp"
 
 	"github.com/qorpress/qorpress/core/action_bar"
